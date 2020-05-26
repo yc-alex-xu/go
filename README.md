@@ -1,14 +1,12 @@
-  A golang project & its dev Env
-  * based on beego
-  * can run/deliver as docker image 
-
-# dev
+ A golang web project
+ * based on beego
+ * using redis/mysql
+ 
+ # dev mode
   cd src/myapp && bee run
-# build
+# prod mode
   build.sh
-# test
   cd src/myapp &&./myapp
-
 # publish to docker hub
   docker_publish.sh
 # deploy in k8s
