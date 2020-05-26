@@ -1,0 +1,69 @@
+{
+	"ImportPath": "myapp",
+	"GoVersion": "go1.10",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "github.com/astaxie/beego",
+			"Comment": "v1.12.1-4-g8f3d1c5",
+			"Rev": "8f3d1c5f42fce57e83e1c3f7d180477595db7cca"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/config",
+			"Comment": "v1.12.1-4-g8f3d1c5",
+			"Rev": "8f3d1c5f42fce57e83e1c3f7d180477595db7cca"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/context",
+			"Comment": "v1.12.1-4-g8f3d1c5",
+			"Rev": "8f3d1c5f42fce57e83e1c3f7d180477595db7cca"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/context/param",
+			"Comment": "v1.12.1-4-g8f3d1c5",
+			"Rev": "8f3d1c5f42fce57e83e1c3f7d180477595db7cca"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/grace",
+			"Comment": "v1.12.1-4-g8f3d1c5",
+			"Rev": "8f3d1c5f42fce57e83e1c3f7d180477595db7cca"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/logs",
+			"Comment": "v1.12.1-4-g8f3d1c5",
+			"Rev": "8f3d1c5f42fce57e83e1c3f7d180477595db7cca"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/session",
+			"Comment": "v1.12.1-4-g8f3d1c5",
+			"Rev": "8f3d1c5f42fce57e83e1c3f7d180477595db7cca"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/toolbox",
+			"Comment": "v1.12.1-4-g8f3d1c5",
+			"Rev": "8f3d1c5f42fce57e83e1c3f7d180477595db7cca"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/utils",
+			"Comment": "v1.12.1-4-g8f3d1c5",
+			"Rev": "8f3d1c5f42fce57e83e1c3f7d180477595db7cca"
+		},
+		{
+			"ImportPath": "github.com/shiena/ansicolor",
+			"Rev": "a422bbe96644373c5753384a59d678f7d261ff10"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/acme",
+			"Rev": "06a226fb4e3765ef3f48aa2852b401bc7b98e981"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/acme/autocert",
+			"Rev": "06a226fb4e3765ef3f48aa2852b401bc7b98e981"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Comment": "v2.3.0",
+			"Rev": "0b1645d91e851e735d3e23330303ce81f70adbe3"
+		}
+	]
+}
