@@ -1,4 +1,5 @@
 FROM alpine
+LABEL maintainer="xuyc@sina.com"
 
 ENV APP_DIR /usr/myapp
 RUN mkdir -p $APP_DIR
