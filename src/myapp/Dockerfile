@@ -7,4 +7,4 @@ ADD . $APP_DIR
 # Set the entrypoint
 ENTRYPOINT (cd $APP_DIR && ./myapp)
 
-EXPOSE 8080
+EXPOSE 80
