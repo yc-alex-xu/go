@@ -5,4 +5,5 @@ go install practise/math
 #go install practise/app1
 #clean
 #go clean
-
+#run
+#go run main.go
