@@ -5,10 +5,11 @@ import (
 	"runtime"
 )
 
-func say(s string) {
+func say(name string) {
 	for i := 0; i < 5; i++ {
-		runtime.Gosched()
-		fmt.Println(s)
+		fmt.Println("goroutine:", name, "loop:", i)
+		runtime.Gosched() //让CPU把时间片让给别人
+
 	}
 }
 
