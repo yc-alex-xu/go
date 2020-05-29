@@ -5,8 +5,8 @@ import (
 	"strconv"
 )
 
-type Element interface{}
-type List []Element
+type Element interface{} //empty interface
+type List []Element      //slice
 
 type Person struct {
 	name string
@@ -19,9 +19,9 @@ func (p Person) String() string {
 }
 
 func main() {
-	list := make(List, 3)
-	list[0] = 1       //an int
-	list[1] = "Hello" //a string
+	list := make(List, 3) //make a slice
+	list[0] = 1           //an int
+	list[1] = "Hello"     //a string
 	list[2] = Person{"Dennis", 70}
 
 	for index, element := range list {
