@@ -28,16 +28,15 @@ func (r ReceiverType) funcName(parameters) (results)
 * override.go   覆盖，如果Employee想要实现自己的SayHi,怎么办？简单，和匿名字段冲突一样的道理，我们可以在Employee上面定义一个method，重写了匿名字段的方法
 
 # interface
-Go语言里面设计最精妙的应该算interface，它让面向对象，内容组织实现非常的方便，当你看完这一章，你就会被interface的巧妙设计所折服。
-
-简单的说，interface是一组method签名的组合，我们通过interface来定义对象的一组行为。
+Go语言里面设计最精妙的应该算interface，它让面向对象，内容组织实现非常的方便，当你看完这一章，你就会被interface的巧妙设计所折服。简单的说，interface是一组method签名的组合，我们通过interface来定义对象的一组行为。
 
 [example code](https://github.com/yc-alex-xu/go/tree/master/src/practise/interface)
 * main.go
+* empty.go：  空interface 的用法
 * stringer.go: Stringer interface 类型的参数
 * type.go ：　判断interface 对象的类型
 
-interface可以被任意的对象实现。我们看到上面的Men interface被Human、Student和Employee实现。同理，一个对象可以实现任意多个interface，例如上面的Student实现了Men和YoungChap两个interface。
+可以说interface概念与java没有啥区别，但用法完全不同，go是通过它给各种数据类型分类。打破了其他语言中同一base class的才能归为一类的限制。interface可以被任意的对象实现。我们看到上面的Men interface被Human、Student和Employee实现。同理，一个对象可以实现任意多个interface，例如上面的Student实现了Men和YoungChap两个interface。
 
 Alex：感觉interface 就突破了class 之间的继承关系。
 

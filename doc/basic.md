@@ -155,11 +155,10 @@ Alex: new 分配该数据类型内存，然后内存清0; 而make 对应的slice
 
 
 # 自定义数据类型
-struct只是自定义类型里面一种比较特殊的类型而已，还有其他自定义类型申明，可以通过如下这样的申明来实现。
 ```go
 type typeName typeLiteral
 ```
-e.g.
+struct只是自定义类型里面一种比较特殊的类型而已，还有其他自定义类型申明，e.g.
 ```go
 type ages int
 
