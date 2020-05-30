@@ -1,29 +1,31 @@
 # struct
 alex: 也是类似C++，struct 中的所有字段都是public的？
 
-这里有一个问题：如果human里面有一个字段叫做phone，而student也有一个字段叫做phone，那么该怎么办呢？
-
-Go里面很简单的解决了这个问题，最外层的优先访问，也就是当你通过student.phone访问的时候，是访问student里面的字段，而不是human里面的字段。
-
-这样就允许我们去重载通过匿名字段继承的一些字段，当然如果我们想访问重载后对应匿名类型里面的字段，可以通过匿名字段名来访问。请看下面的[例子](https://github.com/yc-alex-xu/go/tree/master/src/practise/struct)
-* main.go   普通struct
-* anonym.go  嵌套了匿名field
-* override.go   覆盖 嵌套的struct 中定义
+[例子](https://github.com/yc-alex-xu/go/tree/master/src/practise/struct)
+* main.go　　定义type person struct
+* anonym.go  嵌套了匿名field，解决了OO继承问题
+* override.go   Go规定外层的优先访问，也就是当你通过student.phone访问的时候，是访问student里面的字段，而不是human里面的字段，而human里面的字段可以通过非匿名的方式访问。
 
 
 # method
+method是附属在一个给定的类型上的，他的语法和函数的声明语法几乎一样，只是在func后面增加了一个receiver(也就是method所依从的主体)。
+```go
+func (r ReceiverType) funcName(parameters) (results)
+```
+用Rob Pike的话来说就是：
+> "A method is a function with an implicit first argument, called a receiver."  
+跟C++中method 隐含带this 指针一致。
+
+在使用method的时候重要注意几点
+* Receiver可以是以值传递，还可以是指针, 两者的差别在于, 指针作为Receiver会对实例对象的内容发生操作,而普通类型作为Receiver仅仅是以副本作为操作对象,并不对原实例对象发生操作。
+* Polymorphism: 虽然method的名字一模一样，但是如果接收者不一样，那么method就不一样
+* method里面可以访问接收者的字段
+* 调用method通过.访问，就像struct里面访问字段一样
+
 [code](https://github.com/yc-alex-xu/go/tree/master/src/practise/method)
-* main.go：　普通
-* inherit.go 　继承
-* override.go   覆盖
-
-method是附属在一个给定的类型上的，他的语法和函数的声明语法几乎一样，只是在func后面增加了一个receiver(也就是method所依从的主体)。你可以在任何的自定义类型中定义任意多的method
-## method继承
-前面一章我们学习了字段的继承，那么你也会发现Go的一个神奇之处，method也是可以继承的。如果匿名字段实现了一个method，那么包含这个匿名字段的struct也能调用该method。让我们来看下面这个例子
-
-## method重写
-
-上面的例子中，如果Employee想要实现自己的SayHi,怎么办？简单，和匿名字段冲突一样的道理，我们可以在Employee上面定义一个method，重写了匿名字段的方法
+* main.go：　任何的自定义类型中定义任意多的method
+* inherit.go 　如果匿名字段实现了一个method，那么包含这个匿名字段的struct也能调用该method。
+* override.go   覆盖，如果Employee想要实现自己的SayHi,怎么办？简单，和匿名字段冲突一样的道理，我们可以在Employee上面定义一个method，重写了匿名字段的方法
 
 # interface
 Go语言里面设计最精妙的应该算interface，它让面向对象，内容组织实现非常的方便，当你看完这一章，你就会被interface的巧妙设计所折服。
