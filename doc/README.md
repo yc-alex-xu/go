@@ -8,4 +8,4 @@
 * [concurrent](concurrent.md)  
 * [docker as dev env](docker.md)
 * [docker as prod env & CI/CD](docker_prod.md)
-* [deploy to k8s]k8s.md)
+* [deploy to k8s](https://github.com/yc-alex-xu/microk8s)
