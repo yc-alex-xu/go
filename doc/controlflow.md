@@ -6,7 +6,31 @@ if x > 10 {
 } else {
 	fmt.Println("x is less than 10")
 }
+
+if integer := func();integer == 3 {//条件判断语句里面允许声明一个变量，这个变量的作用域只能在该条件逻辑块内
+	fmt.Println("The integer is equal to 3")
+} else if integer < 3 {
+	fmt.Println("The integer is less than 3")
+} else {
+	fmt.Println("The integer is greater than 3")
+}
+
 ```
+
+# switch
+```go
+switch sExpr {
+case expr1:
+	some instructions
+case expr2:
+	some other instructions
+case expr3:
+	some other instructions
+default:
+	other code
+}
+```
+Go里面switch默认相当于每个case最后带有break，匹配成功后不会自动向下执行其他case，而是跳出整个switch, 但是可以使用fallthrough强制执行后面的case代码。
 
 # goto
 请明智地使用它。用goto跳转到必须在当前函数内定义的标签。例如假设这样一个循环：
@@ -24,6 +48,11 @@ Here:   //这行的第一个词，以冒号结束作为标签
 ```go
 for expression1; expression2; expression3 {
 	//...
+}
+
+for k,v:=range map { //for配合range可以用于读取slice/map/channel的数据：
+	fmt.Println("map's key:",k)
+	fmt.Println("map's val:",v)
 }
 ```
 在循环里面有两个关键操作break和continue ,break操作是跳出当前循环，continue是跳过本次循环。当嵌套过深的时候，break可以配合标签使用，即跳转至标签所指定的位置，详细参考如下例子：
@@ -46,21 +75,6 @@ for _, v := range map{
 }
 ```
 
-# switch
-```go
-switch sExpr {
-case expr1:
-	some instructions
-case expr2:
-	some other instructions
-case expr3:
-	some other instructions
-default:
-	other code
-}
-```
-Go里面switch默认相当于每个case最后带有break，匹配成功后不会自动向下执行其他case，而是跳出整个switch, 但是可以使用fallthrough强制执行后面的case代码。
-
 # func
 [code example](https://github.com/yc-alex-xu/go/tree/master/src/practise/func)
 * byPointer.go  
@@ -74,14 +88,7 @@ func funcName(input1 type1, input2 type2) (output1 type1, output2 type2) {
 	return output1, output2
 }
 ```
-e.g.
-```go
-func SumAndProduct(A, B int) (add int, Multiplied int) {
-	add = A+B
-	Multiplied = A*B
-	return add,Multiplied
-}
-```
+
 ## 不定数量的参数的。为了做到这点，首先需要定义函数使其接受变参：
 ```go
 func myfunc(arg ...int) {
@@ -105,7 +112,7 @@ type typeName func(input1 inputType1 , input2 inputType2 [, ...]) (result1 resul
 
 int on_exit(void (*function)(int , void *), void *arg);
 ```
-不过defer 是func级别的，并且组成一个stack
+不过defer 是func级别的，并且组成一个stack. [example](https://github.com/yc-alex-xu/go/tree/master/src/practise/defer)
 
 # Panic和Recover
 Go没有像Java那样的异常机制，它不能抛出异常，而是使用了panic和recover机制。一定要记住，你应当把它作为最后的手段来使用，也就是说，你的代码中应当没有，或者很少有panic的东西。这是个强大的工具，请明智地使用它。那么，我们应该如何使用它呢？
