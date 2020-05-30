@@ -33,24 +33,14 @@ Go语言里面设计最精妙的应该算interface，它让面向对象，内容
 [example code](https://github.com/yc-alex-xu/go/tree/master/src/practise/interface)
 * main.go
 * empty.go：  空interface 的用法
-* stringer.go: Stringer interface 类型的参数
-* type.go ：　判断interface 对象的类型
+* stringer.go:　fmt.Println 用到的Stringer interface 类型参数
+* type.go ：　判断　empty interface 的类型
 
 可以说interface概念与java没有啥区别，但用法完全不同，go是通过它给各种数据类型分类。打破了其他语言中同一base class的才能归为一类的限制。interface可以被任意的对象实现。我们看到上面的Men interface被Human、Student和Employee实现。同理，一个对象可以实现任意多个interface，例如上面的Student实现了Men和YoungChap两个interface。
 
-Alex：感觉interface 就突破了class 之间的继承关系。
 
 ## 空interface
 interface{}不包含任何的method，正因为如此，所有的类型都实现了空interface。空interface对于描述起不到任何的作用(因为它不包含任何的method），但是空interface在我们需要存储任意类型的数值的时候相当有用，因为它可以存储任意类型的数值。它有点类似于C语言的void*类型 (alex:interface 类似引用？)。
-```go
-// 定义a为空接口
-var a interface{}
-var i int = 5
-s := "Hello world"
-// a可以存储任意类型的数值
-a = i
-a = s
-```
 
 ## interface作为参数
 ```bash
@@ -70,8 +60,6 @@ type Stringer interface {
 	 String() string
 }
 ```
-
-
 ## interface的实现：
 作为一门编程语言，对方法的处理一般分为两种类型：一是将所有方法组织在一个表格里，静态地调用（C++, java）；二是调用时动态查找方法(python, smalltalk, js)。
 而go语言是两者的结合：虽然有table，但是是需要在运行时计算的table。

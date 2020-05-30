@@ -28,11 +28,11 @@
 * 如果一个method的receiver是*T,你可以在一个T类型的实例变量V上面调用这个method，而不需要&V去调用这个method
 * 如果一个method的receiver是T，你可以在一个*T类型的变量P上面调用这个method，而不需要 *P去调用这个method
 所以，你不用担心你是调用的指针的method还是不是指针的method，Go知道你要做的一切，这对于有多年C/C++编程经验的同学来说，真是解决了一个很大的痛苦。
-alex： 这解释成C++ 中的“引用”是不是更好？
+alex： 这解释成C++ 中的“引用”是不是更好？ go似乎没有指针概念,至少没有指针地址概念，设计者应该也不鼓励研究内部实现所以不暴露地址。编程效率高的语言总是强调思路，把实现留给语言开发人员。
 
 # 谨慎
 * new本质上说跟其它语言中的同名函数功能一样：new(T)分配了零值填充的T类型的内存空间，并且返回其地址，即一个*T类型的值. 而C/C++是不浪费时间做零值填充的，除非你定义了构造函数。
-* 没有指针地址的概念，设计者应该也不鼓励研究内部实现，编程效率高的语言总是强调思路，把实现留给语言开发人员。
+*
  
 
 # Object Oriented
@@ -61,24 +61,7 @@ type Employee struct {
 
 ```
 * method
-* interface: 可以说它的概念与java没有啥区别，但用法完全不同，go是通过它给各种数据类型分类。打破了其他语言中按base class的归类的限制。
-```go
-type Men interface {
-	SayHi()
-	Sing(lyrics string)
-}
-
-var i Men //定义Men类型的变量i
-x := make([]Men, 3) //定义了slice Men
-```
-所以任何数据类型都可以归为空interface 
-```go
-var a interface{} // 定义a为空接口
-var i int = 5
-s := "Hello world"
-a = i // a可以存储任意类型的数值
-a = s
-```
-
+* interface: 可以说它的概念与java没有啥区别，但用法完全不同，go是通过它给各种数据类型分类。打破了其他语言中按base class的归类的限制。另外，感觉它就起了指针的作用。
+  
 # reflect
 体现的是go 结余动态和非动态语言之间的特点，估计是通过添加metadata实现的。
