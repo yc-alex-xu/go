@@ -77,8 +77,8 @@ for _, v := range map{
 
 # func
 [code example](https://github.com/yc-alex-xu/go/tree/master/src/practise/func)
-* byPointer.go  
-* byValue.go  
+* byPointer.go  参数传值
+* byValue.go 参数传指针 
 * funcPointer.go
 
 ```go
