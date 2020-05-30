@@ -1,5 +1,5 @@
 * [some thinking](thinking.md)
-* [start](start.md)
+* [start](go_linux.md)
 * [command](cmd.md)
 * [basic](basic.md)  
 * [control flow](controlflow.md)
