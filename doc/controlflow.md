@@ -89,7 +89,7 @@ func funcName(input1 type1, input2 type2) (output1 type1, output2 type2) {
 }
 ```
 
-## 不定数量的参数的。为了做到这点，首先需要定义函数使其接受变参：
+## 不定数量的参数
 ```go
 func myfunc(arg ...int) {
 	for _, n := range arg {
