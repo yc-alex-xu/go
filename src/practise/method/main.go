@@ -25,7 +25,7 @@ func (b Box) Volume() float64 {
 
 //指针作为receiver,修改其field的值
 func (b *Box) SetColor(c Color) {
-	b.color = c
+	b.color = c //等价与*b.color
 }
 
 func (bl BoxList) BiggestColor() Color {
