@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-const(
+const (
 	WHITE = iota
 	BLACK
 	BLUE
@@ -14,7 +14,7 @@ type Color byte
 
 type Box struct {
 	width, height, depth float64
-	color Color
+	color                Color
 }
 
 type BoxList []Box //a slice of boxes
@@ -23,6 +23,7 @@ func (b Box) Volume() float64 {
 	return b.width * b.height * b.depth
 }
 
+//指针作为receiver,修改其field的值
 func (b *Box) SetColor(c Color) {
 	b.color = c
 }
@@ -46,12 +47,12 @@ func (bl BoxList) PaintItBlack() {
 }
 
 func (c Color) String() string {
-	strings := []string {"WHITE", "BLACK", "BLUE", "RED", "YELLOW"}
+	strings := []string{"WHITE", "BLACK", "BLUE", "RED", "YELLOW"}
 	return strings[c]
 }
 
 func main() {
-	boxes := BoxList {
+	boxes := BoxList{
 		Box{4, 4, 4, RED},
 		Box{10, 10, 1, YELLOW},
 		Box{1, 1, 20, BLACK},
@@ -62,7 +63,7 @@ func main() {
 
 	fmt.Printf("We have %d boxes in our set\n", len(boxes))
 	fmt.Println("The volume of the first one is", boxes[0].Volume(), "cm³")
-	fmt.Println("The color of the last one is",boxes[len(boxes)-1].color.String())
+	fmt.Println("The color of the last one is", boxes[len(boxes)-1].color.String())
 	fmt.Println("The biggest one is", boxes.BiggestColor().String())
 
 	fmt.Println("Let's paint them all black")
