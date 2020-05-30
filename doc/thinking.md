@@ -27,7 +27,7 @@
 * new本质上说跟其它语言中的同名函数功能一样：new(T)分配了零值填充的T类型的内存空间，并且返回其地址，即一个*T类型的值. 而C/C++是不浪费时间做零值填充的，除非你定义了构造函数。
 * 
 
-# OO
+# Object Oriented
 * struct
 C++ 中继承是用父类之类的概念，而go 中直接的多，是用struct B 包含匿名的 struct B,C的方法，表示struct B 包含了struct B,C的所有field和方法。
 ```go
