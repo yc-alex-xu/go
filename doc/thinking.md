@@ -39,5 +39,9 @@ type Employee struct {
 }
 
 ```
+# TDD
+go test, 会自动读取源码目录下面名为*_test.go的文件，生成并运行测试用的可执行文件。默认的情况下，不需要任何的参数，它会自动把你源码包下面所有test文件测试完毕，当然你也可以带上参数，详情请参考go help testflag
+
+
 * method
 * interface: 可以抽象的方式来代表一类对象
