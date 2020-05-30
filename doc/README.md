@@ -3,7 +3,7 @@
 * [command](cmd.md)
 * [VS Code setting](vscode.md)
 * [basic](basic.md)  
-* [control flow](controlflow.md)
+* [control flow & function](controlflow.md)
 * [Object Oriented](oo.md)  
 * [concurrent](concurrent.md)  
 * [docker as dev env](docker.md)

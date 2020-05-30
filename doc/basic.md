@@ -26,20 +26,40 @@ Go之所以会那么简洁，是因为它有一些默认的行为：
 
 # encoding
 Go是天生支持UTF-8的，任何字符都可以直接输出，你甚至可以用UTF-8中的任何字符作为标识符。
+# var
+```go
+//定义一个名称为“variableName”，类型为"type"的变量
+var variableName type
+//定义三个类型都是“type”的变量
+var vname1, vname2, vname3 type
+//初始化“variableName”的变量为“value”值，类型是“type”
+var variableName type = value
+/*
+	定义三个变量，它们分别初始化为相应的值
+	vname1为v1，vname2为v2，vname3为v3
+	然后Go会根据其相应值的类型来帮你初始化它们
+*/
+var vname1, vname2, vname3 = v1, v2, v3
+```
+**_**（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃。在这个例子中，我们将值35赋予b，并同时丢弃34：
 
 # const
 ```go
 const constantName = value
 ```
-# built-in数据类型
+# builtin数据类型
 go 是强类型，并且没有缺省转换的。
 ## Boolean
 在Go中，布尔值的类型为bool，值是true或false，默认为false。
 
-## 数值类型
-* int : 有无符号和带符号两种。Go同时支持int和uint，这两种类型的长度相同，但具体长度取决于不同编译器的实现。Go里面也有直接定义好位数的类型：rune, int8, int16, int32, int64和byte, uint8, uint16, uint32, uint64。其中rune是int32的别称，byte是uint8的别称。
-* 浮点数的类型有float32和float64两种（没有float类型），默认是float64
-* complex128（64位实数+64位虚数）。如果需要小一些的，也有complex64(32位实数+32位虚数)。复数的形式为RE + IMi
+## int 
+有无符号和带符号两种。Go同时支持int和uint，这两种类型的长度相同，但具体长度取决于不同编译器的实现。Go里面也有直接定义好位数的类型：rune, int8, int16, int32, int64和byte, uint8, uint16, uint32, uint64。其中rune是int32的别称，byte是uint8的别称。
+
+## 浮点数
+的类型有float32和float64两种（没有float类型），默认是float64
+
+## 复数
+complex128（64位实数+64位虚数）。如果需要小一些的，也有complex64(32位实数+32位虚数)。复数的形式为RE + IMi
 
 需要注意的一点是，这些类型的变量之间不允许互相赋值或操作，不然会在编译时引起编译器报错
 
@@ -71,16 +91,19 @@ var arr [n]type
 ```
 由于长度也是数组类型的一部分，因此[3]int与[4]int是不同的类型，数组也就不能改变长度。数组之间的赋值是值的赋值，即当把一个数组作为参数传入函数的时候，传入的其实是该数组的副本，而不是它的指针。如果要使用指针，那么就需要用到后面介绍的slice类型了。
 
-alex: go 没有指针？？？
-
 ## slice
 在很多应用场景中，数组并不能满足我们的需求。在初始定义数组时，我们并不知道需要多大的数组，因此我们就需要“动态数组”。在Go里面这种数据结构叫slice
 
-slice并不是真正意义上的动态数组，而是一个引用类型。slice总是指向一个底层array，slice的声明也可以像array一样，只是不需要长度。
+slice并不是真正意义上的动态数组，而是一个**引用类型**(alex:pointer吧，毕竟它自己的address得固定)。slice总是指向一个底层array，slice的声明也可以像array一样，只是不需要长度(估计类似c++ string的实现，可以自动扩充数组大小)。
 ```go
 // 和声明array一样，只是少了长度
 var fslice []int
 ```
+从概念上面来说slice像一个结构体，这个结构体包含了三个元素：
+* 一个指针，指向数组中slice指定的开始位置
+* 长度，即slice的长度
+* 最大长度，也就是slice开始位置到数组的最后位置的长度
+
 slice有一些简便的操作
 
 * slice的默认开始位置是0，ar[:n]等价于ar[0:n]
@@ -116,7 +139,7 @@ map也就是Python中字典的概念，它的格式为map[keyType]valueType
 * map和其他基本型别不同，它不是thread-safe，在多个go-routine存取时，必须使用mutex lock机制
 
 # make、new操作
-make用于内建类型（map、slice 和channel）的内存分配。new用于各种类型的内存分配。
+make用于内建类型（map、slice 和channel）的内存分配。new用于其他各种类型的内存分配。
 
 ## new
 本质上说跟其它语言中的同名函数功能一样：new(T)分配了零值填充的T类型的内存空间，并且返回其地址，即一个*T类型的值。用Go的术语说，它返回了一个指针，指向新分配的类型T的零值。有一点非常重要：
@@ -125,8 +148,7 @@ new返回指针。
 
 ## make(T, args)
 与new(T)有着不同的功能，make只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。例如，一个slice，是一个包含指向数据（内部array）的指针、长度和容量的三项描述符；在这些项目被初始化之前，slice为nil。对于slice、map和channel来说，make初始化了内部的数据结构，填充适当的值。
-Alex: 可以说，make 调用了构造函数，new 只是分配内存。
-
+Alex: new 分配该数据类型内存，然后内存清0; 而make 对应的slice、map和channel不仅仅是分配内存清0这么简单，它还有创建对应的管理用数据结构。
 
 # struct
 类似C++概念。
