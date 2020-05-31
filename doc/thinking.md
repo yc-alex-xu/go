@@ -66,3 +66,22 @@ type Employee struct {
   
 # reflect
 体现的是go 结余动态和非动态语言之间的特点，估计是通过添加metadata实现的。
+
+# code style
+命名还是很linux的，如
+```go
+func (srv *Server) Serve(l net.Listener) error {
+	defer l.Close()
+	var tempDelay time.Duration // how long to sleep on accept failure
+	for {
+		rw, e := l.Accept()
+		//省略出错处理
+		tempDelay = 0
+		c, err := srv.newConn(rw)
+		if err != nil {
+			continue
+		}
+		go c.serve()		
+	}	
+}
+```	
