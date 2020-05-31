@@ -1,6 +1,6 @@
-# set http port
+# export http port
 ```bash
-$ export port=9999
+$ source export.sh 
 ```
 # examples
 
