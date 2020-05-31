@@ -35,8 +35,15 @@ CREATE TABLE `userdetail` (
 ```     
 ## install mysql driver
 ```bash 
-$go get -u github.com/go-sql-driver/mysql
+$ go get -u github.com/go-sql-driver/mysql
+$ go get github.com/astaxie/beego  //for ORM
 ```
 
 # examples
+[code](https://github.com/yc-alex-xu/go/tree/master/src/practise/database)
+* mysql.go  sql 语句 + rowset 模式
+* ORM.go    ORM method
 
+
+# note
+* 实际应用中即在关系型数据库和业务实体对象之间作一个映射，这样，我们在具体的操作业务对象的时候，就不需要再去和复杂的SQL语句打交道，只要像平时操作对象一样操作它就可以了。　　ORM框架就是用于实现ORM技术的程序。常见的ORM框架有：Hibernate、TopLink、Castor JDO、Apache OJB等。
