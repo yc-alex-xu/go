@@ -68,7 +68,7 @@ type Employee struct {
 体现的是go 结余动态和非动态语言之间的特点，估计是通过添加metadata实现的。
 
 # code style
-命名还是很linux的，如
+* 命名还是很短，如
 ```go
 func (srv *Server) Serve(l net.Listener) error {
 	defer l.Close()
@@ -85,3 +85,4 @@ func (srv *Server) Serve(l net.Listener) error {
 	}	
 }
 ```	
+* "message": "don't use underscores in Go names; var token_saved should be tokenSaved",
