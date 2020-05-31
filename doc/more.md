@@ -6,7 +6,7 @@ $ godoc -http=:8080 &
 然后在浏览器中可以看到
 ![godoc in browser](images/godoc_http.png)
 
-这可以说是godoc 非常有趣的一点，自己写的程序跟　http://localhost:8080/pkg/builtin/　　同等地位，godoc 就是将　GOPATH，GOROOT下的所有exported 的注释显示出来。
+这可以说是godoc 非常有趣的一点，自己写的程序跟builtin同等地位，godoc 就是将　GOPATH，GOROOT下的所有exported 的注释显示出来。
 
 可能go设计时有代码、文档在一起的思想。
 
