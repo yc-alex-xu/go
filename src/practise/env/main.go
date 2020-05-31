@@ -1,5 +1,17 @@
 package main
 
+/*
+sample of env in Ubuntu
+
+$ unset port
+$ env |grep port
+$ set port=80
+$ env |grep port
+$ export port=80
+$ env |grep port
+port=80
+*/
+
 import (
 	"fmt"
 	"os"
