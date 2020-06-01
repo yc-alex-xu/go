@@ -12,13 +12,31 @@ import (
 	"time"
 )
 
-/* 这只是单client 的情况，如果多client 应该用map来表示
+type Cookie struct {
+	Name       string
+	Value      string
+	Path       string
+	Domain     string
+	Expires    time.Time
+	RawExpires string
+
+	// MaxAge=0 means no 'Max-Age' attribute specified.
+	// MaxAge<0 means delete cookie now, equivalently 'Max-Age: 0'
+	// MaxAge>0 means Max-Age attribute present and given in seconds
+	MaxAge   int
+	Secure   bool
+	HttpOnly bool
+	Raw      string
+	Unparsed []string // Raw text of unparsed attribute-value pairs
+}
+
+/* 这只是单client 的情况，如果多client token应该用map来表示,也许应该放到redis中
  */
 var tokenSaved string
 
 /* 起始页
  */
-func loginpage(w http.ResponseWriter, r *http.Request) {
+func homepage(w http.ResponseWriter, r *http.Request) {
 	crutime := time.Now().Unix()
 	h := md5.New()
 	io.WriteString(h, strconv.FormatInt(crutime, 10))
@@ -32,6 +50,13 @@ func loginpage(w http.ResponseWriter, r *http.Request) {
  */
 func upload(w http.ResponseWriter, r *http.Request) {
 	var maxMemory int64 = (32 << 20)
+	if cookie, _ := r.Cookie("email"); cookie == nil {
+		http.Redirect(w, r, "/", 302)
+		return
+	} else {
+		fmt.Fprint(w, cookie)
+	}
+
 	r.ParseMultipartForm(maxMemory)
 	file, handler, err := r.FormFile("uploadfile")
 	if err != nil {
@@ -65,11 +90,16 @@ func login(w http.ResponseWriter, r *http.Request) {
 		template.HTMLEscape(w, []byte("wrong form posted"))
 		return
 	}
-	template.HTMLEscape(w, []byte(r.Form.Get("email"))) //输出到客户端
+	expiration := time.Now()
+	expiration = expiration.AddDate(1, 0, 0)
+	e := r.Form.Get("email")
+	cookie := http.Cookie{Name: "email", Value: e, Expires: expiration}
+	http.SetCookie(w, &cookie)
+	template.HTMLEscape(w, []byte(e)) //输出到客户端
 }
 
 func main() {
-	http.HandleFunc("/", loginpage) //设置访问的路由
+	http.HandleFunc("/", homepage) //设置访问的路由
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/upload", upload)
 	port := os.Getenv("port")
