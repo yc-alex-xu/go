@@ -70,8 +70,8 @@ func init() {
 func main() {
 	o := orm.NewOrm()
 	var Uid int
-	var u Userinfo
 	for _, s := range []string{"smith", "john", "kate", "mary"} {
+		var u Userinfo
 		u.Username = s
 		u.Departname = "tbd"
 		fmt.Println(s)
@@ -82,20 +82,24 @@ func main() {
 			Uid = int(id)
 			fmt.Printf("inserted: (%d, %v)\n", id, s)
 		}
+	}
+
+	u := Userinfo{Uid: Uid}
+	if err := o.Read(&u); err == orm.ErrNoRows {
+		fmt.Println("查询不到")
+	} else if err == orm.ErrMissPK {
+		fmt.Println("找不到主键")
+	} else if err == nil {
+		u.Username = "new"
+		if num, err := o.Update(&u); err == nil {
+			fmt.Println(num, "rows updated")
+		}
+	}
+
+	// 删除表
+	if num, err := o.Delete(&u); err == nil {
+		fmt.Println(num, "rows deleted")
 
 	}
 
-	// 更新表
-	u.Username = "new"
-	num, err := o.Update(&u)
-	fmt.Printf("NUM: %d, ERR: %v\n", num, err)
-
-	// 读取 one
-	u = Userinfo{Uid: Uid}
-	err = o.Read(&u)
-	fmt.Printf("ERR: %v\n", err)
-
-	// 删除表
-	num, err = o.Delete(&u)
-	fmt.Printf("NUM: %d, ERR: %v\n", num, err)
 }
