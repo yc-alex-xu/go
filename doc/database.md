@@ -47,5 +47,5 @@ $ go get github.com/astaxie/beego  //for ORM
 
 # note
 * ORM 即在关系型数据库和业务实体对象之间作一个映射，这样，我们在具体的操作业务对象的时候，就不需要再去和复杂的SQL语句打交道，只要像平时操作对象一样操作它就可以了。常见的ORM框架有：Hibernate、TopLink、Castor JDO、Apache OJB等。
-* TBD
+* 至少beego的 ORM　是比较原始的，其他的ORM框架没有用过，但只要sql->代码的mapping 不流畅，可用性就不会很高。
 
