@@ -1,4 +1,4 @@
-Go官方没有提供数据库驱动，而是为开发数据库驱动定义了一些标准接口，开发者可以根据定义的接口来开发相应的数据库驱动，这样做有一个好处，只要是按照标准接口开发的代码， 以后需要迁移数据库时，不需要任何修改。
+Go官方没有提供数据库驱动，而是为开发数据库驱动定义了一些标准接口，开发者可以根据定义的接口来开发相应的数据库驱动。
 
 # prepartion
 ## start the K8s cluster including the MySQL service.
@@ -46,4 +46,6 @@ $ go get github.com/astaxie/beego  //for ORM
 
 
 # note
-* 实际应用中即在关系型数据库和业务实体对象之间作一个映射，这样，我们在具体的操作业务对象的时候，就不需要再去和复杂的SQL语句打交道，只要像平时操作对象一样操作它就可以了。　　ORM框架就是用于实现ORM技术的程序。常见的ORM框架有：Hibernate、TopLink、Castor JDO、Apache OJB等。
+* ORM 即在关系型数据库和业务实体对象之间作一个映射，这样，我们在具体的操作业务对象的时候，就不需要再去和复杂的SQL语句打交道，只要像平时操作对象一样操作它就可以了。常见的ORM框架有：Hibernate、TopLink、Castor JDO、Apache OJB等。
+* TBD
+
