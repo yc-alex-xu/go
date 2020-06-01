@@ -8,7 +8,6 @@
 * [concurrent](concurrent.md)
 * [http handling](http.md)
 * [access database](database.md)
-* [error/test/debug](error.md)
 * [more package](more.md)  
 * [docker as dev env](docker.md)
 * [docker as prod env & CI/CD](docker_prod.md)
