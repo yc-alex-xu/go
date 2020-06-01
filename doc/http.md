@@ -6,5 +6,5 @@ $ source export.sh
 
 [code](https://github.com/yc-alex-xu/go/tree/master/src/practise/http)
 * get.go: start a http server;start with http://localhost:9999/login?username=John
-* form.go: 处理form/MultipartForm; start with: http://localhost:9999/
+* form.go: 处理form/MultipartForm/cookie/; start with: http://localhost:9999/
 
