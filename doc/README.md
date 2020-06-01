@@ -1,7 +1,6 @@
 * [some thinking](thinking.md)
 * [start](go_linux.md)
 * [command](cmd.md)
-* [VS Code setting](vscode.md)
 * [basic](basic.md)  
 * [control flow & function](controlflow.md)
 * [Object Oriented](oo.md)  

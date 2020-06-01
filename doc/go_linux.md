@@ -1,14 +1,8 @@
 No time waste on env issue, so as simple as possible
 
 # install
-```bash
-$ sudo apt-get update
-$ sudo apt-get install golang git-core mercurial
-$ cd 
-$ sudo chown alex:alex go
-$ go version
-go version go1.10.4 linux/amd64
-```
+https://studygolang.com/dl
+
 # configure env
 ```bash
 $ cat /etc/profile
@@ -21,6 +15,9 @@ $ go env
 GOARCH="amd64"
 ```
 now all go code will put under folder ~/go
+
+
+
 
 # The test program 
 ```bash
@@ -42,8 +39,13 @@ golang 在 github 上建立了一个镜像库，如：https://golang.org/x/net �
 src/golang.org/x$ git clone https://github.com/golang/tools
 src/golang.org/x$ git clone https://github.com/golang/lint
 ```
-
-# github.com/sqs/goreturns failure
+## glide
+用于mirror
+```bash
+alex@minipc:~$ go get -u github.com/xkeyideal/glide
+alex@minipc:~$ glide
+```
+## github.com/sqs/goreturns failure
 ```bash
 $ go get -v -u github.com/sqs/goreturns
 github.com/sqs/goreturns (download)
@@ -53,3 +55,17 @@ https fetch failed: Get https://golang.org/x/tools/imports?go-get=1: dial tcp 21
 $ code //restart the vs code via terminal
 Installing github.com/sqs/goreturns SUCCEEDED
 ```
+
+# vs code
+* https://github.com/Microsoft/vscode-go/wiki/Debugging-Go-code-using-VS-Code
+* https://github.com/golang/vscode-go
+
+![install the tools from　menu "command palette" ](images/vscode_install_tools.png)
+
+# install debug
+```bash
+alex@minipc:~$ go get github.com/go-delve/delve/cmd/dlv
+alex@minipc:~$ dlv
+Delve is a source level debugger for Go programs.
+```
+
