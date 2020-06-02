@@ -20,7 +20,7 @@ note:
 * 目前Go对于REST的支持还是很简单的，通过实现自定义的路由规则，我们就可以为不同的method实现不同的handle，这样就实现了REST的架构。
 * HTML标准只能通过链接和表单支持GET和POST。在没有Ajax支持的网页浏览器中不能发出PUT或DELETE命令
 
-Alex:相比传统的www网站开发，REST API与网页分离，强调这是一种api，跟本机的函数调用区别就是它由http协议承载。
+Alex:相比传统的www网站开发，REST API与网页分离,无论client是web browser or android app，强调这是一种api，跟本机的函数调用区别就是它由http协议承载。
 
 # examples
 
