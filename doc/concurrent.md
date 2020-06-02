@@ -42,3 +42,10 @@ runtime包中有几个处理goroutine的函数：
 * NumGoroutine 返回正在执行和排队的任务总数
 * GOMAXPROCS 用来设置可以并行计算的CPU核数的最大值，并返回之前的值。
   
+# sumary
+CSP模型是上个世纪七十年代提出的，用于描述两个独立的并发实体通过共享的通讯 channel(管道)进行通信的并发模型。 CSP中channel是第一类对象，它不关注发送消息的实体，而关注与发送消息时使用的channel。
+
+Golang 就是借用CSP模型的一些概念为之实现并发进行理论支持，其实从实际上出发，go语言并没有，完全实现了CSP模型的所有理论，仅仅是借用了 process和channel这两个概念。process是在go语言上的表现就是 goroutine 是实际并发执行的实体，每个实体之间是通过channel通讯来实现数据共享。
+ * channel 本质上是消息队列，缺省buffer size 为 1;　执行读或写都会因为buffer为空或者满而阻塞。
+ * goroutine 是提供给开发人员的接口，底层还是要映射到OS识别的thread.
+

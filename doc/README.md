@@ -8,6 +8,8 @@
 * [http handling](http.md)
 * [access database](database.md)
 * [more package](more.md)  
+* [profiler](profiler.md)
+* [go test](test.md)
 * [docker as dev env](docker.md)
 * [docker as prod env & CI/CD](docker_prod.md)
 * [deploy to k8s](https://github.com/yc-alex-xu/microk8s)

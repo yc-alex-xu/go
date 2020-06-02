@@ -178,3 +178,5 @@ m := months {
 * value:基本数据类型，int,float,bool,string, 以及数组和 struct 特点：变量直接存储值，内存通常在栈中分配，栈在函数调用完会被释放
 * address: 变量存储的是一个地址，这个地址存储最终的值。内存通常在 堆上分配。通过 GC 回收。引用类型： 指针、slice 切片、管道 channel、接口 interface、map、函数等
 
+# pointer
+[rbt & its testing](https://github.com/yc-alex-xu/go/tree/master/src/practise/rbtree)

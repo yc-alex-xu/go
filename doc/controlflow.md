@@ -82,7 +82,13 @@ for _, v := range map{
 * funcPointer.go
 
 ```go
-func funcName(input1 type1, input2 type2) (output1 type1, output2 type2) {
+/*如果只返回一个值的话，括号可以省略如
+func abc(x,y,z int) error{
+	
+}
+
+*/
+func funcName(input1 type1, input2 type2) (type1, type2) {
 	//这里是处理逻辑代码
 	//返回多个值
 	return output1, output2
