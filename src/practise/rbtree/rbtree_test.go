@@ -1,6 +1,9 @@
 package rbtree
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 type Thing struct {
 	Key Int
@@ -78,5 +81,42 @@ func BenchmarkRedBlack(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_, _ = tree.Find(Int(keys[i*3]))
+	}
+}
+
+func TestNew(t *testing.T) {
+	tests := []struct {
+		name string
+		want *RedBlackTree
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_put(t *testing.T) {
+	type args struct {
+		n    *Node
+		item Item
+	}
+	tests := []struct {
+		name string
+		args args
+		want *Node
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := put(tt.args.n, tt.args.item); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("put() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

@@ -6,7 +6,7 @@ const (
 )
 
 type RedBlackTree struct {
-	root *Node
+	root *Node //no forward declartion needed in go??
 }
 
 type Item interface {
@@ -19,13 +19,15 @@ type Node struct {
 	left, right *Node
 	item        Item
 	value       string
-	color       bool
+	//不玩linux kernel中的技巧，把color 设置为left/right的低位
+	color bool
 }
 
 func New() *RedBlackTree {
-	return &RedBlackTree{}
+	return &RedBlackTree{} //empty  struct
 }
 
+//method
 func (t *RedBlackTree) Size() uint64 {
 	return t.root.Size()
 }
