@@ -33,14 +33,6 @@ select默认是阻塞的，只有当监听的channel中有发送或接收可以�
 * default.go: 用default 改写
 * timeout.go: 避免整个程序进入阻塞的情况
 
-# runtime
-runtime包中有几个处理goroutine的函数：
-
-* Goexit 退出当前执行的goroutine，但是defer函数还会继续调用
-* Gosched 让出当前goroutine的执行权限，调度器安排其他等待的任务运行，并在下次某个时候从该位置恢复执行。
-* NumCPU 返回 CPU 核数量
-* NumGoroutine 返回正在执行和排队的任务总数
-* GOMAXPROCS 用来设置可以并行计算的CPU核数的最大值，并返回之前的值。
   
 # sumary
 CSP模型是上个世纪七十年代提出的，用于描述两个独立的并发实体通过共享的通讯 channel(管道)进行通信的并发模型。 CSP中channel是第一类对象，它不关注发送消息的实体，而关注与发送消息时使用的channel。
