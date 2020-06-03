@@ -56,9 +56,17 @@ go tool下面下载聚集了很多命令，这里我们只介绍两个，fix和v
 
 # godoc
 ```bash
-$ sudo apt install golang-golang-x-tools
+$ go doc fmt println
+package fmt // import "fmt"
+
+func Println(a ...interface{}) (n int, err error)
+    Println formats using the default formats for its operands and writes to
+    standard output. Spaces are always added between operands and a newline is
+    appended. It returns the number of bytes written and any write error
+    encountered.
 
 ```
+go doc 工具会从 Go 程序和包文件中提取顶级声明的首行注释以及每个对象的相关注释，并生成相关文档。它也可以作为一个提供在线文档浏览的 web 服务器，golang.org 就是通过这种形式实现的。
 
 如何查看相应package的文档呢？ 例如builtin包，那么执行godoc builtin 如果是http包，那么执行godoc net/http 查看某一个包里面的函数，那么执行godoc fmt Printf 也可以查看相应的代码，执行godoc -src fmt Printf
 

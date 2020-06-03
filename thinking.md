@@ -14,21 +14,29 @@
 3. 目录组织和package 来解决源码组织问题， 物理文件可以多个，但是只要package 名相同，他们就是同一逻辑文件
 4. 自带工具： go fmt 解决code style；  godoc 解决 help 问题
 5. TDD：go test
+6. Go 语言支持交叉编译，
+7. 第一门完全支持 UTF-8 的编程语言，这不仅体现在它可以处理使用 UTF-8 编码的字符串，就连它的源码文件格式都是使用的 UTF-8 编码。Go 语言做到了真正的国际化！
+8. 值得注意的是，因为垃圾回收和自动内存分配的原因，Go 语言不适合用来开发对实时性要求很高的软件。
+9. 不支持动态加载代码
+10. 不支持动态链接库
+11. 不支持静态变量
 
 
-缺点：
+## 缺点：
 * 从 0.9 版开始学习go,变化颇大，并且不兼容，以前写的程序现在已经不能运行。
 
-# 语法检查严格
+## 语法检查严格
+* 静态类型，所以它是类型安全的一门语言。作为强类型语言，隐式的类型转换是不被允许的，记住一条原则：让所有的东西都是显式的。
 * 变量定义了未使用，包引入了未使用　　　　这些在c++中warning 都不算，但在go 就是error了。
 * Go 支持 “多值返回”, 而对于“声明而未被调用”的变量, 编译器会报错,所以只能使用**_**来丢弃不需要的返回值
 * exported type Xyyyy should have comment or be unexported
+* 虽然 Go 语言中仍有指针的存在，但并不允许进行指针运算。
 
 ## 例外： 指针的自动转换
 * 如果一个method的receiver是*T,你可以在一个T类型的实例变量V上面调用这个method，而不需要&V去调用这个method
 * 如果一个method的receiver是T，你可以在一个*T类型的变量P上面调用这个method，而不需要 *P去调用这个method
 所以，你不用担心你是调用的指针的method还是不是指针的method，Go知道你要做的一切，这对于有多年C/C++编程经验的同学来说，真是解决了一个很大的痛苦。
-alex： 这解释成C++ 中的“引用”是不是更好？ go似乎没有指针概念,至少没有指针地址概念，设计者应该也不鼓励研究内部实现所以不暴露地址。编程效率高的语言总是强调思路，把实现留给语言开发人员。
+alex： 这解释成C++ 中的“引用”是不是更好？ go似乎没有指针地址概念，设计者应该也不鼓励研究内部实现所以不暴露地址。编程效率高的语言总是强调思路，把实现留给语言开发人员。
 
 # 谨慎
 * new本质上说跟其它语言中的同名函数功能一样：new(T)分配了零值填充的T类型的内存空间，并且返回其地址，即一个*T类型的值. 而C/C++是不浪费时间做零值填充的，除非你定义了构造函数。
@@ -37,51 +45,16 @@ alex： 这解释成C++ 中的“引用”是不是更好？ go似乎没有指�
 
 # Object Oriented
 * 不用“class”,就用“struct” 即可。
-* 没有任何的私有、公有关键字，通过大小写来实现(大写开头的为公有，小写开头的为私有)，方法也同样适用这个原则。
-* 继承,C++ 中继承是用父类之类的概念，而go 中直接的多，是用struct B 包含匿名的 struct B,C的方法，表示struct B 包含了struct B,C的所有field和方法。
-
-```go
-type Human struct {
-	name string
-	age int
-	phone string
-}
-
-type Student struct {
-	Human //匿名字段
-	school string
-	loan float32
-}
-
-type Employee struct {
-	Human //匿名字段
-	company string
-	money float32
-}
-
-```
-* method
-* interface: 可以说它的概念与java没有啥区别，但用法完全不同，go是通过它给各种数据类型分类。打破了其他语言中按base class的归类的限制。另外，感觉它就起了指针的作用。
+* 没有任何的私有、公有关键字，通过大小写来实现(大写开头的为公有，小写开头的为私有)，method也同样适用这个原则。
+* 不用继承概念，而是用包含来实现，如struct A 包含匿名的 struct B,C的方法，表示struct A 包含了struct B,C的所有field和method。
+* method: 有点像C++中的运算符，在类之外定义，用receiver的数据类型说明
+* interface: 可以说它的概念与java没有啥区别，但用法完全不同，go是通过它给各种数据类型分类。打破了其他语言中按base class的归类的限制。另外，感觉它就起了指针的作用来实现多态性.
   
-# reflect
-体现的是go 结余动态和非动态语言之间的特点，估计是通过添加metadata实现的。
 
-# code style
-* 命名还是很短，如
-```go
-func (srv *Server) Serve(l net.Listener) error {
-	defer l.Close()
-	var tempDelay time.Duration // how long to sleep on accept failure
-	for {
-		rw, e := l.Accept()
-		//省略出错处理
-		tempDelay = 0
-		c, err := srv.newConn(rw)
-		if err != nil {
-			continue
-		}
-		go c.serve()		
-	}	
-}
-```	
-* "message": "don't use underscores in Go names; var token_saved should be tokenSaved",
+# Runtime
+Go 语言的主要目标是将静态语言的安全性和高效性与动态语言的易开发性进行有机结合，达到完美平衡，从而使编程变得更加有乐趣，而不是在艰难抉择中痛苦前行。
+
+尽管 Go 编译器产生的是本地可执行代码，这些代码仍旧运行在 Go 的 runtime（$GOROOT/src/runtime）当中。这个 runtime 类似 Java 和 .NET 语言所用到的虚拟机，它负责管理包括内存分配、垃圾回收、栈处理、goroutine、channel、切片（slice）、map 和反射（reflection）等等.
+Go 的可执行文件都比相对应的源代码文件要大很多，这恰恰说明了 Go 的 runtime 嵌入到了每一个可执行文件当中。当然，在部署到数量巨大的集群时，较大的文件体积也是比较头疼的问题。但总得来说，Go 的部署工作还是要比 Java 和 Python 轻松得多。因为 Go 不需要依赖任何其它文件，它只需要一个单独的静态文件，这样你也不会像使用其它语言一样在各种不同版本的依赖文件之间混淆。
+## reflect
+体现的是go 结余动态和非动态语言之间的特点，估计是通过添加metadata实现的。
