@@ -1,11 +1,6 @@
-FROM alpine
+FROM scratch
 LABEL maintainer="xuyc@sina.com"
-
-ENV APP_DIR /usr/myapp
-RUN mkdir -p $APP_DIR
-ADD . $APP_DIR
-EXPOSE 8080
+ADD . /
+EXPOSE 80
 # Set the entrypoint
-ENTRYPOINT (cd $APP_DIR &&chmod +x myapp && ./myapp)
-
-
+CMD ["/myapp"]
