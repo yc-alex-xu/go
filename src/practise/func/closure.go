@@ -1,12 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"runtime"
+)
+
+/*代替了debug的宏
+ */
+var where = func() {
+	_, file, line, _ := runtime.Caller(1)
+	log.Printf("%s:%d", file, line)
+}
 
 func main() {
-	var f = adder()
+	//不需要时关闭调试语句
+	where = func() {}
+	f := adder()
 	for i := 1; i < 10; i++ {
 		fmt.Println("+", i, "=", f(i))
 	}
+	where()
 	adder2()
 }
 
@@ -27,6 +41,7 @@ func adder2() {
 			fmt.Println("+", j)
 			s += j
 		}
+		where()
 		g = s
 	}(10)
 	fmt.Println("=", g)
