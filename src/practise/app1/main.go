@@ -20,9 +20,15 @@ var (
 func main() {
 	num := float64(num_g)
 	//` 括起的字符串为Raw字符串，即字符串在代码中的形式就是打印时的形式，它没有字符转义，换行也将原样输出。
-	s := `你
+	s := `Hi
+		你
 		好
 		world
 		`
-	fmt.Printf("%v Sqrt(%v) = %v\n", s, num_g, math.Sqrt(num))
+	fmt.Printf("Sqrt(%v) = %v\n", num_g, math.Sqrt(num))
+	a := []byte(s)
+	b := a
+	a[0] = 'h'
+	fmt.Println(string(b))
+
 }
