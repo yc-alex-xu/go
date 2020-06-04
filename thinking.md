@@ -1,5 +1,6 @@
 # 借鉴其他语言
 * array、slice、map
+* pkg fmt中的大多函数都与c中同名函数类似
 * make、new操作
 * defer
 * Panic和Recover
