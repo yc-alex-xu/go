@@ -104,7 +104,7 @@ var arr [n]type
 ## slice
 在很多应用场景中，数组并不能满足我们的需求。在初始定义数组时，我们并不知道需要多大的数组，因此我们就需要“动态数组”。在Go里面这种数据结构叫slice
 
-slice并不是真正意义上的动态数组，而是一个**引用类型**(alex:此引用跟c++的reference概念应该是完全不同。内部实现是一个管理用struct吧，毕竟它自己的address得固定)。slice总是指向一个底层array，slice的声明也可以像array一样，只是不需要长度(alex:估计类似c++ string的实现，可以自动扩充数组大小)。
+slice并不是真正意义上的动态数组，而是一个**引用类型**。slice总是指向一个底层array，slice的声明也可以像array一样，只是不需要长度(alex:估计类似c++ string的实现，可以自动扩充数组大小)。
 ```go
 // 和声明array一样，只是少了长度
 var i []int
