@@ -1,5 +1,4 @@
 # struct
-alex: 也是类似C++，struct 中的所有字段都是public的？
 
 [例子](https://github.com/yc-alex-xu/go/tree/master/src/practise/struct)
 * main.go　　定义type person struct
@@ -18,9 +17,8 @@ func (r ReceiverType) funcName(parameters) (results)
 
 在使用method的时候重要注意几点
 * Receiver可以是以值传递，还可以是指针, 两者的差别在于, 指针作为Receiver会对实例对象的内容发生操作,而普通类型作为Receiver仅仅是以副本作为操作对象,并不对原实例对象发生操作。
+* method里面可以通过 **.** 访问接收者的字段
 * Polymorphism: 虽然method的名字一模一样，但是如果接收者不一样，那么method就不一样
-* method里面可以访问接收者的字段
-* 调用method通过.访问，就像struct里面访问字段一样
 
 [code](https://github.com/yc-alex-xu/go/tree/master/src/practise/method)
 * main.go：　任何的自定义类型中定义任意多的method
@@ -28,8 +26,6 @@ func (r ReceiverType) funcName(parameters) (results)
 * override.go   覆盖，如果Employee想要实现自己的SayHi,怎么办？简单，和匿名字段冲突一样的道理，我们可以在Employee上面定义一个method，重写了匿名字段的方法
 
 # interface
-Go语言里面设计最精妙的应该算interface，它让面向对象，内容组织实现非常的方便，当你看完这一章，你就会被interface的巧妙设计所折服。简单的说，interface是一组method签名的组合，我们通过interface来定义对象的一组行为。
-
 [example code](https://github.com/yc-alex-xu/go/tree/master/src/practise/interface)
 * main.go
 * empty.go：  空interface 的用法

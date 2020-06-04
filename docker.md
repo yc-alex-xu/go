@@ -73,5 +73,3 @@ app
 
 # Test
 Now app can be accessed via:  http://localhost:8080/sum/4/5
-
-

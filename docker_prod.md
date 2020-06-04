@@ -1,7 +1,17 @@
 # build image
 It a little different from [Dev env](docker.md), since it needn't recompilation when code change. 
 
-一般的Dockerfile都会　go get 所有的库，在images中编译，这对CI来说有一定必要，但会增加image体积.通常的解决方案是分多个stage，
+一般的Dockerfile都会　go get 所有的库，在images中编译，
+```Dockerfile
+FROM golang
+RUN go get -u github.com/astaxie/beego
+RUN go get -u github.com/beego/bee
+ADD app  /go/src/app
+WORKDIR /go/src/app
+EXPOSE 8080
+CMD ["bee", "run"]
+```
+这对用的CI/CD说不错，但会增加image体积.通常的解决方案是分多个stage，
 ```Dockerfile
 FROM golang
 WORKDIR /src

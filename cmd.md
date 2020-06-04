@@ -74,5 +74,29 @@ type string string
 ```
 go doc 工具会从 Go 程序和包文件中提取顶级声明的首行注释以及每个对象的相关注释，并生成相关文档。它也可以作为一个提供在线文档浏览的 web 服务器，golang.org 就是通过这种形式实现的。
 
-# godoc
-通过命令在命令行执行 godoc -http=:端口号 比如godoc -http=:8080。然后在浏览器中打开127.0.0.1:8080，你将会看到一个golang.org的本地copy版本，通过它你可以查询pkg文档等其它内容。如果你设置了GOPATH，在pkg分类下，不但会列出标准包的文档，还会列出你本地GOPATH中所有项目的相关文档，这对于经常被墙的用户来说是一个不错的选择。    
+# go help
+```bash
+$ go help get
+usage: go get [-d] [-f] [-t] [-u] [-v] [-fix] [-insecure] [build flags] [packages]
+
+Get downloads the packages named by the import paths, along with their
+dependencies. It then installs the named packages, like 'go install'.
+
+$ go help packages
+Many commands apply to a set of packages:
+
+	go action [packages]
+
+To make common patterns more convenient, there are two special cases.
+First, /... at the end of the pattern can match an empty string,
+so that net/... matches both net and packages in its subdirectories, like net/http.
+Second, any slash-separated pattern element containing a wildcard never
+participates in a match of the "vendor" element in the path of a vendored
+package, so that ./... does not match packages in subdirectories of
+./vendor or ./mycode/vendor, but ./vendor/... and ./mycode/vendor/... do.
+Note, however, that a directory named vendor that itself contains code
+is not a vendored package: cmd/vendor would be a command named vendor,
+and the pattern cmd/... matches it.
+See golang.org/s/go15vendor for more about vendoring.
+
+```

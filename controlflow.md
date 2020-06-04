@@ -82,16 +82,14 @@ for _, v := range map{
 * funcPointer.go
 
 ```go
-/*如果只返回一个值的话，括号可以省略如
-func abc(x,y,z int) error{
-	
-}
-
-*/
 func funcName(input1 type1, input2 type2) (type1, type2) {
 	//这里是处理逻辑代码
 	//返回多个值
 	return output1, output2
+}
+/*如果只返回一个值的话，括号可以省略*/
+func abc(x,y,z int) error{
+	
 }
 ```
 
@@ -103,7 +101,7 @@ func myfunc(arg ...int) {
 	}
 }
 ```
-arg ...int告诉Go这个函数接受不定数量的参数。注意，这些参数的类型全部是int。在函数体中，变量arg是一个int的slice：
+arg ...int告诉Go这个函数接受不定数量的参数。变量arg是一个int的slice：
 
 ## 函数作为值、类型
 在Go中函数也是一种变量，我们可以通过type来定义它，它的类型就是所有拥有相同的参数，相同的返回值的一种类型
