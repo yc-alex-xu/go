@@ -76,7 +76,7 @@ c[0] = 'c'
 s2 := string(c)  // 再转换回 string 类型
 fmt.Printf("%s\n", s2)
 ```
-感觉跟Python很像。
+感觉跟Python很像,不过Go的类型转化写法还是挺规整的的　type(var) 即可。
 
 ## error类型
 Go内置有一个error类型，专门用来处理错误信息，Go的package里面还专门有一个包errors来处理错误：
@@ -95,7 +95,7 @@ var arr [n]type
 ## slice
 在很多应用场景中，数组并不能满足我们的需求。在初始定义数组时，我们并不知道需要多大的数组，因此我们就需要“动态数组”。在Go里面这种数据结构叫slice
 
-slice并不是真正意义上的动态数组，而是一个**引用类型**(alex:pointer吧，毕竟它自己的address得固定)。slice总是指向一个底层array，slice的声明也可以像array一样，只是不需要长度(估计类似c++ string的实现，可以自动扩充数组大小)。
+slice并不是真正意义上的动态数组，而是一个**引用类型**(alex:此引用跟c++的reference概念应该是完全不同。内部实现是一个管理用struct吧，毕竟它自己的address得固定)。slice总是指向一个底层array，slice的声明也可以像array一样，只是不需要长度(alex:估计类似c++ string的实现，可以自动扩充数组大小)。
 ```go
 // 和声明array一样，只是少了长度
 var fslice []int
@@ -111,7 +111,9 @@ slice有一些简便的操作
 * slice的第二个序列默认是数组的长度，ar[n:]等价于ar[n:len(ar)]
 * 如果从一个数组里面直接获取slice，可以这样ar[:]，因为默认第一个序列是0，第二个是数组的长度，即等价于ar[0:len(ar)]
 
-slice是引用类型，所以当引用改变其中元素的值时，其它的所有引用都会改变该值，例如上面的aSlice和bSlice，如果修改了aSlice中元素的值，那么bSlice相对应的值也会改变。
+slice是引用类型，所以当引用改变其中元素的值时，其它的所有引用都会改变该值，
+[main program](https://github.com/yc-alex-xu/go/tree/master/src/practise/app1)
+的a和b，如果修改了a Slice中元素的值，那么b Slice相对应的值也会改变。
 
 从概念上面来说slice像一个结构体，这个结构体包含了三个元素：
 

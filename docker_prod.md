@@ -1,4 +1,4 @@
-# build　image
+# build image
 It a little different from [Dev env](docker.md), since it needn't recompilation when code change. 
 
 一般的Dockerfile都会　go get 所有的库，在images中编译，这对CI来说有一定必要，但会增加image体积.通常的解决方案是分多个stage，
@@ -8,7 +8,7 @@ WORKDIR /src
 COPY hello.go .
 RUN go build hello.go
 FROM ubuntu　　＃开始stage 1
-COPY --from=0 /src/hello .  #copy stage ０生成的文件到本stage
+COPY --from=0 /src/hello .  #copy stage ０生成的文件
 CMD ["./hello"]
 ```
 不过最简单的方法还是本地静态编译生成可执行文件
@@ -20,7 +20,7 @@ ADD . /
 EXPOSE 80
 CMD ["/myapp"]
 ```
-只要开发的环境与运行的环境ABI兼容，这样直接copy二进制文件肯定是没问题的。
+只要开发的环境与运行的环境ABI兼容，这样直接copy二进制文件是没问题的。
 
 ```bash
 $ script/create_image.sh 

@@ -1,12 +1,10 @@
 
 # go build
-这个命令主要用于编译代码。在包的编译过程中，若有必要，会同时编译与之相关联的包。
-
-可以说主要用于编译package main的程序。　对于我来说，大多练习代码都比较简单，直接　
+这个命令主要用于编译代码。在包的编译过程中，若有必要，会同时编译与之相关联的包。由于src/practise下代码都比较简单，直接　
 ```bash
 go run xxx.go
 ```
-就可以了。
+运行就可以了。
 
 其他工程化设计：
 * go build会忽略目录下以“_”或“.”开头的go文件。
@@ -21,7 +19,7 @@ go build的时候会选择性地编译以系统名结尾的文件（Linux、Darw
 go强制了代码格式（比如左大括号必须放在行尾），不按照此格式的代码将不能编译通过，为了减少浪费在排版上的时间，go工具集中提供了一个go fmt命令 它可以帮你格式化你写好的代码文件，使你写代码的时候不需要关心格式，你只需要在写完之后执行go fmt <文件名>.go，你的代码就被修改成了标准格式
 
 # go get
-go get -u 参数可以自动更新包，而且当go get的时候会自动获取该包依赖的其他第三方包
+go get -u -v 可以自动更新包，而且当go get的时候会自动获取该包依赖的其他第三方包
 
 go get本质上可以理解为首先第一步是通过源码工具clone代码到src下面，然后执行go install
 
@@ -54,7 +52,7 @@ go tool下面下载聚集了很多命令，这里我们只介绍两个，fix和v
     $ go build
     $ go test    
 
-# godoc
+# go doc
 ```bash
 $ go doc fmt println
 package fmt // import "fmt"
@@ -64,8 +62,17 @@ func Println(a ...interface{}) (n int, err error)
     standard output. Spaces are always added between operands and a newline is
     appended. It returns the number of bytes written and any write error
     encountered.
+$ go doc builtin string
+package builtin // import "builtin"
+
+type string string
+    string is the set of all strings of 8-bit bytes, conventionally but not
+    necessarily representing UTF-8-encoded text. A string may be empty, but not
+    nil. Values of string type are immutable.
+
 
 ```
 go doc 工具会从 Go 程序和包文件中提取顶级声明的首行注释以及每个对象的相关注释，并生成相关文档。它也可以作为一个提供在线文档浏览的 web 服务器，golang.org 就是通过这种形式实现的。
 
+# godoc
 通过命令在命令行执行 godoc -http=:端口号 比如godoc -http=:8080。然后在浏览器中打开127.0.0.1:8080，你将会看到一个golang.org的本地copy版本，通过它你可以查询pkg文档等其它内容。如果你设置了GOPATH，在pkg分类下，不但会列出标准包的文档，还会列出你本地GOPATH中所有项目的相关文档，这对于经常被墙的用户来说是一个不错的选择。    
