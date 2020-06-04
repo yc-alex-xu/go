@@ -1,6 +1,6 @@
 # first program
 * [lib](https://github.com/yc-alex-xu/go/tree/master/src/practise/math)
-* [main program](https://github.com/yc-alex-xu/go/tree/master/src/practise/app1)
+* [main program](https://github.com/yc-alex-xu/go/blob/master/src/practise/app1/main.go)
 
 note:
 * 包名和包所在的文件夹名可以是不同的，此处的<pkgName>即为通过package <pkgName>声明的包名，而非文件夹名。
@@ -112,7 +112,7 @@ slice有一些简便的操作
 * 如果从一个数组里面直接获取slice，可以这样ar[:]，因为默认第一个序列是0，第二个是数组的长度，即等价于ar[0:len(ar)]
 
 slice是引用类型，所以当引用改变其中元素的值时，其它的所有引用都会改变该值，
-[main program](https://github.com/yc-alex-xu/go/tree/master/src/practise/app1)
+[main program](https://github.com/yc-alex-xu/go/blob/master/src/practise/app1/main.go)
 的a和b，如果修改了a Slice中元素的值，那么b Slice相对应的值也会改变。
 
 从概念上面来说slice像一个结构体，这个结构体包含了三个元素：
