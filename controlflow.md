@@ -78,8 +78,9 @@ for _, v := range map{
 # func
 [code example](https://github.com/yc-alex-xu/go/tree/master/src/practise/func)
 * byPointer.go  参数传值
-* byValue.go 参数传指针 
+* byValue.go 　　参数传指针 
 * funcPointer.go
+* closure.go    闭包函数
 
 ```go
 func funcName(input1 type1, input2 type2) (type1, type2) {
