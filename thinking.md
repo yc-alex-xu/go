@@ -1,6 +1,9 @@
 # 借鉴其他语言
 * array、slice、map
 * pkg fmt中的大多函数都与c中同名函数类似
+* 运算符与c一致
+* 字符串运算与c++一致
+* 指针运算符号: &/* 与c语言类似。但定义方式有重大区别。type *p,q/p,q *type　go中p,q 都属于指针类型。 
 * make、new操作
 * defer
 * Panic和Recover
