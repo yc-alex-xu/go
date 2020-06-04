@@ -123,3 +123,29 @@ Go没有像Java那样的异常机制，它不能抛出异常，而是使用了pa
 
 # main函数和init函数
 Go里面有两个保留的函数：init函数（能够应用于所有的package）和main函数（只能应用于package main）。这两个函数在定义时不能有任何的参数和返回值。虽然一个package里面可以写任意多个init函数，但这无论是对于可读性还是以后的可维护性来说，我们都强烈建议用户在一个package中每个文件只写一个init函数。
+
+# builtin function
+```bash
+$ go doc builtin
+package builtin // import "builtin"
+func close(c chan<- Type)
+func delete(m map[Type]Type1, key Type)
+func panic(v interface{})
+func print(args ...Type)
+func println(args ...Type)
+func recover() interface{}
+func cap(v Type) int
+func copy(dst, src []Type) int
+func len(v Type) int
+type ComplexType complex64
+    func complex(r, i FloatType) ComplexType
+type FloatType float32
+    func imag(c ComplexType) FloatType
+    func real(c ComplexType) FloatType
+type IntegerType int
+type Type int
+    var nil Type
+    func append(slice []Type, elems ...Type) []Type
+    func make(t Type, size ...IntegerType) Type
+    func new(Type) *Type
+```
