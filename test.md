@@ -8,7 +8,7 @@ $ go test
 PASS
 ok  	practise/rbtree	0.002s
 ```
-# gotest
+# 3rd party: gotest
 gotests插件自动生成测试代码:
 
 ```bash
