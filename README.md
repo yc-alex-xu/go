@@ -1,6 +1,7 @@
 * [some thinking](thinking.md)
 * [start](go_linux.md)
 * [command](cmd.md)
+* [tools: godoc/gopls](tools.md)
 * [basic](basic.md)  
 * [control flow & function](controlflow.md)
 * [Object Oriented](oo.md)  
@@ -14,3 +15,4 @@
 * [docker as dev env](docker.md)
 * [docker as prod env & CI/CD](docker_prod.md)
 * [deploy to k8s](https://github.com/yc-alex-xu/microk8s)
+* [mod](mod.md)

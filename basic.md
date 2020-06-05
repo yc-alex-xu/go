@@ -27,18 +27,12 @@ package <pkgName>（在我们的例子中是package main）这一行告诉我们
 # encoding
 Go是天生支持UTF-8的，任何字符都可以直接输出，你甚至可以用UTF-8中的任何字符作为标识符。
 # var
+
+类型后置,类型在变量名的后面
 ```go
-//定义一个名称为“variableName”，类型为"type"的变量
 var variableName type
-//定义三个类型都是“type”的变量
-var vname1, vname2, vname3 type
-//初始化“variableName”的变量为“value”值，类型是“type”
+var vname1, vname2, vname3 * type
 var variableName type = value
-/*
-	定义三个变量，它们分别初始化为相应的值
-	vname1为v1，vname2为v2，vname3为v3
-	然后Go会根据其相应值的类型来帮你初始化它们
-*/
 var vname1, vname2, vname3 = v1, v2, v3
 ```
 * Go 语言也是区分大小写的，这与 C 家族中的其它语言相同
