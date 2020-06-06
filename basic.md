@@ -132,35 +132,23 @@ make用于内建类型（map、slice 和channel）的内存分配。new用于其
 ## new
 本质上说跟其它语言中的同名函数功能一样：new(T)分配了零值填充的T类型的内存空间，并且返回其地址，即一个*T类型的值。用Go的术语说，它返回了一个指针，指向新分配的类型T的零值。有一点非常重要：
 
-new返回指针。
-
 ## make(T, args)
-与new(T)有着不同的功能，make只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。例如，一个slice，是一个包含指向数据（内部array）的指针、长度和容量的三项描述符；在这些项目被初始化之前，slice为nil。对于slice、map和channel来说，make初始化了内部的数据结构，填充适当的值。
+与new(T)有着不同的功能，make只能创建slice、map和channel，并且返回一个有初始值(非零)的T类型，而不是*T。
+
 Alex: new 分配该数据类型内存，然后内存清0; 而make 对应的slice、map和channel不仅仅是分配内存清0这么简单，它还有创建对应的管理用数据结构。
-
-# 值类型和引用类型
-* 所有像 int、float、bool 和 string 这些基本类型都属于值类型，使用这些类型的变量直接指向存在内存中的值.array 和strut 也是值类型。你可以通过 &i 来获取变量 i 的内存地址。值类型的变量的值存储在栈中。
-* 一个引用类型的变量 r1 存储的是 r1 的值所在的内存地址（数字），或内存地址中第一个字所在的位置. 在 Go 语言中，指针属于引用类型，其它的引用类型还包括 slices（，maps和 channel。被引用的变量会存储在堆中，以便进行垃圾回收，且比栈拥有更大的内存空间
-
-
-
 
 # struct
 类似C++概念。
-
 
 # 自定义数据类型
 ```go
 type typeName typeLiteral
 ```
-struct只是自定义类型里面一种比较特殊的类型而已，还有其他自定义类型申明，e.g.
+e.g.
 ```go
 type ages int
-
 type money float32
-
 type months map[string]int
-
 m := months {
 	"January":31,
 	"February":28,
@@ -168,10 +156,10 @@ m := months {
 	"December":31,
 }
 ```
+# summary
+值类型和引用类型
+* 所有像 int、float、bool 和 string,array, strut 是值类型。你可以通过 &i 来获取变量 i 的内存地址。变量存储在stack中。
+* 一个引用类型的变量 r1 存储的是 r1 的值所在的内存地址（数字），或内存地址中第一个字所在的位置. 在 Go 语言中，指针属于引用类型，其它的引用类型还包括 slices（，maps和 channel。被引用的变量会存储在heap中，以便进行垃圾回收，且比栈拥有更大的内存空间
 
-# pass by value or address
-* value:基本数据类型，int,float,bool,string, 以及数组和 struct 特点：变量直接存储值，内存通常在栈中分配，栈在函数调用完会被释放
-* address: 变量存储的是一个地址，这个地址存储最终的值。内存通常在 堆上分配。通过 GC 回收。引用类型： 指针、slice 切片、管道 channel、接口 interface、map、函数等
-
-# pointer
-[rbt & its testing](https://github.com/yc-alex-xu/go/tree/master/src/practise/rbtree)
+pointer
+* [rbt & its testing](https://github.com/yc-alex-xu/go/tree/master/src/practise/rbtree)
