@@ -1,3 +1,8 @@
+/*
+Go functions may be closures. A closure is a function value that references variables from outside its body.
+The function may access and assign to the referenced variables; in this sense the function is "bound" to the variables.
+*/
+
 package main
 
 import (
@@ -21,6 +26,8 @@ func main() {
 		fmt.Println("+", i, "=>", acc(i))
 	}
 	acc2()
+
+	closureAddress()
 }
 
 func adder() func(int) int {
@@ -44,4 +51,19 @@ func acc2() {
 		g = s
 	}(10)
 	fmt.Println("=", g)
+}
+
+/*看看g 的地址是不是每次都变化
+ */
+func closureAddress() {
+	var acc int
+	for i := range []int{1, 2, 3, 4, 5, 6, 7, 8, 9} {
+		g := func(j int) {
+			acc += j
+			fmt.Println("acc=", acc)
+		}
+		g(i)
+		fmt.Printf("type: %T address:%v \n", g, g)
+
+	}
 }
