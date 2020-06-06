@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-var num_goroutine int = 2
+var numG int = 2
 
 func sum(a []int, name string, c chan int) {
 	total := 0
@@ -11,7 +11,8 @@ func sum(a []int, name string, c chan int) {
 	}
 	fmt.Println(name, "send back sum")
 	c <- total // send total to c
-	if num_goroutine -= 1; num_goroutine == 0 {
+	//按理对全局变量操作需要加mutex,这里简化了
+	if numG--; numG == 0 {
 		close(c)
 	}
 }
