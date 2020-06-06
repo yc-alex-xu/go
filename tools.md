@@ -37,3 +37,11 @@ alex@minipc:/usr/lib/go/src/builtin$ cat builtin.go
 package builtin
 ```
 # gopl
+
+
+# objdum
+```bash
+ $ go build main.go 
+ $ go tool objdump main > obj.s
+ $ cat obj.s
+```
