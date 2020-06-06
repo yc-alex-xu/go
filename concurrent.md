@@ -6,6 +6,26 @@ go hello(a, b, c)
 通过关键字go就启动了一个goroutine。
 
 [example code](https://github.com/yc-alex-xu/go/blob/master/src/practise/goroutine/main.go)
+* main.go 两个goroutine 协调处理的情况
+* goodbye.go  主goroutine先结束的情况
+* mutex.go    在goodbye.go基础上加了mutex, 保证主goroutine等其他goroutine完成再退出
+* sync.go     mutex.go 基础上用两个mutex实现了goroutine按计划顺序执行
+
+goroutine 遇到下面的情况下可能会产生重新调度（大家判断哪些代码属于下面这些情况）：
+* 阻塞 I/O
+* select操作
+* 阻塞在channel
+* 等待锁
+* 主动调用 runtime.Gosched()
+
+goroutine 的抢占
+
+如果一个 goroutine 不包含上面提到的几种情况，那么其他的 goroutine 就无法被调度到相应的 CPU 上面运行，这是不应该发生的。这时候就需要抢占机制来打断长时间占用 CPU 资源的 goroutine ，发起重新调度。Golang 运行时（runtime）中的系统监控线程 sysmon 可以找出“长时间占用”的 goroutine，从而“提醒”相应的 goroutine 该中断了。
+
+note:
+* sysmon 在独立的 M（线程）中运行，且不需要绑定 P。这意味着， runtime.GOMAXPROCS(1) 限制 P 的数量为 1 的情况下，即使一个 goroutine 一直占用这个 P 进行密集型计算（意味着 goroutine 一直占有唯一的 P），依然不影响 sysmon 的正常运行。
+
+* sysmon 可以找到“长时间占用 P”的 goroutine，但也只是标记 goroutine 应该被抢占了，并无法强制进行 goroutine 的切换。因此本文的 “第二段代码” 在进行 for 循环时并不会被抢占，而是在 for 循环结束后执行 fmt.Printf("sum: %d\n", sum) 的时候才被抢占（因为 for 循环里没有被插入抢占检查点，也就是说抢占检查点是编译器预先插入的，在非内联的函数的前面，具体可以查看最后几篇参考文章）。
 
 # channels
 多个goroutine运行在同一个进程里面，共享内存数据，不过需要解决PV等同步问题，
