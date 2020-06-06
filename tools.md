@@ -5,10 +5,8 @@ $ go install golang.org/x/tools/cmd/godoc
 $ go install golang.org/x/tools/cmd/guru
 $ go install golang.org/x/tools/cmd/gorename
 $ go install golang.org/x/tools/cmd/fiximports
-
-
+$ go install golang.org/x/tools/cmd/godex
 ```
-
 
 # godoc
 由于https://golang.org/国内没法访问，只能启动godoc
@@ -38,3 +36,4 @@ alex@minipc:/usr/lib/go/src/builtin$ cat builtin.go
 */
 package builtin
 ```
+# gopl
