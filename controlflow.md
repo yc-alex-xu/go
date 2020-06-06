@@ -102,7 +102,7 @@ func myfunc(arg ...int) {
 	}
 }
 ```
-arg ...int告诉Go这个函数接受不定数量的参数。变量arg是一个int的slice：
+alex: 实际就传一slice，只是syntax上与c语言类似一下
 
 ## 函数作为值、类型
 在Go中函数也是一种变量，我们可以通过type来定义它，它的类型就是所有拥有相同的参数，相同的返回值的一种类型
