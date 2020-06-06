@@ -8,8 +8,6 @@ import (
 func say(name string) {
 	for i := 0; i < 5; i++ {
 		fmt.Println("goroutine:", name, "loop:", i)
-		runtime.Gosched() //让CPU把时间片让给别人
-
 	}
 }
 
