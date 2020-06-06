@@ -24,10 +24,7 @@ package <pkgName>（在我们的例子中是package main）这一行告诉我们
 * 大写字母开头的变量是可导出的，也就是其它包可以读取的，是公有变量；小写字母开头的就是不可导出的，是私有变量。
 * 大写字母开头的函数也是一样，相当于class中的带public关键词的公有函数；小写字母开头的就是有private关键词的私有函数。
 
-# encoding
-Go是天生支持UTF-8的，任何字符都可以直接输出，你甚至可以用UTF-8中的任何字符作为标识符。
 # var
-
 类型后置,类型在变量名的后面
 ```go
 var variableName type
@@ -45,14 +42,9 @@ const constantName = value
 # builtin数据类型
 go 是强类型，并且没有缺省转换的。
 ## Boolean
-在Go中，布尔值的类型为bool，值是true或false，默认为false。
+在Go中，布尔值的类型为bool，值是true或false，默认为false。布尔运算符号同c语言。
 
 Go 对于值之间的比较有非常严格的限制，只有两个类型相同的值才可以进行比较，如果值的类型是interface，它们也必须都实现了相同的接口。如果其中一个值是常量，那么另外一个值的类型必须和该常量类型相兼容的。如果以上条件都不满足，则其中一个值的类型必须在被转换为和另外一个值的类型相同之后才可以进行比较。
-
-布尔型的常量和变量也可以通过和逻辑运算符（非 !、和 &&、或 ||）结合来产生另外一个布尔值，这样的逻辑语句就其本身而言，并不是一个完整的 Go 语句。
-
-逻辑值可以被用于条件结构中的条件语句，以便测试某个条件是否满足。另外，和 &&、或 || 与相等 == 或不等 != 属于二元运算符，而非 ! 属于一元运算符。在接下来的内容中，我们会使用 T 来代表条件符合的语句，用 F 来代表条件不符合的语句。
-
 
 ## int 
 有无符号和带符号两种。Go同时支持int和uint，这两种类型的长度相同，但具体长度取决于不同编译器的实现。Go里面也有直接定义好位数的类型：rune, int8, int16, int32, int64和byte, uint8, uint16, uint32, uint64。其中rune是int32的别称，byte是uint8的别称。
@@ -65,12 +57,8 @@ Go 对于值之间的比较有非常严格的限制，只有两个类型相同�
 ## 复数
 complex128（64位实数+64位虚数）。如果需要小一些的，也有complex64(32位实数+32位虚数)。复数的形式为RE + IMi
 
-需要注意的一点是，这些类型的变量之间不允许互相赋值或操作，不然会在编译时引起编译器报错
-
 ## string
-我们在上一节中讲过，Go中的字符串都是采用UTF-8字符集编码。字符串是用一对双引号（""）或反引号（` `）括起来定义，它的类型是string。
-
-string 是Immutable的，如要修改需要转换成slice.
+字符串都是采用UTF-8字符集编码。字符串是用一对双引号（""）或反引号（` `）括起来定义；string 是Immutable的，如要修改需要转换成slice.
 
 ```go
 s := "hello"
@@ -89,15 +77,13 @@ Go里面有一个关键字iota，这个关键字用来声明enum的时候采用�
 
 # array、slice、map
 ## array
-array就是数组，它的定义方式如下：
+array就是数组，由于比较死板，直接使用较少.
 ```go
 var arr [n]type
 ```
 由于长度也是数组类型的一部分，因此[3]int与[4]int是不同的类型，数组也就不能改变长度。数组之间的赋值是值的赋值，即当把一个数组作为参数传入函数的时候，传入的其实是该数组的副本，而不是它的指针。如果要使用指针，那么就需要用到后面介绍的slice类型了。
 
 ## slice
-在很多应用场景中，数组并不能满足我们的需求。在初始定义数组时，我们并不知道需要多大的数组，因此我们就需要“动态数组”。在Go里面这种数据结构叫slice
-
 slice并不是真正意义上的动态数组，而是一个**引用类型**。slice总是指向一个底层array，slice的声明也可以像array一样，只是不需要长度(alex:估计类似c++ string的实现，可以自动扩充数组大小)。
 ```go
 // 和声明array一样，只是少了长度
@@ -114,16 +100,6 @@ slice有一些简便的操作
 * slice的第二个序列默认是数组的长度，ar[n:]等价于ar[n:len(ar)]
 * 如果从一个数组里面直接获取slice，可以这样ar[:]，因为默认第一个序列是0，第二个是数组的长度，即等价于ar[0:len(ar)]
 
-slice是引用类型，所以当引用改变其中元素的值时，其它的所有引用都会改变该值，
-[main program](https://github.com/yc-alex-xu/go/blob/master/src/practise/app1/main.go)
-的a和b，如果修改了a Slice中元素的值，那么b Slice相对应的值也会改变。
-
-从概念上面来说slice像一个结构体，这个结构体包含了三个元素：
-
-* 一个指针，指向数组中slice指定的开始位置
-* 长度，即slice的长度
-* 最大长度，也就是slice开始位置到数组的最后位置的长度
-
 对于slice有几个有用的内置函数：
 
 * len 获取slice的长度
@@ -131,8 +107,12 @@ slice是引用类型，所以当引用改变其中元素的值时，其它的所
 * append 向slice里面追加一个或者多个元素，然后返回一个和slice一样类型的slice
 * copy 函数copy从源slice的src中复制元素到目标dst，并且返回复制的元素的个数
 
+slice是引用类型，所以当引用改变其中元素的值时，其它的所有引用都会改变该值，
+[main program](https://github.com/yc-alex-xu/go/blob/master/src/practise/app1/main.go)
+的a和b，如果修改了a Slice中元素的值，那么b Slice相对应的值也会改变。
+
 ## map
-map也就是Python中字典的概念，它的格式为map[keyType]valueType
+map也就是Python中字典的概念，它的格式为 **map keyType]valueType**
 
 我们看下面的代码，map的读取和设置也类似slice一样，通过key来操作，只是slice的index只能是｀int｀类型，而map多了很多类型，可以是int，可以是string及所有完全定义了==与!=操作的类型。
 
@@ -143,6 +123,8 @@ map也就是Python中字典的概念，它的格式为map[keyType]valueType
 * 内置的len函数同样适用于map，返回map拥有的key的数量
 * map的值可以很方便的修改，通过numbers["one"]=11可以很容易的把key为one的字典值改为11
 * map和其他基本型别不同，它不是thread-safe，在多个go-routine存取时，必须使用mutex lock机制
+
+alex;目前map是用hash table实现的，不同于c++ 的红黑树方案。不过go 作为比较高层一些的语言，应该是不鼓励大家去扣实现，而是要遵循language spec.
 
 # make、new操作
 make用于内建类型（map、slice 和channel）的内存分配。new用于其他各种类型的内存分配。
