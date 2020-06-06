@@ -1,21 +1,22 @@
 package main
+
 import (
 	"fmt"
 	"strconv"
 )
 
-type Human struct {
-	name string
-	age int
+type human struct {
+	name  string
+	age   int
 	phone string
 }
 
-// 通过这个方法 Human 实现了 fmt.Stringer
-func (h Human) String() string {
-	return "❰"+h.name+" - "+strconv.Itoa(h.age)+" years old-  ✆ " +h.phone+"❱"
+// 通过这个方法 human 实现了 fmt.Stringer
+func (h human) String() string {
+	return "[" + h.name + " - " + strconv.Itoa(h.age) + " years old-  ✆ " + h.phone + "]"
 }
 
 func main() {
-	Bob := Human{"Bob", 39, "000-7777-XXX"}
-	fmt.Println("This Human is : ", Bob)
+	Bob := human{"Bob", 39, "000-7777-XXX"}
+	fmt.Println("This is ", Bob)
 }
