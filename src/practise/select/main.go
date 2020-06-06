@@ -8,6 +8,7 @@ func fibonacci(c, quit chan int) {
 		select {
 		//select其实就是类似switch的功能，default就是当监听的channel都没有准备好的时候，默认执行的（select不再阻塞等待channel）。
 		case c <- x:
+			fmt.Println("w ready")
 			x, y = y, x+y
 		case <-quit:
 			fmt.Println("quit")
