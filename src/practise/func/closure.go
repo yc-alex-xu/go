@@ -8,32 +8,31 @@ import (
 
 /*代替了debug的宏
  */
-var where = func() {
-	_, file, line, _ := runtime.Caller(1)
+var logF = func() {
+	_, file, line, _ := runtime.Caller(0)
 	log.Printf("%s:%d", file, line)
 }
 
 func main() {
-	//不需要时关闭调试语句
-	where = func() {}
-	f := adder()
+	//不需要时关闭调试语句，但不能赋 nil
+	logF = func() {}
+	acc := adder()
 	for i := 1; i < 10; i++ {
-		fmt.Println("+", i, "=", f(i))
+		fmt.Println("+", i, "=>", acc(i))
 	}
-	where()
-	adder2()
+	acc2()
 }
 
 func adder() func(int) int {
 	var x int //起了类似静态变量的作用
 	return func(delta int) int {
-		//在闭包中使用到的变量可以是在闭包函数体内声明的，也可以是在外部函数声明的：
-		x += delta
+		logF()
+		x += delta //access 在外部声明的变量
 		return x
 	}
 }
 
-func adder2() {
+func acc2() {
 	var g int
 	func(i int) {
 		s := 0
@@ -41,7 +40,7 @@ func adder2() {
 			fmt.Println("+", j)
 			s += j
 		}
-		where()
+		logF()
 		g = s
 	}(10)
 	fmt.Println("=", g)
