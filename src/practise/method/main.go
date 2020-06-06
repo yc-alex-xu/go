@@ -37,15 +37,16 @@ func (b *Box) setColor(c Color) {
 }
 
 func (bl BoxList) biggestColor() Color {
-	v := 0.00
-	k := Color(WHITE)
-	for _, b := range bl {
-		if bv := b.volume(); bv > v {
-			v = bv
-			k = b.color
+	max := 0.00
+	kMax := 0
+	//k := Color(WHITE)
+	for k, v := range bl {
+		if t := v.volume(); t > max {
+			max = t
+			kMax = k
 		}
 	}
-	return k
+	return bl[kMax].color
 }
 
 func (bl BoxList) paint2Bllack() {
