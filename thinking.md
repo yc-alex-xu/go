@@ -24,6 +24,7 @@ go 不想像C++一样解决所有的问题，而是把某一应用领域的问�
 10. 不支持静态变量
 11. new本质上说跟其它语言中的同名函数功能一样：new(T)分配了零值填充的T类型的内存空间，并且返回其地址，即一个*T类型的值. 而C/C++是不浪费时间做零值填充的
 
+alex: 虽然不支持static/macro,但有[手段部分替代](https://github.com/yc-alex-xu/go/blob/master/src/practise/func/closure.go)
 
 ## 缺点：
 * 从 0.9 版开始学习go,变化颇大，并且不兼容，以前写的程序现在已经不能运行。
