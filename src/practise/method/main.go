@@ -3,36 +3,44 @@ package main
 import "fmt"
 
 const (
+	//WHITE  enum 0
 	WHITE = iota
+	//BLACK enum 1
 	BLACK
+	//BLUE enum
 	BLUE
+	//RED  enum
 	RED
+	//YELLOW enum
 	YELLOW
 )
 
+//Color  bye
 type Color byte
 
+//Box struct to describe a box with color
 type Box struct {
 	width, height, depth float64
 	color                Color
 }
 
-type BoxList []Box //a slice of boxes
+//BoxList a slice of boxes
+type BoxList []Box
 
-func (b Box) Volume() float64 {
+func (b Box) volume() float64 {
 	return b.width * b.height * b.depth
 }
 
 //指针作为receiver,修改其field的值
-func (b *Box) SetColor(c Color) {
+func (b *Box) setColor(c Color) {
 	b.color = c //等价与*b.color
 }
 
-func (bl BoxList) BiggestColor() Color {
+func (bl BoxList) biggestColor() Color {
 	v := 0.00
 	k := Color(WHITE)
 	for _, b := range bl {
-		if bv := b.Volume(); bv > v {
+		if bv := b.volume(); bv > v {
 			v = bv
 			k = b.color
 		}
@@ -40,9 +48,9 @@ func (bl BoxList) BiggestColor() Color {
 	return k
 }
 
-func (bl BoxList) PaintItBlack() {
+func (bl BoxList) paint2Bllack() {
 	for i := range bl {
-		bl[i].SetColor(BLACK)
+		bl[i].setColor(BLACK)
 	}
 }
 
@@ -62,13 +70,13 @@ func main() {
 	}
 
 	fmt.Printf("We have %d boxes in our set\n", len(boxes))
-	fmt.Println("The volume of the first one is", boxes[0].Volume(), "cm³")
-	fmt.Println("The color of the last one is", boxes[len(boxes)-1].color.String())
-	fmt.Println("The biggest one is", boxes.BiggestColor().String())
+	fmt.Println("The volume of the first one is", boxes[0].volume(), "cm³")
+	//输出的就是字符如"YELLOW",而不是c/c++中的 0,1,2这种
+	fmt.Println("The color of the last one is", boxes[len(boxes)-1].color)
+	fmt.Println("The biggest one is", boxes.biggestColor())
 
 	fmt.Println("Let's paint them all black")
-	boxes.PaintItBlack()
-	fmt.Println("The color of the second one is", boxes[1].color.String())
-
-	fmt.Println("Obviously, now, the biggest one is", boxes.BiggestColor().String())
+	boxes.paint2Bllack()
+	fmt.Println("The box list are:", boxes)
+	fmt.Println("Obviously, now, the biggest one is", boxes.biggestColor())
 }
