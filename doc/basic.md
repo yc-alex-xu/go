@@ -35,6 +35,17 @@ var vname1, vname2, vname3 = v1, v2, v3
 * Go 语言也是区分大小写的，这与 C 家族中的其它语言相同
 * **_**（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃。
 
+不过go 支持类型推导,以下是等价的
+```go
+var variableName type = value
+variableName := value
+```
+想想Linux kernel中还得用gnu扩展
+````c
+int var = 666;
+typeof(&var) pvar = &var;
+````
+
 # const
 ```go
 const constantName = value
