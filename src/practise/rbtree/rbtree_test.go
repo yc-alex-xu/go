@@ -120,3 +120,23 @@ func Test_put(t *testing.T) {
 		})
 	}
 }
+
+func Test_rotateRight(t *testing.T) {
+	type args struct {
+		n *Node
+	}
+	tests := []struct {
+		name string
+		args args
+		want *Node
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := rotateRight(tt.args.n); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("rotateRight() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

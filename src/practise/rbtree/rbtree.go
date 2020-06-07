@@ -1,50 +1,68 @@
+/*
+红黑树是一种平衡的二叉查找树.
+* 节点是红色或黑色。
+* 根节点是黑色。
+* 每个叶子节点都是黑色的空节点（NIL节点）。
+* 每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)
+* 从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。
+*/
+
 package rbtree
 
 const (
-	RED   = true
+	//RED  color
+	RED = true
+	//BLACK color
 	BLACK = false
 )
 
+//RedBlackTree tree
 type RedBlackTree struct {
 	root *Node //no forward declartion needed in go??
 }
 
+//Item any type can be compared
 type Item interface {
 	Less(than Item) bool
 	More(than Item) bool
 }
 
+//Node type
 type Node struct {
 	size        uint64
 	left, right *Node
 	item        Item
 	value       string
-	//不玩linux kernel中的技巧，把color 设置为left/right的低位
-	color bool
+	color       bool
 }
 
+//New return a pointer to the empty strcut
 func New() *RedBlackTree {
-	return &RedBlackTree{} //empty  struct
+	return &RedBlackTree{}
 }
 
-//method
+//Size  return the size of the tree
 func (t *RedBlackTree) Size() uint64 {
 	return t.root.Size()
 }
 
-func (n *RedBlackTree) Put(key Item) {
-	n.root = put(n.root, key)
-	n.root.color = BLACK
+//Put   insert item into the tree
+func (t *RedBlackTree) Put(key Item) {
+	t.root = put(t.root, key)
+	t.root.color = BLACK
 }
 
-func (n *RedBlackTree) Find(key Item) (Item, bool) {
-	return find(n.root, key)
+//Find  find the itme in the tree
+func (t *RedBlackTree) Find(key Item) (Item, bool) {
+	return find(t.root, key)
 }
 
+//Size  return size of node
 func (n *Node) Size() uint64 {
 	return n.size
 }
 
+//Item   return item of the node
 func (n *Node) Item() Item {
 	return n.item
 }
@@ -78,7 +96,9 @@ func put(n *Node, item Item) *Node {
 	}
 
 	if isRed(n.left) && isRed(n.right) {
-		changeColors(n)
+		n.left.color = BLACK
+		n.right.color = BLACK
+		n.color = RED
 	}
 
 	n.size = size(n.left) + size(n.right) + 1
@@ -97,9 +117,10 @@ func find(n *Node, item Item) (Item, bool) {
 		return n.Item(), true
 	}
 
-	return nil, false
 }
 
+/* n 成为x 的左子树, 下降一级
+ */
 func rotateLeft(n *Node) *Node {
 	x := n.right
 	n.right = x.left
@@ -114,6 +135,8 @@ func rotateLeft(n *Node) *Node {
 	return x
 }
 
+/* n 成为x 的右子树, 下降一级
+ */
 func rotateRight(n *Node) *Node {
 	x := n.left
 	n.left = x.right
@@ -128,16 +151,10 @@ func rotateRight(n *Node) *Node {
 	return x
 }
 
-func changeColors(n *Node) {
-	n.left.color = BLACK
-	n.right.color = BLACK
-	n.color = RED
-}
-
 func isRed(n *Node) bool {
 	if n == nil {
 		return false
 	}
 
-	return n.color
+	return (n.color == RED)
 }
