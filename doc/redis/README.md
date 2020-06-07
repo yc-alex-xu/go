@@ -1,10 +1,10 @@
 # Targets
 * practise the Linux/C programming via code reading,including tcp/ip, epoll()
-* mastering the Redis as NoSQL DB
+* use the Redis in code
 * integraed it into k8s env, 
 * try Redis as publish/subscribe message system
 
-
+# output
 * [Run in Linux](redis_linux.md)
 * [redis in docker/k8s](../k8s/)
 * [databse operation](redis_db.md)
