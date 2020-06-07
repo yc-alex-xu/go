@@ -18,3 +18,4 @@
 * [docker as prod env & CI/CD](doc/docker_prod.md)
 * [deploy to k8s](https://github.com/yc-alex-xu/microk8s)
 * [mod](doc/mod.md)
+* [redis](doc/redis)
