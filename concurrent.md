@@ -11,7 +11,7 @@ go hello(a, b, c)
 * mutex.go    在goodbye.go基础上加了mutex, 保证主goroutine等副goroutine完成再退出
 * sync.go     mutex.go 基础上用两个mutex实现了goroutine按计划顺序执行
 
-goroutine 遇到下面的情况下可能会产生重新调度（大家判断哪些代码属于下面这些情况）：
+goroutine 遇到下面的情况下可能会产生**重新调度**：
 * 阻塞 I/O
 * select操作
 * 阻塞在channel
