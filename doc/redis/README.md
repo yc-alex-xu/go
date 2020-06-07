@@ -6,7 +6,6 @@
 
 # output
 * [Run in Linux](redis_linux.md)
-* [redis in docker/k8s](../k8s/)
 * [databse operation](redis_db.md)
 * [Dev with Redis](redis_dev.md)
 * [Source code reading](redis_code.md)
