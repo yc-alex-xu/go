@@ -1,4 +1,7 @@
 /*
+平衡二叉树又称 AVL 树
+* 特点：一个根节点的左右个子树的高度差不超过1
+
 红黑树是一种平衡的二叉查找树.
 * 节点是红色或黑色。
 * 根节点是黑色。
@@ -75,6 +78,16 @@ func size(n *Node) uint64 {
 	return n.size
 }
 
+/*
+每次插入元素的时候会将 元素 着色为红色。其目的为了快的满足红黑树的4个条件
+
+红黑树结构不会旋转变化情况：。
+1）当插入的节点为的父亲为黑色节点。【什么都不用做】
+2）被插入的节点是根节点。【直接把此节点涂为黑色】
+
+
+*/
+
 func put(n *Node, item Item) *Node {
 	switch {
 	case n == nil:
@@ -87,6 +100,8 @@ func put(n *Node, item Item) *Node {
 		n.item = item
 	}
 
+	/*parent 黑色，uncle红色
+	 */
 	if !isRed(n.left) && isRed(n.right) {
 		n = rotateLeft(n)
 	}
@@ -95,6 +110,11 @@ func put(n *Node, item Item) *Node {
 		n = rotateRight(n)
 	}
 
+	/*
+		如果parent 和 uncle都是红色
+		*将 parent 和 uncle 标记为黑色
+		* 将 grand parent (祖父) 标记为红色
+	*/
 	if isRed(n.left) && isRed(n.right) {
 		n.left.color = BLACK
 		n.right.color = BLACK
