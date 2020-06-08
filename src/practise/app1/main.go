@@ -14,7 +14,7 @@ const (
 
 var (
 	numG = 2
-	c    chan bool
+	c    = make(chan bool)
 )
 
 func init() { // initialization of package
@@ -27,7 +27,6 @@ func init() { // initialization of package
 	a[0] = 'h'
 	fmt.Println(string(b))
 	fmt.Println(runtime.GOOS)
-	c = make(chan bool)
 }
 
 func mapTest() {
