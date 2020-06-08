@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-//List  type: slice of Element
+//List  type: slice of empty interfae
 type List []interface{} //slice
 
 type person struct {
