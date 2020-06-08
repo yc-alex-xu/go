@@ -13,9 +13,8 @@ const (
 )
 
 var (
-	numG     = 2
-	isActive bool // 全局变量声明
-
+	numG = 2
+	c    chan bool
 )
 
 func init() { // initialization of package
@@ -28,8 +27,7 @@ func init() { // initialization of package
 	a[0] = 'h'
 	fmt.Println(string(b))
 	fmt.Println(runtime.GOOS)
-	go mapTest()
-
+	c = make(chan bool)
 }
 
 func mapTest() {
@@ -45,9 +43,13 @@ func mapTest() {
 	for k, v := range m2 {
 		fmt.Println(k, v)
 	}
+	c <- true
 }
 
 func main() {
 	num := float64(numG)
 	fmt.Printf("Sqrt(%v) = %v\n", numG, math.Sqrt(num))
+	go mapTest()
+	<-c
+
 }
