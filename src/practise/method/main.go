@@ -55,8 +55,10 @@ func (bl BoxList) paint2Bllack() {
 	}
 }
 
+//通过实现Strnger interface 输出的就是字符如"YELLOW",而不是c/c++中的 0,1,2这种
 func (c Color) String() string {
-	strings := []string{"WHITE", "BLACK", "BLUE", "RED", "YELLOW"}
+	//[...] instead of []: it ensures you get a (fixed size) array instead of a slice.
+	strings := [...]string{"WHITE", "BLACK", "BLUE", "RED", "YELLOW"}
 	return strings[c]
 }
 
@@ -72,7 +74,7 @@ func main() {
 
 	fmt.Printf("We have %d boxes in our set\n", len(boxes))
 	fmt.Println("The volume of the first one is", boxes[0].volume(), "cm³")
-	//输出的就是字符如"YELLOW",而不是c/c++中的 0,1,2这种
+
 	fmt.Println("The color of the last one is", boxes[len(boxes)-1].color)
 	fmt.Println("The biggest one is", boxes.biggestColor())
 
