@@ -35,10 +35,10 @@ var vname1, vname2, vname3 = v1, v2, v3
 * Go 语言也是区分大小写的，这与 C 家族中的其它语言相同
 * **_**（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃。
 
-不过go 支持类型推导,以下是等价的
+不过go 支持类型推导,以下是等价(inside function only)
 ```go
 var variableName type = value
-variableName := value
+variableName := value 
 ```
 想想Linux kernel中还得用gnu扩展
 ````c
@@ -50,6 +50,7 @@ typeof(&var) pvar = &var;
 ```go
 const constantName = value
 ```
+const 只支持literal类型。
 # builtin数据类型
 go 是强类型，并且没有缺省转换的。
 ## Boolean
@@ -123,7 +124,7 @@ slice是引用类型，所以当引用改变其中元素的值时，其它的所
 的a和b，如果修改了a Slice中元素的值，那么b Slice相对应的值也会改变。
 
 ## map
-map也就是Python中字典的概念，它的格式为 **map keyType]valueType**
+map也就是Python中字典的概念，它的格式为 **map [keyType]valueType**
 
 我们看下面的代码，map的读取和设置也类似slice一样，通过key来操作，只是slice的index只能是｀int｀类型，而map多了很多类型，可以是int，可以是string及所有完全定义了==与!=操作的类型。
 
@@ -170,7 +171,8 @@ m := months {
 # summary
 值类型和引用类型
 * 所有像 int、float、bool 和 string,array, strut 是值类型。你可以通过 &i 来获取变量 i 的内存地址。变量存储在stack中。
-* 一个引用类型的变量 r1 存储的是 r1 的值所在的内存地址（数字），或内存地址中第一个字所在的位置. 在 Go 语言中，指针属于引用类型，其它的引用类型还包括 slices（，maps和 channel。被引用的变量会存储在heap中，以便进行垃圾回收，且比栈拥有更大的内存空间
+* 一个引用类型的变量 r1 存储的是 r1 的值所在的内存地址（数字），或内存地址中第一个字所在的位置. 在 Go 语言中，指针属于引用类型，其它的引用类型还包括 slices，map和 channel。被引用的变量会存储在heap中，以便进行垃圾回收，且比栈拥有更大的内存空间
 
 pointer
 * [rbt & its testing](https://github.com/yc-alex-xu/go/tree/master/src/practise/rbtree)
+  
