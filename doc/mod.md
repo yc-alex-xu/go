@@ -1,5 +1,11 @@
 对于Go的版本管理主要用过 glide，下面介绍 Go 1.11 之后官方支持的版本管理工具 mod。
 
+使用 Go Modules 后，理论上：
+* 不用再定义 GOPATH 
+* 代码可以随意放置,不再需要 src 目录下
+* 不再需要 vendor 机制以及其他第 3 方 dep 工具
+* 执行 Go 命令，不再需要指定 GOPATH
+
 # setting
 ```bash
 $ go env |grep GO11
