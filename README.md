@@ -1,4 +1,3 @@
-* [some thinking](doc/thinking.md)
 * [start](doc/go_linux.md)
 * [command](doc/cmd.md)
 * [tools: godoc/gopls](doc/tools.md)
