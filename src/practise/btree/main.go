@@ -27,7 +27,7 @@ func buildTree(pre []int, in []int) (r *node) {
 
 }
 
-func preTraverse(r *node) {
+func traverse(r *node) {
 	if r != nil {
 		fmt.Print("val: ", r.val)
 	} else {
@@ -41,8 +41,8 @@ func preTraverse(r *node) {
 		fmt.Println(" right:", r.r.val)
 	}
 	fmt.Println()
-	preTraverse(r.l)
-	preTraverse(r.r)
+	traverse(r.l)
+	traverse(r.r)
 
 }
 
@@ -51,5 +51,5 @@ func main() {
 	in := []int{8, 12, 16, 32, 35, 43, 56, 78, 83, 88, 97, 121}
 
 	r := buildTree(pre, in)
-	preTraverse(r)
+	traverse(r)
 }
