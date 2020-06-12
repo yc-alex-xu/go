@@ -71,6 +71,40 @@ type string string
     nil. Values of string type are immutable.
 
 
+$ go doc image/color  Color
+package color // import "image/color"
+
+type Color interface {
+	// RGBA returns the alpha-premultiplied red, green, blue and alpha values
+	// for the color. Each value ranges within [0, 0xffff], but is represented
+	// by a uint32 so that multiplying by a blend factor up to 0xffff will not
+	// overflow.
+	//
+	// An alpha-premultiplied color component c has been scaled by alpha (a),
+	// so has valid values 0 <= c <= a.
+	RGBA() (r, g, b, a uint32)
+}
+    Color can convert itself to alpha-premultiplied 16-bits per channel RGBA.
+    The conversion may be lossy.
+
+$ go doc io.Copy
+package io // import "io"
+
+func Copy(dst Writer, src Reader) (written int64, err error)
+    Copy copies from src to dst until either EOF is reached on src or an error
+    occurs. It returns the number of bytes copied and the first error
+    encountered while copying, if any.
+
+    A successful Copy returns err == nil, not err == EOF. Because Copy is
+    defined to read from src until EOF, it does not treat an EOF from Read as an
+    error to be reported.
+
+    If src implements the WriterTo interface, the copy is implemented by calling
+    src.WriteTo(dst). Otherwise, if dst implements the ReaderFrom interface, the
+    copy is implemented by calling dst.ReadFrom(src).
+
+
+
 ```
 go doc 工具会从 Go 程序和包文件中提取顶级声明的首行注释以及每个对象的相关注释，并生成相关文档。它也可以作为一个提供在线文档浏览的 web 服务器，golang.org 就是通过这种形式实现的。
 

@@ -1,7 +1,6 @@
 * [start](doc/go_linux.md)
 * [command](doc/cmd.md)
 * [tools: godoc/gopls](doc/tools.md)
-* [basic](doc/basic.md)  
 * [programming_paradigm](doc/programming_paradigm.md)
 * [control flow & function](doc/controlflow.md)
 * [Object Oriented](doc/oo.md)
@@ -17,4 +16,4 @@
 * [docker as prod env & CI/CD](doc/docker_prod.md)
 * [deploy to k8s](https://github.com/yc-alex-xu/microk8s)
 * [mod](doc/mod.md)
-* [alog](doc/algo.md)
+* [algo](doc/algo.md)
