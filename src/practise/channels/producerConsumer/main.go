@@ -7,11 +7,17 @@ import (
 	"runtime"
 )
 
-var done = make(chan bool)
-var quit = make(chan bool)
-var ch = make(chan int)
+/*
+Go中channel可以是只读、只写、同时可读写的。
+//定义只读的channel
+read_only := make (<-chan int)
+//定义只写的channel
+write_only := make (chan<- int)
+//可同时读写
+read_write := make (chan int)
+*/
 
-func produce() {
+func produce(ch chan<- int, done chan<- bool) {
 	for i := 0; i < 10; i++ {
 		ch <- i
 		runtime.Gosched()
@@ -19,7 +25,7 @@ func produce() {
 	done <- true
 }
 
-func consume() {
+func consume(ch <-chan int, done <-chan bool, quit chan<- bool) {
 	for {
 		select {
 		case i := <-ch:
@@ -33,7 +39,10 @@ func consume() {
 }
 
 func main() {
-	go produce()
-	go consume()
+	ch := make(chan int)
+	done := make(chan bool)
+	go produce(ch, done)
+	quit := make(chan bool)
+	go consume(ch, done, quit)
 	<-quit
 }
