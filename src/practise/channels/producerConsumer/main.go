@@ -4,7 +4,6 @@ package main
 
 import (
 	"fmt"
-	"runtime"
 )
 
 /*
@@ -20,7 +19,7 @@ read_write := make (chan int)
 func produce(ch chan<- int, done chan<- bool) {
 	for i := 0; i < 10; i++ {
 		ch <- i
-		runtime.Gosched()
+		fmt.Println("produce ", i)
 	}
 	done <- true
 }
@@ -29,8 +28,7 @@ func consume(ch <-chan int, done <-chan bool, quit chan<- bool) {
 	for {
 		select {
 		case i := <-ch:
-			fmt.Println(i)
-			runtime.Gosched()
+			fmt.Println("consume ", i)
 		case <-done:
 			quit <- true
 			break
@@ -39,7 +37,7 @@ func consume(ch <-chan int, done <-chan bool, quit chan<- bool) {
 }
 
 func main() {
-	ch := make(chan int)
+	ch := make(chan int, 2)
 	done := make(chan bool)
 	go produce(ch, done)
 	quit := make(chan bool)
