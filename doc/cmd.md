@@ -53,7 +53,32 @@ go tool下面下载聚集了很多命令，这里我们只介绍两个，fix和v
     $ go test    
 
 # go doc
+想当与c语言开发用的man
+
 ```bash
+$ go doc builtin
+package builtin // import "builtin"
+func close(c chan<- Type)
+func delete(m map[Type]Type1, key Type)
+func panic(v interface{})
+func print(args ...Type)
+func println(args ...Type)
+func recover() interface{}
+func cap(v Type) int
+func copy(dst, src []Type) int
+func len(v Type) int
+type ComplexType complex64
+    func complex(r, i FloatType) ComplexType
+type FloatType float32
+    func imag(c ComplexType) FloatType
+    func real(c ComplexType) FloatType
+type IntegerType int
+type Type int
+    var nil Type
+    func append(slice []Type, elems ...Type) []Type
+    func make(t Type, size ...IntegerType) Type
+    func new(Type) *Type
+
 $ go doc fmt println
 package fmt // import "fmt"
 
@@ -109,6 +134,8 @@ func Copy(dst Writer, src Reader) (written int64, err error)
 go doc 工具会从 Go 程序和包文件中提取顶级声明的首行注释以及每个对象的相关注释，并生成相关文档。它也可以作为一个提供在线文档浏览的 web 服务器，golang.org 就是通过这种形式实现的。
 
 # go help
+这是对go 命令的帮助信息
+
 ```bash
 $ go help get
 usage: go get [-d] [-f] [-t] [-u] [-v] [-fix] [-insecure] [build flags] [packages]

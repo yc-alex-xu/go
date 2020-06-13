@@ -2,7 +2,6 @@
 * [command](doc/cmd.md)
 * [tools: godoc/gopls](doc/tools.md)
 * [programming_paradigm](doc/programming_paradigm.md)
-* [control flow & function](doc/controlflow.md)
 * [Object Oriented](doc/oo.md)
 * [CAP](doc/CAP.md)
 * [concurrent](doc/concurrent.md)

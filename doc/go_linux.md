@@ -60,8 +60,6 @@ Installing github.com/sqs/goreturns SUCCEEDED
 * https://github.com/Microsoft/vscode-go/wiki/Debugging-Go-code-using-VS-Code
 * https://github.com/golang/vscode-go
 
-![install the tools from　menu "command palette" ](images/vscode_install_tools.png)
-
 # install debug
 ```bash
 alex@minipc:~$ go get github.com/go-delve/delve/cmd/dlv
