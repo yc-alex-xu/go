@@ -20,3 +20,8 @@ The os interface is intended to be uniform across all operating systems. Feature
 
 # Package sort 
 provides primitives for sorting slices and user-defined collections.
+
+# package flag
+
+Package flag implements command-line flag parsing.
+The non-flag arguments are avai lable fro m flag.Args()

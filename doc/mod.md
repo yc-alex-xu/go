@@ -1,5 +1,7 @@
 对于Go的版本管理主要用过 glide，下面介绍 Go 1.11 之后官方支持的版本管理工具 mod。
 
+http://www.matthiassommer.it/programming/go-please-visual-studio-code-go-mod-go-language-server/
+
 使用 Go Modules 后，理论上：
 * 不用再定义 GOPATH 
 * 代码可以随意放置,不再需要 src 目录下
