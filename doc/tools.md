@@ -37,7 +37,11 @@ alex@minipc:/usr/lib/go/src/builtin$ cat builtin.go
 package builtin
 ```
 # gopl
-
+```bash
+go/src/golang.org/x$ git clone https://github.com/golang/sync
+$ go get  -v golang.org/x/tools/gopls
+```
+![setup in vs code](images/vscode_gopls.png)
 
 # objdum
 ```bash
