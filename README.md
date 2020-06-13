@@ -16,4 +16,4 @@
 * [deploy to k8s](https://github.com/yc-alex-xu/microk8s)
 * [mod](doc/mod.md)
 * [algo](doc/algo.md)
-* [some intresting difference from C/C++](diff.md)
+* [some intresting difference from C/C++](doc/diff.md)
