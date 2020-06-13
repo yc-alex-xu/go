@@ -10,7 +10,10 @@
 7. go 一方面是strict type, “type Celsius float64” 就定义了一种新type,不允许自动转换；另外一方面 In any case, a conversion never fails at run time.
 8. 虽然go 没有c++中class概念，但任何named type都可以看成一个class
 > func (c Celsius) String() string { return fmt.Sprintf("%g°C", c) }
-9.  
+9. package level 的varialbe,如果不是大写字母开头，类似**static variable in C**.
+10. abc
+11. 
+
 
 
 
@@ -22,4 +25,11 @@ note:
 1. C++ References are often confused with pointers, but three major differences between references and pointers are 
    - You cannot have NULL references. You must always be able to assume that a reference is connected to a legitimate piece of storage.
    - Once a reference is initialized to an object, it cannot be changed to refer to another object.  Pointers can be pointed to another object at any time.
-   - A reference must be initialized when it is created. Pointers can be initialized at any time.
+   - A reference must be initialized when it is created. Pointers can be initialized at any time.2.
+2. a good exmpale of scope
+
+![scop](images/sope.png)
+
+3. abc
+     
+
