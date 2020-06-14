@@ -11,7 +11,7 @@
 8. 虽然go 没有c++中class概念，但任何named type都可以看成一个class
 > func (c Celsius) String() string { return fmt.Sprintf("%g°C", c) }
 9. package level 的varialbe,如果不是大写字母开头，类似**static variable in C**.
-10. abc
+10. Go’s types fall into four categories: basic types, aggregate types, reference types, and interface types. 前两种各种语言都差不多。Reference types are a diverse group that includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
 11. 
 
 
@@ -30,6 +30,12 @@ note:
 
 ![scop](images/sope.png)
 
-3. abc
+3. printf也是有差异的
+```go
+	unicode := '国'
+	fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 国 '国'"
+```   
+4. abc
      
+
 
