@@ -1,5 +1,3 @@
-No time waste on env issue, so as simple as possible
-
 # install
 https://studygolang.com/dl
 
@@ -13,19 +11,6 @@ $ env |grep GO
 GOPATH=/home/alex/go
 $ go env
 GOARCH="amd64"
-```
-now all go code will put under folder ~/go
-
-
-
-
-# The test program 
-```bash
-src$ vi hello.go
-src$ go build hello.go 
-src$ ./hello 
-hello, world
-src$ 
 ```
 GOPATH这个目录用来存放Go源码，Go的可运行文件，以及相应的编译之后的包文件。所以这个目录下面有三个子目录：src、bin、pkg
 * src 存放源代码（比如：.go .c .h .s等）
@@ -57,7 +42,6 @@ Installing github.com/sqs/goreturns SUCCEEDED
 ```
 
 # vs code
-* https://github.com/Microsoft/vscode-go/wiki/Debugging-Go-code-using-VS-Code
 * https://github.com/golang/vscode-go
 
 # install debug
