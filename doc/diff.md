@@ -32,10 +32,46 @@ note:
 
 3. printf也是有差异的
 ```go
-	unicode := '国'
+	var r rune = '国'
 	fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 国 '国'"
 ```   
-4. abc
+4. const: the previous expression and its type can be used again in a group
+```go
+	const (
+		a = 1
+		b
+		c = 2
+		d
+	)
+   fmt.Println(a, b, c, d) // "1 1 2 2"
+	type Flags byte
+	const (
+		FlagUp Flags = 1 << iota
+		FlagBroadcast
+		FlagLoopback
+		FlagPointToPoint
+		FlagMulticast
+   )
+   //"1 10 100 1000 10000"
+	fmt.Printf("%b %b %b %b %b\n", FlagUp, FlagBroadcast, FlagLoopback, FlagPointToPoint, FlagMulticast)   
+```
+5. array 只要类型（element type, len）相同，是可以用一句话来判断是否相等的。 
+```go
+	a := [2]int{1, 2}
+	b := [...]int{1, 2}
+	c := [2]int{1, 3}
+	fmt.Println(a == b, a == c, b != c) // "true false true"
+```
+6. array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. 
+7. abc
+8. abc
+9. abc
+10. 
      
+
+
+todo:
+vs code debug时，如何输入stdin的内容？？？
+
 
 
