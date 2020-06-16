@@ -12,7 +12,48 @@
 > func (c Celsius) String() string { return fmt.Sprintf("%g°C", c) }
 9. package level 的varialbe,如果不是大写字母开头，类似**static variable in C**.
 10. Go’s types fall into four categories: basic types, aggregate types, reference types, and interface types. 前两种各种语言都差不多。Reference types are a diverse group that includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
-11. 
+11. OO: Composition is central to object-oriented programming in Go,
+12. Go programs use ordinary control-flow mechanisms like if and return to respond to errors. 
+13. Functions are first-class values in Go: like other values, function values have types, and they may be assigned to variables or passed to or returned from functions. 这说法跟Python非常类似。  The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference
+types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. Here again we see an example where the lifetime of a variable is not determined by its scope:
+the variable x exists after squares has returned within main, even though x is hidden inside f. 但是在loop 中,capture的一直是同一值，所以square2输出的一直是25. 这跟书中不符，跟Python的情况也不同。可以单步debug发现其奥秘。总之这一种非常有歧义的用法，GOPL的作者都无法掌握，大家就不要用了。
+```go
+// squares returns a function that returns
+// the next square number each time it is called.
+func squares() func() int {
+	var x int
+	return func() int {
+		x++
+		return x * x
+	}
+}
+
+func square2() []func() int {
+	res := make([]func() int, 5)
+	var x int
+	for i := 0; i < 5; i++ {
+		res[i] = func() int {
+			x = i
+			return x * x
+		}
+	}
+	return res
+}
+
+func main() {
+	f := squares()
+	fmt.Println(f()) // "1"
+	fmt.Println(f()) // "4"
+	fmt.Println(f()) // "9"
+	fmt.Println(f()) // "16"
+
+	for _, f := range square2() {
+		fmt.Println(f())
+	}
+}
+```
+14. TBD
+15. 
 
 
 
@@ -55,18 +96,23 @@ note:
    //"1 10 100 1000 10000"
 	fmt.Printf("%b %b %b %b %b\n", FlagUp, FlagBroadcast, FlagLoopback, FlagPointToPoint, FlagMulticast)   
 ```
-5. array 只要类型（element type, len）相同，是可以用一句话来判断是否相等的。 
+5. array 只要类型（element type, len）相同，是可以用一句话来判断是否相等的，slice/map不行。As with slices, maps cannot be compared to each other ; the only legal comparison is with nil. If all the fields of a struct are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=. 
 ```go
 	a := [2]int{1, 2}
 	b := [...]int{1, 2}
 	c := [2]int{1, 3}
 	fmt.Println(a == b, a == c, b != c) // "true false true"
 ```
-6. array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. 
-7. abc
-8. abc
-9. abc
-10. 
+6. array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. C/C++这时传的是地址
+7. The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不在需要了。 
+```go
+var employeeOfTheMonth *Employee = &dilbert
+employeeOfTheMonth.Position += " (proactive team player)"
+```
+8. TBD
+9. TBD
+10. TBD
+11. 
      
 
 
