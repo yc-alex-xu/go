@@ -12,9 +12,17 @@
 > func (c Celsius) String() string { return fmt.Sprintf("%g°C", c) }
 9. package level 的varialbe,如果不是大写字母开头，类似**static variable in C**.
 10. Go’s types fall into four categories: basic types, aggregate types, reference types, and interface types. 前两种各种语言都差不多。Reference types are a diverse group that includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
-11. OO: Composition is central to object-oriented programming in Go,
-12. Go programs use ordinary control-flow mechanisms like if and return to respond to errors. 
-13. Functions are first-class values in Go: like other values, function values have types, and they may be assigned to variables or passed to or returned from functions. 这说法跟Python非常类似。  The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference
+11. OO: 
+* Composition is central to object-oriented programming in Go,
+* In Go, we don’t use a special name like this or self for the (method) receiver; we choose receiver names just as we would for any other parameter. 
+* (syntactic sugar) implicit conversion: if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable: p.ScaleBy(2) // implicit (&p). Or the receiver argument has type *T and the receiver parameter has type T. The compi ler
+implicitly dereferences the receiver, in other words, loads the value: pptr.Distance(q) // implicit (*pptr) .  So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes:
+* Nil Is a Valid (method) Receiver Value
+* Composing Types by Struct Embedding： Distance has a parameter of type Point, and q is not a Point, so although q does have an embedded field of that type, we must explicitly select it. e.g. p.Distance(q.Point)
+* Method Values 可以作为函数指针用
+* interface is abstract type,
+12.  Go programs use ordinary control-flow mechanisms like if and return to respond to errors. 
+13.  Functions are first-class values in Go: like other values, function values have types, and they may be assigned to variables or passed to or returned from functions. 这说法跟Python非常类似。  The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference
 types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. Here again we see an example where the lifetime of a variable is not determined by its scope:
 the variable x exists after squares has returned within main, even though x is hidden inside f. 但是在loop 中,capture的一直是同一值，所以square2输出的一直是25. 这跟书中不符，跟Python的情况也不同。可以单步debug发现其奥秘。总之这一种非常有歧义的用法，GOPL的作者都无法掌握，大家就不要用了。
 ```go
@@ -52,7 +60,11 @@ func main() {
 	}
 }
 ```
-14. TBD
+14. sugar:The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不在需要了。 
+```go
+var employeeOfTheMonth *Employee = &dilbert
+employeeOfTheMonth.Position += " (proactive team player)"
+```
 15. 
 
 
@@ -104,11 +116,7 @@ note:
 	fmt.Println(a == b, a == c, b != c) // "true false true"
 ```
 6. array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. C/C++这时传的是地址
-7. The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不在需要了。 
-```go
-var employeeOfTheMonth *Employee = &dilbert
-employeeOfTheMonth.Position += " (proactive team player)"
-```
+7. 
 8. TBD
 9. TBD
 10. TBD
