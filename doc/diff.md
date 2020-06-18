@@ -24,18 +24,14 @@ a good exmpale of scope
 
  Go’s types fall into four categories: basic types, aggregate types, reference types, and interface types. 前两种各种语言都差不多。Reference types are a diverse group that includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
 
+## comparable
+* basic type: OK
+* aggreagte type: **array** 只要类型（element type, len）相同，是可以用一句话来判断是否相等的， If all the fields of a **struct** are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=. 
+* reference type: As with **slices, maps** cannot be compared to each other ; the only legal comparison is with nil.**pointer** only can be compared with nil.
+* interface type:  it is comparable; otherwise if two interface values are compared and have the same dynamic type, and  that type is comparable, the **interface** is comparable,  if not comparable (a slice, for instance), then the comparison fails with a panic. 
 
- if two interface values are compared and have the same dynamic type, but that type is not comparable (a slice, for instance), then the comparison fails with a panic.
-
-## syntactic sugar about type
-
-The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不需要了。 
-```go
-var employeeOfTheMonth *Employee = &dilbert
-employeeOfTheMonth.Position += " (proactive team player)"
-```
 ## array
- array 只要类型（element type, len）相同，是可以用一句话来判断是否相等的，slice/map不行。As with slices, maps cannot be compared to each other ; the only legal comparison is with nil. If all the fields of a struct are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=. 
+
 ```go
 	a := [2]int{1, 2}
 	b := [...]int{1, 2}
@@ -44,23 +40,29 @@ employeeOfTheMonth.Position += " (proactive team player)"
 ```
 array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. C/C++这时传的是地址
 
+## syntactic sugar about type
 
+struct: The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不需要了。 
+```go
+var employeeOfTheMonth *Employee = &dilbert
+employeeOfTheMonth.Position += " (proactive team player)"
+```
+
+ method: implicit conversion: if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable: p.ScaleBy(2) // implicit (&p). Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value: pptr.Distance(q) // implicit (*pptr) . 所以 So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；并且对同一type T,同时定义T和*T的方法，会报error: method redeclared. 但这语法糖的基础是，调用语句用的是一个variable,这样才可以取到地址，直接用type来调用无法取得地址不行。
 
 ## OO
-*  虽然go 没有c++中class概念，但任何named type都可以看成一个class
-> func (c Celsius) String() string { return fmt.Sprintf("%g°C", c) }
-* Encapsulation: package level 的varialbe,如果不是大写字母开头，类似**static variable in C**.
+*  虽然go 没有c++中class概念，但不限于struct,任何named type都可以看成一个class,如在其上定义method
+* Encapsulation: package/Struct/interface level 的varialbe,如果不是大写字母开头，类似**static variable in C**, method 也类似。
 * Composition is central to object-oriented programming in Go,
 * In Go, we don’t use a special name like this or self for the (method) receiver; we choose receiver names just as we would for any other parameter. 
-* (syntactic sugar) implicit conversion: if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable: p.ScaleBy(2) // implicit (&p). Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value: pptr.Distance(q) // implicit (*pptr) . 所以 So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；并且对同一type T,同时定义T和*T的方法，会报error: method redeclared.
 * Nil Is a Valid (method) Receiver Value
 * Composing Types by Struct Embedding： Distance has a parameter of type Point, and q is not a Point, so although q does have an embedded field of that type, we must explicitly select it. e.g. p.Distance(q.Point)
 * Method Values 可以作为函数指针用
-* interface is abstract type, 同时也有动态语言的特点：interface’s dynamic type and dynamic value；对于interface定义的method, 也是dynamic dispatch。
-* The zero-value mechanism: ensures that a var iable always holds a wel l-define d value of its typ。加上the init function mechanism 就不用**c++ constructor** 啦.
+* As shorthand, Go programmers often say that a concrete type ‘‘is a’’ particular interface type, meaning that it satisfies the interface. interface is abstract type, 同时也有动态语言的特点：interface’s dynamic type and dynamic value；对于interface定义的method, 也是dynamic dispatch。
+* The zero-value mechanism: ensures that a variable always holds a well-defined value of its type。加上the init function mechanism 就不用**c++ constructor** 啦.
 
 ## exception
- Go programs use ordinary control-flow mechanisms like if and return to respond to errors, no exception mechanism.
+ Go programs use ordinary control-flow mechanisms like **if** and **return** to respond to errors, no exception mechanism.
 
 ## programming paradigm:Functional Programming
 闭包和高阶函数
