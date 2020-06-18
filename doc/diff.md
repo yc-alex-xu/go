@@ -15,8 +15,7 @@
 11. OO: 
 * Composition is central to object-oriented programming in Go,
 * In Go, we don’t use a special name like this or self for the (method) receiver; we choose receiver names just as we would for any other parameter. 
-* (syntactic sugar) implicit conversion: if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable: p.ScaleBy(2) // implicit (&p). Or the receiver argument has type *T and the receiver parameter has type T. The compi ler
-implicitly dereferences the receiver, in other words, loads the value: pptr.Distance(q) // implicit (*pptr) .  So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes:
+* (syntactic sugar) implicit conversion: if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable: p.ScaleBy(2) // implicit (&p). Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value: pptr.Distance(q) // implicit (*pptr) . 所以 So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；并且对同一type T,同时定义T和*T的方法，会报error: method redeclared.
 * Nil Is a Valid (method) Receiver Value
 * Composing Types by Struct Embedding： Distance has a parameter of type Point, and q is not a Point, so although q does have an embedded field of that type, we must explicitly select it. e.g. p.Distance(q.Point)
 * Method Values 可以作为函数指针用
@@ -60,7 +59,7 @@ func main() {
 	}
 }
 ```
-14. sugar:The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不在需要了。 
+14.syntactic sugar:The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不需要了。 
 ```go
 var employeeOfTheMonth *Employee = &dilbert
 employeeOfTheMonth.Position += " (proactive team player)"
