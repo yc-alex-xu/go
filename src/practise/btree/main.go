@@ -15,7 +15,7 @@ func buildTree(pre []int, in []int) (r *node) {
 	}
 	r = new(node)
 	r.val = pre[0]
-	idx := 0
+	var idx int
 	for ; idx < len(in); idx++ {
 		if in[idx] == pre[0] {
 			break
@@ -29,16 +29,16 @@ func buildTree(pre []int, in []int) (r *node) {
 
 func traverse(r *node) {
 	if r != nil {
-		fmt.Print("val: ", r.val)
+		fmt.Print("val:", r.val)
 	} else {
 		return
 	}
 
 	if r.l != nil {
-		fmt.Print(" left:", r.l.val)
+		fmt.Print("\tleft:", r.l.val)
 	}
 	if r.r != nil {
-		fmt.Println(" right:", r.r.val)
+		fmt.Println("\tright:", r.r.val)
 	}
 	fmt.Println()
 	traverse(r.l)
