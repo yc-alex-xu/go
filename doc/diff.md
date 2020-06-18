@@ -19,10 +19,54 @@ a good exmpale of scope
 
 ![scop](images/sope.png)
 
-## type language
+## types 
  go 一方面是strict type, “type Celsius float64” 就定义了一种新type,不允许自动转换；另外一方面 In any case, a conversion never fails at run time.
 
  Go’s types fall into four categories: basic types, aggregate types, reference types, and interface types. 前两种各种语言都差不多。Reference types are a diverse group that includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
+
+go 的type declaration 没有次序概念，所以也不需要forward declaration,e.g.
+```go
+func main() {
+	db := database{"shoes": 50, "socks": 5}
+	mux := http.NewServeMux()
+	mux.Handle("/list", http.HandlerFunc(db.list))
+	mux.Handle("/price", http.HandlerFunc(db.price))
+	log.Fatal(http.ListenAndServe("localhost:8000", mux))
+}
+
+type database map[string]dollars
+
+```
+
+function type:
+
+```go
+package http // import "net/http"
+
+type HandlerFunc func(ResponseWriter, *Request)
+    The HandlerFunc type is an adapter to allow the use of ordinary functions as
+    HTTP handlers. If f is a function with the appropriate signature,
+    HandlerFunc(f) is a Handler that calls f.
+
+func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
+
+```
+
+
+```go
+s1, s2 := "abc", "abc"
+fmt.Println(s1 == s2)//"true"
+fmt.Println(errors.New("EOF") == errors.New("EOF")) // "false"
+```
+对比c++
+```c++
+  string s1 = "abc";
+  string s2 = "abc";
+  cout << (s1 == s2) << endl; //"1"
+  string *s3 = new string("abc");
+  string *s4 = new string("abc");
+  cout << (s3 == s4) << endl;//"0"
+```
 
 ## comparable
 * basic type: OK
@@ -52,14 +96,16 @@ employeeOfTheMonth.Position += " (proactive team player)"
 
 ## OO
 *  虽然go 没有c++中class概念，但不限于struct,任何named type都可以看成一个class,如在其上定义method
+* The zero-value mechanism: ensures that a variable always holds a well-defined value of its type。加上the init function mechanism 就不用**c++ constructor** 啦.
 * Encapsulation: package/Struct/interface level 的varialbe,如果不是大写字母开头，类似**static variable in C**, method 也类似。
 * Composition is central to object-oriented programming in Go,
 * In Go, we don’t use a special name like this or self for the (method) receiver; we choose receiver names just as we would for any other parameter. 
 * Nil Is a Valid (method) Receiver Value
 * Composing Types by Struct Embedding： Distance has a parameter of type Point, and q is not a Point, so although q does have an embedded field of that type, we must explicitly select it. e.g. p.Distance(q.Point)
 * Method Values 可以作为函数指针用
-* As shorthand, Go programmers often say that a concrete type ‘‘is a’’ particular interface type, meaning that it satisfies the interface. interface is abstract type, 同时也有动态语言的特点：interface’s dynamic type and dynamic value；对于interface定义的method, 也是dynamic dispatch。
-* The zero-value mechanism: ensures that a variable always holds a well-defined value of its type。加上the init function mechanism 就不用**c++ constructor** 啦.
+* As shorthand, Go programmers often say that a concrete type ‘‘is a’’ particular interface type, meaning that it satisfies the interface. interface is abstract type, 同时也有动态语言的特点：interface’s dynamic type and dynamic value；对于interface定义的method, 也是dynamic dispatch。Internally, Go can uses reflection to obtain the name of the interface’s dynamic type. 
+* These interfaces are but one (idion: only one) useful way to group related concrete types together and express the facets they share in common.不能把它看成c++的abstract class. in Go we can define new abstractions or groupings of interest when we need them, without modifying the declaration of the concrete type. 这里有点方法论的味道，也就是说先有concrete type，由于refactor 需要，再创建用于grouping共性的interface type. Interfaces are only needed when there are two or more concrete types that must be dealt with in a uniform way.
+
 
 ## exception
  Go programs use ordinary control-flow mechanisms like **if** and **return** to respond to errors, no exception mechanism.
@@ -110,6 +156,19 @@ func main() {
 	}
 }
 ```
+
+## Goroutines
+In Go, each concurrently executing activity is called a goroutine. When a program starts, its only goroutine is the one that calls the main function, so we call it the main goroutine. New goroutines are created by the go statement. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
+
+If goroutines are the activities of a concurrent Go program, channels are the connections between them.
+
+```go
+ch = make(chan int) // unbuffered channel
+ch = make(chan int, 0) // unbuffered channel
+ch = make(chan int, 3) // buffered channel with capacity 3
+```
+A send operation on an unbuffered channel blocks the sending goroutine until another goroutine executes a corresponding receive on the same channel.When a value is sent on an unbuffered channel, the receipt of the value happens before the reawakening of the sending goroutine.
+
 
 
 
