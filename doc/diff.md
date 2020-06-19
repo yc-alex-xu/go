@@ -95,6 +95,10 @@ Algorithms + Data Structures = Programs
 * Go's control flow is much simpler than c/c++, because it only choose some mandatory ones.
 * exception handling: Go programs use ordinary control-flow mechanisms like **if** and **return** to respond to errors, no exception mechanism.
 
+example code
+* [function](../src/practise/func)
+* [defer](../src/practise/defer/main.go)
+
 ## Object Oriented
 特点
 * 封装 (encapsulation)：将数据和计算放到一起，并引入访问控制
@@ -114,6 +118,12 @@ Go
 * Method Values 可以作为函数指针用
 * As shorthand, Go programmers often say that a concrete type ‘‘is a’’ particular interface type, meaning that it satisfies the interface. interface is abstract type, 同时也有动态语言的特点：interface’s dynamic type and dynamic value；对于interface定义的method, 也是dynamic dispatch。Internally, Go can uses reflection to obtain the name of the interface’s dynamic type. 
 * These interfaces are but one (idion: only one) useful way to group related concrete types together and express the facets they share in common.不能把它看成c++的abstract class. in Go we can define new abstractions or groupings of interest when we need them, without modifying the declaration of the concrete type. 这里有点方法论的味道，也就是说先有concrete type，由于refactor 需要，再创建用于grouping共性的interface type. Interfaces are only needed when there are two or more concrete types that must be dealt with in a uniform way.
+
+example code
+* [struct](../src/practise/struct)
+* [method](../src/practise/method)
+* [interface](../src/practise/interface)
+* [reflect](../src/practise/reflect)
 
 
 ## Functional Programming
