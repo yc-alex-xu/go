@@ -9,7 +9,8 @@
 C++ References are often confused with pointers, but three major differences between references and pointers are 
    - You cannot have NULL references. You must always be able to assume that a reference is connected to a legitimate piece of storage.
    - Once a reference is initialized to an object, it cannot be changed to refer to another object.  Pointers can be pointed to another object at any time.
-   - A reference must be initialized when it is created. Pointers can be initialized at any time.2.
+   - A reference must be initialized when it is created. Pointers can be initialized at any time.
+  
 we can read or update the value of a variable **indirectly** via a pointer, without using or even knowing the name of the variable, if indeed it has a name. pointer of 像是综合了**pointer of c 的写法和reference in C++的用法**. 
 
 ## local variables 
@@ -20,7 +21,7 @@ have dynamic lifetimes。 A compiler may choose to allocate local variables on t
 ## types 
  go 一方面是strict type, “type Celsius float64” 就定义了一种新type,不允许自动转换；另外一方面 In any case, a conversion never fails at run time.
 
- Go’s types fall into four categories: basic types, aggregate types, reference types, and interface types. 前两种各种语言都差不多。Reference types are a diverse group that includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
+ Go’s types fall into four categories: **basic types, aggregate types, reference types, and interface types**. 前两种各种语言都差不多。Reference types are a diverse group that includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
 
 array:
 
@@ -56,39 +57,26 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
 
 
 ## comparable
-* basic type: OK
-* aggreagte type: **array** 只要类型（element type, len）相同，是可以用一句话来判断是否相等的， If all the fields of a **struct** are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=. 
-* reference type: As with **slices, maps** cannot be compared to each other ; the only legal comparison is with nil.**pointer** only can be compared with nil. The **function** values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. 
-* interface type:  it is comparable; otherwise if two interface values are compared and have the same dynamic type, and  that type is comparable, the **interface** is comparable,  if not comparable (a slice, for instance), then the comparison fails with a panic. 
+
+basic type: 
+
+OK
+
+aggreagte type: 
+* **array** 只要类型（element type, len）相同即可， 
+* If all the fields of a **struct** are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=.
+
+reference type: 
+* As with **slices, maps** cannot be compared to each other ; the only legal comparison is with nil.
+* **pointer** only can be compared with nil. 
+* The **function** values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. 
+
+interface type:  
+
+it is comparable; otherwise if two interface values are compared and have the same dynamic type, and  that type is comparable, the **interface** is comparable,  if not comparable (a slice, for instance), then the comparison fails with a panic. 
 
 
-example of string comparation
-```go
-	s1, s2 := "abc", "abc"
-	fmt.Println(s1 == s2) //"true"
-	s3 := new(string)
-	*s3 = "abc"
-	s4 := new(string)
-	*s4 = "abc"
-	fmt.Println(s3 == s4) // "false"
-```
-对比c++
-```c++
-  string s1 = "abc";
-  string s2 = "abc";
-  cout << (s1 == s2) << endl; //"1"
-  string *s3 = new string("abc");
-  string *s4 = new string("abc");
-  cout << (s3 == s4) << endl;//"0"
-```
-
-example of array comparation
-```go
-	a := [2]int{1, 2}
-	b := [...]int{1, 2}
-	c := [2]int{1, 3}
-	fmt.Println(a == b, a == c, b != c) // "true false true"
-```
+* [example of string comparation](../src/practise/comparable/main.go)
 
 ## syntactic sugar about type
 
@@ -152,26 +140,8 @@ A send operation on an unbuffered channel blocks the sending goroutine until ano
 ```   
 ## more kinds of const declaration
 
-const: the previous expression and its type can be used again in a group
-```go
-	const (
-		a = 1
-		b
-		c = 2
-		d
-	)
-   fmt.Println(a, b, c, d) // "1 1 2 2"
-	type Flags byte
-	const (
-		FlagUp Flags = 1 << iota
-		FlagBroadcast
-		FlagLoopback
-		FlagPointToPoint
-		FlagMulticast
-   )
-   //"1 10 100 1000 10000"
-	fmt.Printf("%b %b %b %b %b\n", FlagUp, FlagBroadcast, FlagLoopback, FlagPointToPoint, FlagMulticast)   
-```
+const: 
+* [some example](../src/practise/const/main.go)
 
   
 # todo:
