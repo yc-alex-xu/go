@@ -1,9 +1,7 @@
 # go get
-The go get command can download a single package or an entire subtree or repository using the ... notation, as in the previous section. The tool also computes and downloads all the dependencies of the initial packages
-e.g. go get -u -v 
-Without that flag -u, packages that already exist locally will not be updated.
+Get downloads the packages named by the import paths, along with their dependencies. It then installs the named packages, like 'go install'.e.g. go get -u -v 
 
-Once go get has downloaded the packages, it builds them and then installs the libraries and commands, just like **go install**.
+Without that flag -u, packages that already exist locally will not be updated.
 
 # go build
 用于编译package main,其他package 只是检查一下编译错误。
@@ -90,28 +88,13 @@ go tool下面下载聚集了很多命令，这里我们只介绍两个，fix和v
 $ go help get
 usage: go get [-d] [-f] [-t] [-u] [-v] [-fix] [-insecure] [build flags] [packages]
 
-Get downloads the packages named by the import paths, along with their
-dependencies. It then installs the named packages, like 'go install'.
-
 $ go help packages
 Many commands apply to a set of packages:
 
 	go action [packages]
 
-To make common patterns more convenient, there are two special cases.
-First, /... at the end of the pattern can match an empty string,
-so that net/... matches both net and packages in its subdirectories, like net/http.
-Second, any slash-separated pattern element containing a wildcard never
-participates in a match of the "vendor" element in the path of a vendored
-package, so that ./... does not match packages in subdirectories of
-./vendor or ./mycode/vendor, but ./vendor/... and ./mycode/vendor/... do.
-Note, however, that a directory named vendor that itself contains code
-is not a vendored package: cmd/vendor would be a command named vendor,
-and the pattern cmd/... matches it.
-See golang.org/s/go15vendor for more about vendoring.
-
 ```
-# install after gfw
+# install some cmd after gfw
 ```bash
 go/src/golang.org/x$ git clone https://github.com/golang/tools.git
 $ go install golang.org/x/tools/cmd/godoc
