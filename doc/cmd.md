@@ -23,6 +23,50 @@ to cross-compile a Go program,Just set the GOOS or GOARCH env variables during t
 #  go list
 reports information about available packages
 
+
+# go doc
+类似 linux/c用的man
+
+```bash
+$ go doc builtin
+$ go doc fmt println
+$ go doc image/color  Color
+$ go doc io.Copy
+
+```
+go doc 工具会从 Go 程序和包文件中提取顶级声明的首行注释以及每个对象的相关注释，并生成相关文档。golang.org 就是通过这种形式实现的。
+
+# go test
+Go语言中自带有一个轻量级的测试框架testing和自带的go test命令会自动读取源码目录下面名为*_test.go的文件，生成并运行测试用的可执行文件。默认的情况下，不需要任何的参数，它会自动把你源码包下面所有test文件测试完毕，当然你也可以带上参数，详情请参考go help testflag
+
+Within *_test.go files, three kinds of functions are treated specially : 
+* tests, 
+* benchmarks, and
+* examples. 
+
+[rbt & its testing](https://github.com/yc-alex-xu/go/tree/master/src/practise/rbtree)
+
+```bash
+$ go test
+PASS
+ok  	practise/rbtree	0.002s
+```
+The go test tool has built-in support for several kinds of profiling.
+```bash
+$ go test -cpuprofile=cpu.out
+$ go test -blockprofile=block.out
+$ go test -memprofile=mem.out
+$ go tool pprof -text -nodecount=10 ./http.test cpu.log
+```
+
+## 3rd party: gotest
+gotests插件自动生成测试代码:
+
+```bash
+go get -u -v github.com/cweill/gotests/...
+```
+安装后，VS code 就可以选定一个 function 然后让他自动生成 unit test case 和benchmark test；test case 也可以在VS code 中选择执行。
+
 # go clean
 这个命令是用来移除当前源码包和关联源码包里面编译生成的文件。我一般都是利用这个命令清除编译文件，然后GitHub递交源码，在本机测试的时候这些编译文件都是和系统相关的，但是对于源码管理来说没必要。
 
@@ -38,100 +82,6 @@ go tool下面下载聚集了很多命令，这里我们只介绍两个，fix和v
 # go generate
 这个命令是从Go1.4开始才设计的，用于在编译前自动化生成某类代码。go generate和go build是完全不一样的命令，通过分析源码中特殊的注释，然后执行相应的命令。这些命令都是很明确的，没有任何的依赖在里面。而且大家在用这个之前心里面一定要有一个理念，这个go generate是给你用的，不是给使用你这个包的人用的，是方便你来生成一些代码的。
 
-这里我们来举一个简单的例子，例如我们经常会使用yacc来生成代码，那么我们常用这样的命令：
-
-    go tool yacc -o gopher.go -p parser gopher.y
--o 指定了输出的文件名， -p指定了package的名称，这是一个单独的命令，如果我们想让go generate来触发这个命令，那么就可以在当前目录的任意一个xxx.go文件里面的任意位置增加一行如下的注释：
-
-    //go:generate go tool yacc -o gopher.go -p parser gopher.y
-这里我们注意了，//go:generate是没有任何空格的，这其实就是一个固定的格式，在扫描源码文件的时候就是根据这个来判断的。
-
-所以我们可以通过如下的命令来生成，编译，测试。如果gopher.y文件有修改，那么就重新执行go generate重新生成文件就好。
-
-    $ go generate
-    $ go build
-    $ go test    
-
-# go doc
-想当与c语言开发用的man
-
-```bash
-$ go doc builtin
-package builtin // import "builtin"
-func close(c chan<- Type)
-func delete(m map[Type]Type1, key Type)
-func panic(v interface{})
-func print(args ...Type)
-func println(args ...Type)
-func recover() interface{}
-func cap(v Type) int
-func copy(dst, src []Type) int
-func len(v Type) int
-type ComplexType complex64
-    func complex(r, i FloatType) ComplexType
-type FloatType float32
-    func imag(c ComplexType) FloatType
-    func real(c ComplexType) FloatType
-type IntegerType int
-type Type int
-    var nil Type
-    func append(slice []Type, elems ...Type) []Type
-    func make(t Type, size ...IntegerType) Type
-    func new(Type) *Type
-
-$ go doc fmt println
-package fmt // import "fmt"
-
-func Println(a ...interface{}) (n int, err error)
-    Println formats using the default formats for its operands and writes to
-    standard output. Spaces are always added between operands and a newline is
-    appended. It returns the number of bytes written and any write error
-    encountered.
-$ go doc builtin string
-package builtin // import "builtin"
-
-type string string
-    string is the set of all strings of 8-bit bytes, conventionally but not
-    necessarily representing UTF-8-encoded text. A string may be empty, but not
-    nil. Values of string type are immutable.
-
-
-$ go doc image/color  Color
-package color // import "image/color"
-
-type Color interface {
-	// RGBA returns the alpha-premultiplied red, green, blue and alpha values
-	// for the color. Each value ranges within [0, 0xffff], but is represented
-	// by a uint32 so that multiplying by a blend factor up to 0xffff will not
-	// overflow.
-	//
-	// An alpha-premultiplied color component c has been scaled by alpha (a),
-	// so has valid values 0 <= c <= a.
-	RGBA() (r, g, b, a uint32)
-}
-    Color can convert itself to alpha-premultiplied 16-bits per channel RGBA.
-    The conversion may be lossy.
-
-$ go doc io.Copy
-package io // import "io"
-
-func Copy(dst Writer, src Reader) (written int64, err error)
-    Copy copies from src to dst until either EOF is reached on src or an error
-    occurs. It returns the number of bytes copied and the first error
-    encountered while copying, if any.
-
-    A successful Copy returns err == nil, not err == EOF. Because Copy is
-    defined to read from src until EOF, it does not treat an EOF from Read as an
-    error to be reported.
-
-    If src implements the WriterTo interface, the copy is implemented by calling
-    src.WriteTo(dst). Otherwise, if dst implements the ReaderFrom interface, the
-    copy is implemented by calling dst.ReadFrom(src).
-
-
-
-```
-go doc 工具会从 Go 程序和包文件中提取顶级声明的首行注释以及每个对象的相关注释，并生成相关文档。它也可以作为一个提供在线文档浏览的 web 服务器，golang.org 就是通过这种形式实现的。
 
 # go help
 这是对go 命令的帮助信息
@@ -212,24 +162,3 @@ $ go get  -v golang.org/x/tools/gopls
  $ go tool objdump main > obj.s
  $ cat obj.s
 ```
-
-# go test
-Go语言中自带有一个轻量级的测试框架testing和自带的go test命令会自动读取源码目录下面名为*_test.go的文件，生成并运行测试用的可执行文件。默认的情况下，不需要任何的参数，它会自动把你源码包下面所有test文件测试完毕，当然你也可以带上参数，详情请参考go help testflag
-
-[rbt & its testing](https://github.com/yc-alex-xu/go/tree/master/src/practise/rbtree)
-
-```bash
-$ go test
-PASS
-ok  	practise/rbtree	0.002s
-```
-## 3rd party: gotest
-gotests插件自动生成测试代码:
-
-```bash
-go get -u -v github.com/cweill/gotests/...
-```
-安装后，VS code 就可以选定一个 function 然后让他自动生成 unit test case 和benchmark test；test case 也可以在VS code 中选择执行。
-
-# profiler
-Go 提供了一个低级的分析 API runtime/pprof ，但如果你在开发一个长期运行的服务，使用更高级的 net/http/pprof 包会更加便利。你只需要在代码中加入 import _ "net/http/pprof" ，它就会自动注册所需的 HTTP 处理器（Handler） 。
