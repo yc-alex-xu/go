@@ -3,7 +3,8 @@
 可以说是source code file的逻辑名，同一目录下多个source code file 只要用同样的package name，那就跟合成一个文件没区别。不用**include**啦。Packages in Go serve the same purposes as libraries or modules in other languages, supporting modularity, encapsulation, separate compilation, and reuse.
 
 ## local variables 
-have dynamic lifetimes。 A compiler may choose to allocate local variables on the heap or on the stack but, perhaps surprisingly, this choice is not detemined by whether var or new was used to declare the variable. 也就是说，程序员不用操心，一个func可以返回其locall variable,放心用，gc不会愚蠢的recycle其占用空间。Garbage collection is a tremendous help in writing correct programs, but it does not relieve you of the burden of thinking about memory. You don’t need to explicitly allocate and free memory, but to write efficient programs you still need to be aware of the lifet ime of variables.For example, keeping unnecessary pointers to short-lived objects within long-lived objects,especially global variables, will prevent the garbage collector from reclaiming the short-lived objects.
+* have dynamic lifetimes。 A compiler may choose to allocate local variables on the heap or on the stack but, perhaps surprisingly, this choice is not detemined by whether var or new was used to declare the variable. 也就是说，程序员不用操心，一个func可以返回其locall variable,放心用，gc不会愚蠢的recycle其占用空间。
+* Garbage collection is a tremendous help in writing correct programs, but it does not relieve you of the burden of thinking about memory. You don’t need to explicitly allocate and free memory, but to write efficient programs you still need to be aware of the lifet ime of variables.For example, keeping unnecessary pointers to short-lived objects within long-lived objects,especially global variables, will prevent the garbage collector from reclaiming the short-lived objects.
 
 scope:
 
@@ -86,7 +87,11 @@ it is comparable; otherwise if two interface values are compared and have the sa
 var employeeOfTheMonth *Employee = &dilbert
 employeeOfTheMonth.Position += " (proactive team player)"
 ```
-**method**: implicit conversion: if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable: p.ScaleBy(2) // implicit (&p). Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value: pptr.Distance(q) // implicit (*pptr) . 所以 So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；并且对同一type T,同时定义T和*T的方法，会报error: method redeclared. 但这语法糖的基础是，调用语句用的是一个variable,这样才可以取到地址，直接用type来调用无法取得地址不行。
+**method**: implicit conversion: 
+* if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable.但这语法糖的基础是，调用语句用的是一个variable,这样才可以取到地址，直接用type来调用无法取得地址不行。
+* Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver
+* So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；
+* 并且对同一type T,同时定义T和*T的方法，会报error: method redeclared. 
 
 ## Procedure Oriented)
 Algorithms + Data Structures = Programs 
@@ -117,7 +122,8 @@ Go
 * Composing Types by Struct Embedding： Distance has a parameter of type Point, and q is not a Point, so although q does have an embedded field of that type, we must explicitly select it. e.g. p.Distance(q.Point)
 * Method Values 可以作为函数指针用
 * As shorthand, Go programmers often say that a concrete type ‘‘is a’’ particular interface type, meaning that it satisfies the interface. interface is abstract type, 同时也有动态语言的特点：interface’s dynamic type and dynamic value；对于interface定义的method, 也是dynamic dispatch。Internally, Go can uses reflection to obtain the name of the interface’s dynamic type. 
-* These interfaces are but one (idion: only one) useful way to group related concrete types together and express the facets they share in common.不能把它看成c++的abstract class. in Go we can define new abstractions or groupings of interest when we need them, without modifying the declaration of the concrete type. 这里有点方法论的味道，也就是说先有concrete type，由于refactor 需要，再创建用于grouping共性的interface type. Interfaces are only needed when there are two or more concrete types that must be dealt with in a uniform way.
+* These interfaces are but one (idion: only one) useful way to group related concrete types together and express the facets they share in common.不能把它看成c++的abstract class. 
+* in Go we can define new abstractions or groupings of interest when we need them, without modifying the declaration of the concrete type. 这里有点方法论的味道，也就是说先有concrete type，由于refactor 需要，再创建用于grouping共性的interface type. Interfaces are only needed when there are two or more concrete types that must be dealt with in a uniform way.
 
 example code
 * [struct](../src/practise/struct)
@@ -134,9 +140,8 @@ example code
 
 Go:
 
-Functions are first-class values in Go: like other values, function values have types, and they may be assigned to variables or passed to or returned from functions. 这说法跟Python非常类似。  The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference
-types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. Here again we see an example where the lifetime of a variable is not determined by its scope.
-
+* Functions are first-class values in Go: like other values, function values have types, and they may be assigned to variables or passed to or returned from functions. 这说法跟Python非常类似。  
+* The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. 
 example code
 * [closure](../src/practise/closure)
   
