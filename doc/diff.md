@@ -71,7 +71,7 @@ fmt.Println(errors.New("EOF") == errors.New("EOF")) // "false"
 ## comparable
 * basic type: OK
 * aggreagte type: **array** 只要类型（element type, len）相同，是可以用一句话来判断是否相等的， If all the fields of a **struct** are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=. 
-* reference type: As with **slices, maps** cannot be compared to each other ; the only legal comparison is with nil.**pointer** only can be compared with nil.
+* reference type: As with **slices, maps** cannot be compared to each other ; the only legal comparison is with nil.**pointer** only can be compared with nil. The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. 
 * interface type:  it is comparable; otherwise if two interface values are compared and have the same dynamic type, and  that type is comparable, the **interface** is comparable,  if not comparable (a slice, for instance), then the comparison fails with a panic. 
 
 ## array
@@ -119,43 +119,9 @@ employeeOfTheMonth.Position += " (proactive team player)"
 除了高阶函数和仿函数（或闭包）的概念，FP 还引入了惰性计算的概念。在惰性计算中，表达式不是在绑定到变量时立即计算，而是在求值程序需要产生表达式的值时进行计算。延迟的计算使您可以编写可能潜在地生成无穷输出的函数。因为不会计算多于程序的其余部分所需要的值，所以不需要担心由无穷计算所导致的 out-of-memory 错误。一个惰性计算的例子是生成无穷 Fibonacci 列表的函数，但是对第n个Fibonacci 数的计算相当于只是从可能的无穷列表中提取一项。
 
 Functions are first-class values in Go: like other values, function values have types, and they may be assigned to variables or passed to or returned from functions. 这说法跟Python非常类似。  The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference
-types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. Here again we see an example where the lifetime of a variable is not determined by its scope:
-the variable x exists after squares has returned within main, even though x is hidden inside f. 但是在loop 中,capture的一直是同一值，所以square2输出的一直是25. 这跟书中不符，跟Python的情况也不同。可以单步debug发现其奥秘。总之这一种非常有歧义的用法，GOPL的作者都无法掌握，大家就不要用了。
-```go
-// squares returns a function that returns
-// the next square number each time it is called.
-func squares() func() int {
-	var x int
-	return func() int {
-		x++
-		return x * x
-	}
-}
+types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. Here again we see an example where the lifetime of a variable is not determined by its scope.
 
-func square2() []func() int {
-	res := make([]func() int, 5)
-	var x int
-	for i := 0; i < 5; i++ {
-		res[i] = func() int {
-			x = i
-			return x * x
-		}
-	}
-	return res
-}
-
-func main() {
-	f := squares()
-	fmt.Println(f()) // "1"
-	fmt.Println(f()) // "4"
-	fmt.Println(f()) // "9"
-	fmt.Println(f()) // "16"
-
-	for _, f := range square2() {
-		fmt.Println(f())
-	}
-}
-```
+* [when closure capture loop variable](../src/practise/func/closureLoopVariable/main.go)
 
 ## Goroutines
 In Go, each concurrently executing activity is called a goroutine. When a program starts, its only goroutine is the one that calls the main function, so we call it the main goroutine. New goroutines are created by the go statement. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
