@@ -170,6 +170,26 @@ ch = make(chan int, 3) // buffered channel with capacity 3
 A send operation on an unbuffered channel blocks the sending goroutine until another goroutine executes a corresponding receive on the same channel.When a value is sent on an unbuffered channel, the receipt of the value happens before the reawakening of the sending goroutine.
 
 
+## waitpid的go 版
+
+	package sync // import "sync"
+
+	type WaitGroup struct {
+		// Has unexported fields.
+	}
+		A WaitGroup waits for a collection of goroutines to finish. The main
+		goroutine calls Add to set the number of goroutines to wait for. Then each
+		of the goroutines runs and calls Done when finished. At the same time, Wait
+		can be used to block until all goroutines have finished.
+
+		A WaitGroup must not be copied after first use.
+
+	func (wg *WaitGroup) Add(delta int)
+	func (wg *WaitGroup) Done()
+	func (wg *WaitGroup) Wait()
+
+
+
 
 
 
