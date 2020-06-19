@@ -15,14 +15,16 @@ we can read or update the value of a variable **indirectly** via a pointer, with
 ## local variables 
 have dynamic lifetimes。 A compiler may choose to allocate local variables on the heap or on the stack but, perhaps surprisingly, this choice is not detemined by whether var or new was used to declare the variable. 也就是说，程序员不用操心，一个func可以返回其locall variable,放心用，gc不会愚蠢的recycle其占用空间。Garbage collection is a tremendous help in writing correct programs, but it does not relieve you of the burden of thinking about memory. You don’t need to explicitly allocate and free memory, but to write efficient programs you still need to be aware of the lifet ime of variables.For example, keeping unnecessary pointers to short-lived objects within long-lived objects,especially global variables, will prevent the garbage collector from reclaiming the short-lived objects.
 
-a good exmpale of scope
-
-![scop](images/sope.png)
+![a good exmpale of scope](images/scope.png)
 
 ## types 
  go 一方面是strict type, “type Celsius float64” 就定义了一种新type,不允许自动转换；另外一方面 In any case, a conversion never fails at run time.
 
  Go’s types fall into four categories: basic types, aggregate types, reference types, and interface types. 前两种各种语言都差不多。Reference types are a diverse group that includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
+
+array:
+
+array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. C/C++这时传的是地址
 
 go 的type declaration 没有次序概念，所以也不需要forward declaration,e.g.
 ```go
@@ -53,10 +55,22 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
 ```
 
 
+## comparable
+* basic type: OK
+* aggreagte type: **array** 只要类型（element type, len）相同，是可以用一句话来判断是否相等的， If all the fields of a **struct** are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=. 
+* reference type: As with **slices, maps** cannot be compared to each other ; the only legal comparison is with nil.**pointer** only can be compared with nil. The **function** values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. 
+* interface type:  it is comparable; otherwise if two interface values are compared and have the same dynamic type, and  that type is comparable, the **interface** is comparable,  if not comparable (a slice, for instance), then the comparison fails with a panic. 
+
+
+example of string comparation
 ```go
-s1, s2 := "abc", "abc"
-fmt.Println(s1 == s2)//"true"
-fmt.Println(errors.New("EOF") == errors.New("EOF")) // "false"
+	s1, s2 := "abc", "abc"
+	fmt.Println(s1 == s2) //"true"
+	s3 := new(string)
+	*s3 = "abc"
+	s4 := new(string)
+	*s4 = "abc"
+	fmt.Println(s3 == s4) // "false"
 ```
 对比c++
 ```c++
@@ -68,21 +82,13 @@ fmt.Println(errors.New("EOF") == errors.New("EOF")) // "false"
   cout << (s3 == s4) << endl;//"0"
 ```
 
-## comparable
-* basic type: OK
-* aggreagte type: **array** 只要类型（element type, len）相同，是可以用一句话来判断是否相等的， If all the fields of a **struct** are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=. 
-* reference type: As with **slices, maps** cannot be compared to each other ; the only legal comparison is with nil.**pointer** only can be compared with nil. The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. 
-* interface type:  it is comparable; otherwise if two interface values are compared and have the same dynamic type, and  that type is comparable, the **interface** is comparable,  if not comparable (a slice, for instance), then the comparison fails with a panic. 
-
-## array
-
+example of array comparation
 ```go
 	a := [2]int{1, 2}
 	b := [...]int{1, 2}
 	c := [2]int{1, 3}
 	fmt.Println(a == b, a == c, b != c) // "true false true"
 ```
-array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. C/C++这时传的是地址
 
 ## syntactic sugar about type
 
@@ -122,6 +128,8 @@ Functions are first-class values in Go: like other values, function values have 
 types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. Here again we see an example where the lifetime of a variable is not determined by its scope.
 
 * [when closure capture loop variable](../src/practise/func/closureLoopVariable/main.go)
+  
+ 该程序还涉及goroutine 的类似linux/c的waitpid的用法
 
 ## Goroutines
 In Go, each concurrently executing activity is called a goroutine. When a program starts, its only goroutine is the one that calls the main function, so we call it the main goroutine. New goroutines are created by the go statement. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
@@ -134,30 +142,6 @@ ch = make(chan int, 0) // unbuffered channel
 ch = make(chan int, 3) // buffered channel with capacity 3
 ```
 A send operation on an unbuffered channel blocks the sending goroutine until another goroutine executes a corresponding receive on the same channel.When a value is sent on an unbuffered channel, the receipt of the value happens before the reawakening of the sending goroutine.
-
-
-## waitpid的go 版
-
-	package sync // import "sync"
-
-	type WaitGroup struct {
-		// Has unexported fields.
-	}
-		A WaitGroup waits for a collection of goroutines to finish. The main
-		goroutine calls Add to set the number of goroutines to wait for. Then each
-		of the goroutines runs and calls Done when finished. At the same time, Wait
-		can be used to block until all goroutines have finished.
-
-		A WaitGroup must not be copied after first use.
-
-	func (wg *WaitGroup) Add(delta int)
-	func (wg *WaitGroup) Done()
-	func (wg *WaitGroup) Wait()
-
-
-
-
-
 
 
 # note:
@@ -189,9 +173,7 @@ const: the previous expression and its type can be used again in a group
 	fmt.Printf("%b %b %b %b %b\n", FlagUp, FlagBroadcast, FlagLoopback, FlagPointToPoint, FlagMulticast)   
 ```
 
-     
-
-
+  
 # todo:
 vs code debug时，如何输入stdin的内容？？？
 
