@@ -1,6 +1,5 @@
 * [start](doc/go_linux.md)
 * [command/tools](doc/cmd.md)
-* [programming_paradigm](doc/programming_paradigm.md)
 * [CAP](doc/CAP.md)
 * [concurrent](doc/concurrent.md)
 * [runtime](doc/runtime.md)
