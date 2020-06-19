@@ -106,7 +106,7 @@ employeeOfTheMonth.Position += " (proactive team player)"
 * So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；
 * 并且对同一type T,同时定义T和*T的方法，会报error: method redeclared. 
 
-## Procedure Oriented)
+## Procedure Oriented
 Algorithms + Data Structures = Programs 
 ~  Niklaus Wirth
 
@@ -115,7 +115,7 @@ Algorithms + Data Structures = Programs
 
 example code
 * [function](../src/practise/func)
-* [defer](../src/practise/defer/main.go)
+* [defer](../src/practise/defer)
 
 ## Object Oriented
 特点
