@@ -5,6 +5,8 @@
 ## local variables 
 have dynamic lifetimes。 A compiler may choose to allocate local variables on the heap or on the stack but, perhaps surprisingly, this choice is not detemined by whether var or new was used to declare the variable. 也就是说，程序员不用操心，一个func可以返回其locall variable,放心用，gc不会愚蠢的recycle其占用空间。Garbage collection is a tremendous help in writing correct programs, but it does not relieve you of the burden of thinking about memory. You don’t need to explicitly allocate and free memory, but to write efficient programs you still need to be aware of the lifet ime of variables.For example, keeping unnecessary pointers to short-lived objects within long-lived objects,especially global variables, will prevent the garbage collector from reclaiming the short-lived objects.
 
+scope:
+
 ![a good exmpale of scope](images/scope.png)
 
 ## types 
@@ -59,9 +61,7 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
 
 ## comparable
 
-basic type: 
-
-OK
+basic type: OK
 
 aggreagte type: 
 * **array** 只要类型（element type, len）相同即可， 
@@ -81,13 +81,19 @@ it is comparable; otherwise if two interface values are compared and have the sa
 
 ## syntactic sugar about type
 
-struct: The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不需要了。 
+**struct**: The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不需要了。 
 ```go
 var employeeOfTheMonth *Employee = &dilbert
 employeeOfTheMonth.Position += " (proactive team player)"
 ```
+**method**: implicit conversion: if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable: p.ScaleBy(2) // implicit (&p). Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value: pptr.Distance(q) // implicit (*pptr) . 所以 So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；并且对同一type T,同时定义T和*T的方法，会报error: method redeclared. 但这语法糖的基础是，调用语句用的是一个variable,这样才可以取到地址，直接用type来调用无法取得地址不行。
 
- method: implicit conversion: if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable: p.ScaleBy(2) // implicit (&p). Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value: pptr.Distance(q) // implicit (*pptr) . 所以 So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；并且对同一type T,同时定义T和*T的方法，会报error: method redeclared. 但这语法糖的基础是，调用语句用的是一个variable,这样才可以取到地址，直接用type来调用无法取得地址不行。
+## control-flow 
+Go's control flow is much simpler than c/c++, because it only choose some mandatory ones.
+
+exception handling:
+
+Go programs use ordinary control-flow mechanisms like **if** and **return** to respond to errors, no exception mechanism.
 
 ## OO
 *  虽然go 没有c++中class概念，但不限于struct,任何named type都可以看成一个class,如在其上定义method
@@ -102,10 +108,7 @@ employeeOfTheMonth.Position += " (proactive team player)"
 * These interfaces are but one (idion: only one) useful way to group related concrete types together and express the facets they share in common.不能把它看成c++的abstract class. in Go we can define new abstractions or groupings of interest when we need them, without modifying the declaration of the concrete type. 这里有点方法论的味道，也就是说先有concrete type，由于refactor 需要，再创建用于grouping共性的interface type. Interfaces are only needed when there are two or more concrete types that must be dealt with in a uniform way.
 
 
-## exception
- Go programs use ordinary control-flow mechanisms like **if** and **return** to respond to errors, no exception mechanism.
-
-## programming paradigm:Functional Programming
+## Functional Programming
 闭包和高阶函数
 
 函数编程支持函数作为第一类对象，有时称为闭包或者仿函数（functor）对象。实质上，闭包是起函数的作用并可以像对象一样操作的对象。与此类似，FP 语言支持高阶函数。高阶函数可以用另一个函数（间接地，用一个表达式） 作为其输入参数，在某些情况下，它甚至返回一个函数作为其输出参数。这两种结构结合在一起使得可以用优雅的方式进行模块化编程，这是使用 FP 的最大好处。 
@@ -120,8 +123,9 @@ types and why function values are not comparable. Function values like these are
   
  该程序还涉及goroutine 的类似linux/c的waitpid的用法
 
-## Goroutines
-In Go, each concurrently executing activity is called a goroutine. When a program starts, its only goroutine is the one that calls the main function, so we call it the main goroutine. New goroutines are created by the **go statement**. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
+## concurrent
+
+In Go, each concurrently executing activity is called a **goroutine**. When a program starts, its only goroutine is the one that calls the main function, so we call it the main goroutine. New goroutines are created by the **go statement**. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
 
 If goroutines are the activities of a concurrent Go program, **channels** are the connections between them.
 
@@ -131,6 +135,8 @@ ch = make(chan int, 0) // unbuffered channel
 ch = make(chan int, 3) // buffered channel with capacity 3
 ```
 A send operation on an unbuffered channel blocks the sending goroutine until another goroutine executes a corresponding receive on the same channel.When a value is sent on an unbuffered channel, the receipt of the value happens before the reawakening of the sending goroutine.
+
+## race condition
 
 
 # note:
