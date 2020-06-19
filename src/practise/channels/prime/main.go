@@ -18,7 +18,10 @@ func filter(in <-chan int, out chan<- int, prime int) {
 }
 
 /*
-* generate * goroutine 发出从 2 开始的每个整数，每个新的 goroutine 仅过滤特定的质数倍数 - 2、3、5、7 …，将第一个找到的质数发送给 * main *。
+*
+这也是一种pipeline
+
+generate * goroutine 发出从 2 开始的每个整数，每个新的 goroutine 仅过滤特定的质数倍数 - 2、3、5、7 …，将第一个找到的质数发送给 * main *。
 如果旋转它从顶部看，您会看到从 goroutine 发送到 main 的所有数字都是质数。
 
 ————————————————

@@ -33,9 +33,16 @@ func pool(wg *sync.WaitGroup, workers, tasks int) {
 	close(tasksCh)
 }
 
+/*
+can test how many goroutines can be created because goroutine stack exhuasted
+*/
 func main() {
+	const (
+		numGoroutine     = 36000
+		numTask      int = 1.5 * numGoroutine
+	)
 	var wg sync.WaitGroup
-	wg.Add(36)
-	go pool(&wg, 36, 50)
+	wg.Add(numGoroutine)
+	go pool(&wg, numGoroutine, numTask)
 	wg.Wait()
 }

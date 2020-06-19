@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+/*
+it can show how many goroutine scheduling happen in 1s
+*/
 func main() {
 	var Ball int
 	table := make(chan int)

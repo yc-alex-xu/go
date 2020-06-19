@@ -16,20 +16,20 @@ write_only := make (chan<- int)
 read_write := make (chan int)
 */
 
-func produce(ch chan<- int, done chan<- bool) {
+func produce(ch chan<- int) {
 	for i := 0; i < 10; i++ {
 		ch <- i
 		fmt.Println("produce ", i)
 	}
-	done <- true
+	close(ch)
 }
 
-func consume(ch <-chan int, done <-chan bool, quit chan<- bool) {
+func consume(ch <-chan int, quit chan<- bool) {
 	for {
-		select {
-		case i := <-ch:
+		i, ok := <-ch
+		if ok {
 			fmt.Println("consume ", i)
-		case <-done:
+		} else {
 			quit <- true
 			break
 		}
@@ -38,9 +38,8 @@ func consume(ch <-chan int, done <-chan bool, quit chan<- bool) {
 
 func main() {
 	ch := make(chan int, 2)
-	done := make(chan bool)
-	go produce(ch, done)
+	go produce(ch)
 	quit := make(chan bool)
-	go consume(ch, done, quit)
+	go consume(ch, quit)
 	<-quit
 }
