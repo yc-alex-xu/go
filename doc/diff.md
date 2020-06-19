@@ -131,21 +131,6 @@ types and why function values are not comparable. Function values like these are
   
  该程序还涉及goroutine 的类似linux/c的waitpid的用法
 
-## concurrent
-
-In Go, each concurrently executing activity is called a **goroutine**. When a program starts, its only goroutine is the one that calls the main function, so we call it the main goroutine. New goroutines are created by the **go statement**. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
-
-If goroutines are the activities of a concurrent Go program, **channels** are the connections between them.
-
-```go
-ch = make(chan int) // unbuffered channel
-ch = make(chan int, 0) // unbuffered channel
-ch = make(chan int, 3) // buffered channel with capacity 3
-```
-A send operation on an unbuffered channel blocks the sending goroutine until another goroutine executes a corresponding receive on the same channel.When a value is sent on an unbuffered channel, the receipt of the value happens before the reawakening of the sending goroutine.
-
-## race condition
-
 
 # note:
 ## difference of printf 
