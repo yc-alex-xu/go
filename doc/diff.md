@@ -88,15 +88,23 @@ employeeOfTheMonth.Position += " (proactive team player)"
 ```
 **method**: implicit conversion: if the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable: p.ScaleBy(2) // implicit (&p). Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value: pptr.Distance(q) // implicit (*pptr) . 所以 So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；并且对同一type T,同时定义T和*T的方法，会报error: method redeclared. 但这语法糖的基础是，调用语句用的是一个variable,这样才可以取到地址，直接用type来调用无法取得地址不行。
 
-## control-flow 
-Go's control flow is much simpler than c/c++, because it only choose some mandatory ones.
+## Procedure Oriented)
+Algorithms + Data Structures = Programs 
+~  Niklaus Wirth
 
-exception handling:
+* Go's control flow is much simpler than c/c++, because it only choose some mandatory ones.
+* exception handling: Go programs use ordinary control-flow mechanisms like **if** and **return** to respond to errors, no exception mechanism.
 
-Go programs use ordinary control-flow mechanisms like **if** and **return** to respond to errors, no exception mechanism.
+## Object Oriented
+特点
+* 封装 (encapsulation)：将数据和计算放到一起，并引入访问控制
+* 继承 (inheritance)：共享数据和计算，避免冗余
+* 多态 (polymorphism)：派发同一个消息（调用同一个方法），实现不同的操作（面向对象的核心）
+  - subtyping —— 运行时的 重写 (override)
+  - ad-hoc —— 编译时的 重载 (overload)
 
-## OO
-*  虽然go 没有c++中class概念，但不限于struct,任何named type都可以看成一个class,如在其上定义method
+Go
+* 没有c++中class概念，但不限于struct,任何named type都可以看成一个class,如在其上定义method
 * The zero-value mechanism: ensures that a variable always holds a well-defined value of its type。加上the init function mechanism 就不用**c++ constructor** 啦.
 * Encapsulation: package/Struct/interface level 的varialbe,如果不是大写字母开头，类似**static variable in C**, method 也类似。
 * Composition is central to object-oriented programming in Go,
@@ -109,12 +117,12 @@ Go programs use ordinary control-flow mechanisms like **if** and **return** to r
 
 
 ## Functional Programming
-闭包和高阶函数
+特点：
+* 由于数据是 有状态的 (stateful)，而计算是 无状态的 (stateless)；所以需要将数据 绑定 (bind) 到函数上，得到“有状态”的函数，即 闭包 (closure)。通过构造、传递、调用 闭包，实现复杂的功能组合。
+* 函数编程支持函数作为first class对象，有时称为闭包或者仿函数（functor）对象。实质上，闭包是起函数的作用并可以像对象一样操作的对象。与此类似，FP 语言支持高阶函数。高阶函数可以用另一个函数（间接地，用一个表达式） 作为其输入参数，在某些情况下，它甚至返回一个函数作为其输出参数。这两种结构结合在一起使得可以用优雅的方式进行模块化编程，这是使用 FP 的最大好处。 
+* 惰性计算.除了高阶函数和仿函数（或闭包）的概念，FP 还引入了惰性计算的概念。在惰性计算中，表达式不是在绑定到变量时立即计算，而是在求值程序需要产生表达式的值时进行计算。延迟的计算使您可以编写可能潜在地生成无穷输出的函数。因为不会计算多于程序的其余部分所需要的值，所以不需要担心由无穷计算所导致的 out-of-memory 错误。一个惰性计算的例子是生成无穷 Fibonacci 列表的函数，但是对第n个Fibonacci 数的计算相当于只是从可能的无穷列表中提取一项。
 
-函数编程支持函数作为第一类对象，有时称为闭包或者仿函数（functor）对象。实质上，闭包是起函数的作用并可以像对象一样操作的对象。与此类似，FP 语言支持高阶函数。高阶函数可以用另一个函数（间接地，用一个表达式） 作为其输入参数，在某些情况下，它甚至返回一个函数作为其输出参数。这两种结构结合在一起使得可以用优雅的方式进行模块化编程，这是使用 FP 的最大好处。 
-惰性计算
-
-除了高阶函数和仿函数（或闭包）的概念，FP 还引入了惰性计算的概念。在惰性计算中，表达式不是在绑定到变量时立即计算，而是在求值程序需要产生表达式的值时进行计算。延迟的计算使您可以编写可能潜在地生成无穷输出的函数。因为不会计算多于程序的其余部分所需要的值，所以不需要担心由无穷计算所导致的 out-of-memory 错误。一个惰性计算的例子是生成无穷 Fibonacci 列表的函数，但是对第n个Fibonacci 数的计算相当于只是从可能的无穷列表中提取一项。
+Go:
 
 Functions are first-class values in Go: like other values, function values have types, and they may be assigned to variables or passed to or returned from functions. 这说法跟Python非常类似。  The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference
 types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. Here again we see an example where the lifetime of a variable is not determined by its scope.
