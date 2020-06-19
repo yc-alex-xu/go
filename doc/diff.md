@@ -137,11 +137,9 @@ Go:
 Functions are first-class values in Go: like other values, function values have types, and they may be assigned to variables or passed to or returned from functions. 这说法跟Python非常类似。  The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference
 types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. Here again we see an example where the lifetime of a variable is not determined by its scope.
 
-* [when closure capture loop variable](../src/practise/func/closureLoopVariable/main.go)
+example code
+* [closure](../src/practise/closure)
   
- 该程序还涉及goroutine 的类似linux/c的waitpid的用法
-
-
 # note:
 ## difference of printf 
 ```go
