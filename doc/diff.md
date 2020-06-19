@@ -2,6 +2,20 @@
 ##  package 
 可以说是source code file的逻辑名，同一目录下多个source code file 只要用同样的package name，那就跟合成一个文件没区别。不用**include**啦。Packages in Go serve the same purposes as libraries or modules in other languages, supporting modularity, encapsulation, separate compilation, and reuse.
 
+*  Its main purpose is to determine the default identifier for that package (called the package name) when it is imported by another package
+*  Conventionally, the package name is the last segment of the import path
+*  some tools for dependency management append version number suffixes to package import paths, such as "gopkg.in/yaml.v2". The package name excludes the suffix, so in this case it would be just yaml.
+* import mrand "math/rand" // **alternative name** mrand avoids conflict
+* **blank import**: It is an error to import a package into a file but not refer to the name it defines within that file.Ho wever, on occasion we must import a package merely for the side effects of doing so: evaluation of the initializer expressions of its package-level variables and execution of its init functions To suppress the ‘‘unused import’’ error, we can use alternative name  **_** the blank identifier. As usual, the blank identifier can never be referenced.
+  
+
+An **internal package** may be imported only by another package that is inside the tree rooted at the parent of the internal directory. For example, given the packages below, net/http/internal/chunked can be imported from net/http/httputil or net/http, but not from net/url.  
+
+**‘‘...’’ wildcard**, which matches any substring of a package’s import path. 类似文件吗匹配时的"*",e.g. 
+```bash
+go list ...xml...
+```
+
 ## local variables 
 * have dynamic lifetimes。 A compiler may choose to allocate local variables on the heap or on the stack but, perhaps surprisingly, this choice is not detemined by whether var or new was used to declare the variable. 也就是说，程序员不用操心，一个func可以返回其locall variable,放心用，gc不会愚蠢的recycle其占用空间。
 * Garbage collection is a tremendous help in writing correct programs, but it does not relieve you of the burden of thinking about memory. You don’t need to explicitly allocate and free memory, but to write efficient programs you still need to be aware of the lifet ime of variables.For example, keeping unnecessary pointers to short-lived objects within long-lived objects,especially global variables, will prevent the garbage collector from reclaiming the short-lived objects.

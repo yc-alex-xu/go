@@ -1,10 +1,12 @@
+# go get
+The go get command can download a single package or an entire subtree or repository using the ... notation, as in the previous section. The tool also computes and downloads all the dependencies of the initial packages
+e.g. go get -u -v 
+Without that flag -u, packages that already exist locally will not be updated.
+
+Once go get has downloaded the packages, it builds them and then installs the libraries and commands, just like **go install**.
 
 # go build
-这个命令主要用于编译代码。在包的编译过程中，若有必要，会同时编译与之相关联的包。由于src/practise下代码都比较简单，直接　
-```bash
-go run xxx.go
-```
-运行就可以了。
+用于编译package main,其他package 只是检查一下编译错误。
 
 其他工程化设计：
 * go build会忽略目录下以“_”或“.”开头的go文件。
@@ -12,22 +14,20 @@ go run xxx.go
 array_linux.go array_darwin.go array_windows.go array_freebsd.go
 go build的时候会选择性地编译以系统名结尾的文件（Linux、Darwin、Windows、Freebsd）。例如Linux系统下面编译只会选择array_linux.go文件，其它系统命名后缀文件全部忽略。
 
+# go install
+适用于main以外的pacakge,
+The go install command is very similar to go build, except that it saves the compiled code for each package and command instead of throwing it away. Compiled packages are saved beneath the $GOPATH/pkg directory corresponding to the src directory in which the source resides, and command executables are saved in the $GOPATH/bin directory. 
+
+to cross-compile a Go program,Just set the GOOS or GOARCH env variables during the build.
+
+#  go list
+reports information about available packages
+
 # go clean
 这个命令是用来移除当前源码包和关联源码包里面编译生成的文件。我一般都是利用这个命令清除编译文件，然后GitHub递交源码，在本机测试的时候这些编译文件都是和系统相关的，但是对于源码管理来说没必要。
 
 # go fmt
 go强制了代码格式（比如左大括号必须放在行尾），不按照此格式的代码将不能编译通过，为了减少浪费在排版上的时间，go工具集中提供了一个go fmt命令 它可以帮你格式化你写好的代码文件，使你写代码的时候不需要关心格式，你只需要在写完之后执行go fmt <文件名>.go，你的代码就被修改成了标准格式
-
-# go get
-go get -u -v 可以自动更新包，而且当go get的时候会自动获取该包依赖的其他第三方包
-
-go get本质上可以理解为首先第一步是通过源码工具clone代码到src下面，然后执行go install
-
-# go install
-这个命令在内部实际上分成了两步操作：第一步是生成结果文件(可执行文件或者.a包)，第二步会把编译好的结果移到$GOPATH/pkg或者$GOPATH/bin。
-
-# go test
-执行这个命令，会自动读取源码目录下面名为*_test.go的文件，生成并运行测试用的可执行文件。
 
 # go tool
 go tool下面下载聚集了很多命令，这里我们只介绍两个，fix和vet
