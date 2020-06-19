@@ -25,15 +25,11 @@ func produce(ch chan<- int) {
 }
 
 func consume(ch <-chan int, quit chan<- bool) {
-	for {
-		i, ok := <-ch
-		if ok {
-			fmt.Println("consume ", i)
-		} else {
-			quit <- true
-			break
-		}
+	for i := range ch {
+		fmt.Println("consume ", i)
 	}
+	quit <- true
+
 }
 
 func main() {
