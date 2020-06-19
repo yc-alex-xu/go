@@ -4,7 +4,7 @@
 
 *  Its main purpose is to determine the default identifier for that package (called the package name) when it is imported by another package
 *  Conventionally, the package name is the last segment of the import path
-*  some tools for dependency management append version number suffixes to package import paths, such as "gopkg.in/yaml.v2". The package name excludes the suffix, so in this case it would be just yaml.
+*  some tools for dependency management append **version number suffixes** to package import paths, such as "gopkg.in/yaml.v2". The package name excludes the suffix, so in this case it would be just yaml.
 * import mrand "math/rand" // **alternative name** mrand avoids conflict
 * **blank import**: It is an error to import a package into a file but not refer to the name it defines within that file.Ho wever, on occasion we must import a package merely for the side effects of doing so: evaluation of the initializer expressions of its package-level variables and execution of its init functions To suppress the ‘‘unused import’’ error, we can use alternative name  **_** the blank identifier. As usual, the blank identifier can never be referenced.
   
@@ -27,7 +27,11 @@ scope:
 ## types 
  go 一方面是strict type, “type Celsius float64” 就定义了一种新type,不允许自动转换；另外一方面 In any case, a conversion never fails at run time.
 
- Go’s types fall into four categories: **basic types, aggregate types, reference types, and interface types**. 前两种各种语言都差不多。Reference types are a diverse group that includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
+ Go’s types fall into four categories: 
+ * basic types:  Integers,Floating-Point Numbers,Complex Numbers,Booleans, Strings,Constants
+ * aggregate types: array,struct 
+ * reference types: includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
+ * interface types
 
 array:
 
@@ -76,23 +80,18 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
 
 ## comparable
 
-basic type: OK
-
-aggreagte type: 
-* **array** 只要类型（element type, len）相同即可， 
-* If all the fields of a **struct** are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=.
-
-reference type: 
-* As with **slices, maps** cannot be compared to each other ; the only legal comparison is with nil.
-* **pointer** only can be compared with nil. 
-* The **function** values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. 
-
-interface type:  
-
-it is comparable; otherwise if two interface values are compared and have the same dynamic type, and  that type is comparable, the **interface** is comparable,  if not comparable (a slice, for instance), then the comparison fails with a panic. 
+- basic type: OK
+- aggreagte type: 
+  * **array** 只要类型（element type, len）相同即可， 
+  * If all the fields of a **struct** are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=.
+- reference type: 
+  * As with **slices, maps** cannot be compared to each other ; the only legal comparison is with nil.
+  * **pointer** only can be compared with nil. 
+  * The **function** values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. 
+- interface type:  if two interface values are compared and have the same **dynamic type**, and  that type is comparable, the **interface** is comparable,  if not comparable (a slice, for instance), then the comparison fails with a panic. 
 
 
-* [example of string comparation](../src/practise/comparable/main.go)
+[example code of comparation](../src/practise/comparable/)
 
 ## syntactic sugar about type
 
