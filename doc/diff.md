@@ -2,17 +2,6 @@
 ##  package 
 可以说是source code file的逻辑名，同一目录下多个source code file 只要用同样的package name，那就跟合成一个文件没区别。不用**include**啦。Packages in Go serve the same purposes as libraries or modules in other languages, supporting modularity, encapsulation, separate compilation, and reuse.
 
-## tuple assignment
-**c++ tuple**类型就没有必要了。
-
-## pointer
-C++ References are often confused with pointers, but three major differences between references and pointers are 
-   - You cannot have NULL references. You must always be able to assume that a reference is connected to a legitimate piece of storage.
-   - Once a reference is initialized to an object, it cannot be changed to refer to another object.  Pointers can be pointed to another object at any time.
-   - A reference must be initialized when it is created. Pointers can be initialized at any time.
-  
-we can read or update the value of a variable **indirectly** via a pointer, without using or even knowing the name of the variable, if indeed it has a name. pointer of 像是综合了**pointer of c 的写法和reference in C++的用法**. 
-
 ## local variables 
 have dynamic lifetimes。 A compiler may choose to allocate local variables on the heap or on the stack but, perhaps surprisingly, this choice is not detemined by whether var or new was used to declare the variable. 也就是说，程序员不用操心，一个func可以返回其locall variable,放心用，gc不会愚蠢的recycle其占用空间。Garbage collection is a tremendous help in writing correct programs, but it does not relieve you of the burden of thinking about memory. You don’t need to explicitly allocate and free memory, but to write efficient programs you still need to be aware of the lifet ime of variables.For example, keeping unnecessary pointers to short-lived objects within long-lived objects,especially global variables, will prevent the garbage collector from reclaiming the short-lived objects.
 
@@ -26,6 +15,18 @@ have dynamic lifetimes。 A compiler may choose to allocate local variables on t
 array:
 
 array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. C/C++这时传的是地址
+
+由于go支持tuple assignment，**c++ tuple**类型就没有必要了。
+
+C++ References are often confused with pointers, but three major differences between references and pointers are 
+   - You cannot have NULL references. You must always be able to assume that a reference is connected to a legitimate piece of storage.
+   - Once a reference is initialized to an object, it cannot be changed to refer to another object.  Pointers can be pointed to another object at any time.
+   - A reference must be initialized when it is created. Pointers can be initialized at any time.
+  
+pointer of go: 
+
+we can read or update the value of a variable **indirectly** via a pointer, without using or even knowing the name of the variable, if indeed it has a name. pointer of 像是综合了**pointer of c 的写法和reference in C++的用法**. 
+
 
 go 的type declaration 没有次序概念，所以也不需要forward declaration,e.g.
 ```go
@@ -120,9 +121,9 @@ types and why function values are not comparable. Function values like these are
  该程序还涉及goroutine 的类似linux/c的waitpid的用法
 
 ## Goroutines
-In Go, each concurrently executing activity is called a goroutine. When a program starts, its only goroutine is the one that calls the main function, so we call it the main goroutine. New goroutines are created by the go statement. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
+In Go, each concurrently executing activity is called a goroutine. When a program starts, its only goroutine is the one that calls the main function, so we call it the main goroutine. New goroutines are created by the **go statement**. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
 
-If goroutines are the activities of a concurrent Go program, channels are the connections between them.
+If goroutines are the activities of a concurrent Go program, **channels** are the connections between them.
 
 ```go
 ch = make(chan int) // unbuffered channel
@@ -139,8 +140,6 @@ A send operation on an unbuffered channel blocks the sending goroutine until ano
 	fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 国 '国'"
 ```   
 ## more kinds of const declaration
-
-const: 
 * [some example](../src/practise/const/main.go)
 
   
