@@ -23,7 +23,7 @@ func player(id int, table chan int) {
 		ball := <-table
 		fmt.Println("plyer", id, "\treceived ball\t", ball)
 		ball++
-		time.Sleep(100 * time.Millisecond)
+		//time.Sleep(100 * time.Millisecond)
 		table <- ball
 		fmt.Println("plyer", id, "\tsend ball\t", ball)
 	}
