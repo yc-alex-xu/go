@@ -29,6 +29,26 @@ Another form of the for loop iterates over a range of values from a data type li
 ## break and continue
 statements modify the flow of control .
 
+# predeclared 
+```go
+Constants: true false iota nil
+Types: int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr float32 float64 complex128 complex64  bool byte rune string error
+Functions: make len cap new append copy close delete complex real imag panic recover
+
+    p := new(int)
+    delete(p)
+
+```
+# bitwise binary operators
+```go
+&   AND
+|   OR
+^   XOR
+&^  bit clear (AND NOT)
+<<  left shift
+>>  right shift
+```
+
 # Printf format
 
     %d decimal integer
@@ -41,38 +61,72 @@ statements modify the flow of control .
     %v any value in a natural format
     %T type of any value
     %% literal percent sign (no operand)
-
-
-# const
-The value of a constant must be a number, string , or boolean.   
 ```go
-true false iota nil
-```
-[code sample](../src/practise/const)
+	var r rune = '国'
+	fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 国 '国'"
+```   
 
-# predeclared 
-```go
-Constants: true false iota nil
-Types: int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr float32 float64 complex128 complex64  bool byte rune string error
-Functions: make len cap new append copy close delete complex real imag panic recover
 
-    p := new(int)
-    delete(p)
-
-```
-
-# typo
+# type
 ```go
 type name underlying-type
 ```
 
-# bitwise binary operators
+go 的type declaration 没有次序概念，所以也不需要forward declaration,e.g.
 ```go
-&   AND
-|   OR
-^   XOR
-&^  bit clear (AND NOT)
-<<  left shift
->>  right shift
+func main() {
+	db := database{"shoes": 50, "socks": 5}
+	mux := http.NewServeMux()
+	mux.Handle("/list", http.HandlerFunc(db.list))
+	mux.Handle("/price", http.HandlerFunc(db.price))
+	log.Fatal(http.ListenAndServe("localhost:8000", mux))
+}
+
+type database map[string]dollars
+
 ```
-# 
+# const
+The value of a constant must be basic type: a number, string , or boolean. e.g.
+```go
+true false iota nil
+```
+**Untyped Constants**: The compiler represents these uncommitted constants with much greater numeric precision than values of basic types, and arithmetic on them is more precise than machine arithmetic; you may assume at least 256 bits of precision. alex:也就是说，它们的精度太大，无法用basic type的空间来存储，所以compiler就给它们一个特例,告诉programmer你就不用操心它的data type了.
+
+[code sample](../src/practise/const)
+
+
+# array:
+array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. C/C++这时传的是地址
+
+# slice:
+If you need to test whether a slice is empty, use len(s) == 0, not s == nil,because 
+```go
+var s []int // len(s) == 0, s == nil
+s = nil  // len(s) == 0, s == nil
+s = []int(nil) // len(s) == 0, s == nil
+s = []int{}  // len(s) == 0, s != nil
+```
+
+# pointer  
+we can read or update the value of a variable **indirectly** via a pointer, without using or even knowing the name of the variable, if indeed it has a name. pointer of 像是综合了**pointer of c 的写法和reference in C++的用法**. 
+
+C++ References are often confused with pointers, but three major differences between references and pointers are 
+   - You cannot have NULL references. You must always be able to assume that a reference is connected to a legitimate piece of storage.
+   - Once a reference is initialized to an object, it cannot be changed to refer to another object.  Pointers can be pointed to another object at any time.
+   - A reference must be initialized when it is created. Pointers can be initialized at any time.
+  
+
+# function 
+define function type:
+```go
+package http // import "net/http"
+
+type HandlerFunc func(ResponseWriter, *Request)
+    The HandlerFunc type is an adapter to allow the use of ordinary functions as
+    HTTP handlers. If f is a function with the appropriate signature,
+    HandlerFunc(f) is a Handler that calls f.
+
+func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
+
+```
+

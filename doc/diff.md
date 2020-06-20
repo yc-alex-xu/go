@@ -33,49 +33,7 @@ scope:
  * reference types: includes pointers,slices, maps, **functions**, and channels , but what they have in common is that they all refer to program variables or state **indirectly**, so that the effect of an operation applied to one reference is observed by all copies of that reference.
  * interface types
 
-array:
-
-array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. C/C++这时传的是地址
-
 由于go支持tuple assignment，**c++ tuple**类型就没有必要了。
-
-C++ References are often confused with pointers, but three major differences between references and pointers are 
-   - You cannot have NULL references. You must always be able to assume that a reference is connected to a legitimate piece of storage.
-   - Once a reference is initialized to an object, it cannot be changed to refer to another object.  Pointers can be pointed to another object at any time.
-   - A reference must be initialized when it is created. Pointers can be initialized at any time.
-  
-pointer of go: 
-
-we can read or update the value of a variable **indirectly** via a pointer, without using or even knowing the name of the variable, if indeed it has a name. pointer of 像是综合了**pointer of c 的写法和reference in C++的用法**. 
-
-
-go 的type declaration 没有次序概念，所以也不需要forward declaration,e.g.
-```go
-func main() {
-	db := database{"shoes": 50, "socks": 5}
-	mux := http.NewServeMux()
-	mux.Handle("/list", http.HandlerFunc(db.list))
-	mux.Handle("/price", http.HandlerFunc(db.price))
-	log.Fatal(http.ListenAndServe("localhost:8000", mux))
-}
-
-type database map[string]dollars
-
-```
-
-function type:
-
-```go
-package http // import "net/http"
-
-type HandlerFunc func(ResponseWriter, *Request)
-    The HandlerFunc type is an adapter to allow the use of ordinary functions as
-    HTTP handlers. If f is a function with the appropriate signature,
-    HandlerFunc(f) is a Handler that calls f.
-
-func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
-
-```
 
 
 ## comparable
@@ -158,21 +116,11 @@ Go:
 example code
 * [closure](../src/practise/closure)
   
-# note:
-## difference of printf 
-```go
-	var r rune = '国'
-	fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 国 '国'"
-```   
-## more kinds of const declaration
-* [some example](../src/practise/const/main.go)
-
-  
+ 
 # todo:
 vs code debug时，如何输入stdin的内容？？？
 
 https://stackoverflow.com/questions/50884981/how-to-read-input-when-debugging-go-in-visual-studio-code
-
 
 
 # refer
