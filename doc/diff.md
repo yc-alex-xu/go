@@ -1,14 +1,12 @@
 
-##  package 
+# package 
 可以说是source code file的逻辑名，同一目录下多个source code file 只要用同样的package name，那就跟合成一个文件没区别。不用**include**啦。Packages in Go serve the same purposes as libraries or modules in other languages, supporting modularity, encapsulation, separate compilation, and reuse.
-
 *  Its main purpose is to determine the default identifier for that package (called the package name) when it is imported by another package
 *  Conventionally, the package name is the last segment of the import path
 *  some tools for dependency management append **version number suffixes** to package import paths, such as "gopkg.in/yaml.v2". The package name excludes the suffix, so in this case it would be just yaml.
 * import mrand "math/rand" // **alternative name** mrand avoids conflict
 * **blank import**: It is an error to import a package into a file but not refer to the name it defines within that file.Ho wever, on occasion we must import a package merely for the side effects of doing so: evaluation of the initializer expressions of its package-level variables and execution of its init functions To suppress the ‘‘unused import’’ error, we can use alternative name  **_** the blank identifier. As usual, the blank identifier can never be referenced.
   
-
 An **internal package** may be imported only by another package that is inside the tree rooted at the parent of the internal directory. For example, given the packages below, net/http/internal/chunked can be imported from net/http/httputil or net/http, but not from net/url.  
 
 **‘‘...’’ wildcard**, which matches any substring of a package’s import path. 类似文件吗匹配时的"*",e.g. 
@@ -16,15 +14,7 @@ An **internal package** may be imported only by another package that is inside t
 go list ...xml...
 ```
 
-## local variables 
-* have dynamic lifetimes。 A compiler may choose to allocate local variables on the heap or on the stack but, perhaps surprisingly, this choice is not detemined by whether var or new was used to declare the variable. 也就是说，程序员不用操心，一个func可以返回其locall variable,放心用，gc不会愚蠢的recycle其占用空间。
-* Garbage collection is a tremendous help in writing correct programs, but it does not relieve you of the burden of thinking about memory. You don’t need to explicitly allocate and free memory, but to write efficient programs you still need to be aware of the lifet ime of variables.For example, keeping unnecessary pointers to short-lived objects within long-lived objects,especially global variables, will prevent the garbage collector from reclaiming the short-lived objects.
-
-scope:
-
-![a good exmpale of scope](images/scope.png)
-
-## types 
+# types 
  go 一方面是strict type, “type Celsius float64” 就定义了一种新type,不允许自动转换；另外一方面 In any case, a conversion never fails at run time.
 
  Go’s types fall into four categories: 
@@ -36,8 +26,7 @@ scope:
 由于go支持tuple assignment，**c++ tuple**类型就没有必要了。
 
 
-## comparable
-
+# comparable
 - basic type: all values of basic type—booleans, numbers, and strings—are comparable.alex:浮点数可以比较，但结果不一定正确
 - aggreagte type: 
   * **array** 只要类型（element type, len）相同即可， 
@@ -48,11 +37,9 @@ scope:
   * The **function** values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. 
 - interface type:  if two interface values are compared and have the same **dynamic type**, and  that type is comparable, the **interface** is comparable,  if not comparable (a slice, for instance), then the comparison fails with a panic. 
 
-
 [example code of comparation](../src/practise/comparable/)
 
-## syntactic sugar about type
-
+# syntactic sugar about type
 **struct**: The dot notation also works with a pointer to a struct. 也就是说c/c++中的->符号不需要了。 
 ```go
 var employeeOfTheMonth *Employee = &dilbert
@@ -64,7 +51,7 @@ employeeOfTheMonth.Position += " (proactive team player)"
 * So to avoid ambiguities, method declarations are not permitted on named types that are themselves pointer tyes；
 * 并且对同一type T,同时定义T和*T的方法，会报error: method redeclared. 
 
-## Procedure Oriented
+# Procedure Oriented
 Algorithms + Data Structures = Programs 
 ~  Niklaus Wirth
 
@@ -75,14 +62,13 @@ example code
 * [function](../src/practise/func)
 * [defer](../src/practise/defer)
 
-## Object Oriented
+# Object Oriented
 特点
 * 封装 (encapsulation)：将数据和计算放到一起，并引入访问控制
 * 继承 (inheritance)：共享数据和计算，避免冗余
 * 多态 (polymorphism)：派发同一个消息（调用同一个方法），实现不同的操作（面向对象的核心）
   - subtyping —— 运行时的 重写 (override)
   - ad-hoc —— 编译时的 重载 (overload)
-
 
 Go has an unusual approach to object-oriented programming. There are no class hierarchies, or indeed any classes; complex object behaviors are created from simpler ones **by composition,not inheritance**. Methods may be associated with any user-defined type, not just structures,and the relationship between concrete types and abstract types (interfaces) is **implicit**, so a concrete type may satisfy an interface that the type’s designer was unaware of. 
 
@@ -102,7 +88,6 @@ example code
 * [interface](../src/practise/interface)
 * [reflect](../src/practise/reflect)
 
-
 ## Functional Programming
 特点：
 * 由于数据是 有状态的 (stateful)，而计算是 无状态的 (stateless)；所以需要将数据 绑定 (bind) 到函数上，得到“有状态”的函数，即 闭包 (closure)。通过构造、传递、调用 闭包，实现复杂的功能组合。
@@ -110,7 +95,6 @@ example code
 * 惰性计算.除了高阶函数和仿函数（或闭包）的概念，FP 还引入了惰性计算的概念。在惰性计算中，表达式不是在绑定到变量时立即计算，而是在求值程序需要产生表达式的值时进行计算。延迟的计算使您可以编写可能潜在地生成无穷输出的函数。因为不会计算多于程序的其余部分所需要的值，所以不需要担心由无穷计算所导致的 out-of-memory 错误。一个惰性计算的例子是生成无穷 Fibonacci 列表的函数，但是对第n个Fibonacci 数的计算相当于只是从可能的无穷列表中提取一项。
 
 Go:
-
 * Functions are first-class values in Go: like other values, function values have types, and they may be assigned to variables or passed to or returned from functions. 这说法跟Python非常类似。  
 * The function values are not just code but can have state.The anonymous inner function can access and update the local variables of the enclosing function squares. These hidden variable references are why we classify functions as reference types and why function values are not comparable. Function values like these are implemented using a technique called closures , and Go programmers often use this term for function values. 
 example code
