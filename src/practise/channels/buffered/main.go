@@ -3,17 +3,17 @@ package main
 import (
 	"fmt"
 	"runtime"
+	"time"
 )
-
-var numG int
 
 func sum(a []int, name string, c chan int) {
 	total := 0
 	for _, v := range a {
 		total += v
 	}
-	fmt.Println(name, "->")
-	c <- total // send total to c
+	t := time.Now()
+	c <- total
+	fmt.Println(name, "return from <- cost", time.Since(t))
 	// only main goroutine + self left
 	if runtime.NumGoroutine() == 2 {
 		close(c)
@@ -21,10 +21,14 @@ func sum(a []int, name string, c chan int) {
 }
 
 func main() {
+	fmt.Println("cpu number: ", runtime.NumCPU(), runtime.GOMAXPROCS(runtime.NumCPU()))
 	a := []int{7, 2, 8, -9, 4, 0} //slice
 	fmt.Println("the slice is:", a)
-	chan2sum := make(chan int, 2)          //指定channel buffer size
-	go sum(a[:len(a)/2], "low", chan2sum)  //goroutine被调度的次序不太确定
+	const (
+		bufSz = 3
+	)
+	chan2sum := make(chan int, bufSz)
+	go sum(a[:len(a)/2], "low", chan2sum)
 	go sum(a[len(a)/2:], "high", chan2sum) //sender must close channel, otherwise deadlock
 	for sum := range chan2sum {
 		fmt.Println("received\t", sum)
