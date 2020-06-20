@@ -3,13 +3,9 @@ When we cannot confidently say that one event happens before the other, then the
 Go mantra (咒语) 
 > Do not communicate by sharing memory; instead, share memory by communicating.
 
-In Go, each concurrently executing activity is called a **goroutine**. When a program starts, its only goroutine is the one that calls the main function, so we call it the main goroutine. New goroutines are created by the **go statement**. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
+In Go, each concurrently executing activity is called a **goroutine**. When a program starts, its only goroutine is the one that calls the main function, so we call it the **main goroutine**. New goroutines are created by the **go statement**. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
 
-[example code](https://github.com/yc-alex-xu/go/blob/master/src/practise/goroutine/main.go)
-* main.go 两个goroutine 协调处理的情况
-* goodbye.go  主goroutine先结束的情况
-* mutex.go    在goodbye.go基础上加了mutex, 保证主goroutine等副goroutine完成再退出
-* sync.go     mutex.go 基础上用两个mutex实现了goroutine按计划顺序执行
+[example code](https://github.com/yc-alex-xu/go/blob/master/src/practise/goroutine/)
 
 # channels
 If goroutines are the activities of a concurrent Go program, **channels** are the connections between them.
@@ -19,7 +15,7 @@ ch = make(chan int) // unbuffered channel
 ch = make(chan int, 0) // unbuffered channel
 ch = make(chan int, 3) // buffered channel with capacity 3
 ```
-A send operation on an unbuffered channel blocks the sending goroutine until another goroutine executes a corresponding receive on the same channel.alex: 数据已经发到channel,就是没有程序读的话就不返回。 When a value is sent on an unbuffered channel, the receipt of the value happens before the reawakening of the sending goroutine.
+A send operation on an unbuffered channel blocks the sending goroutine until another goroutine executes a corresponding receive on the same channel.alex: 数据已经发到channel,就是没有程序读的话就不返回。 When a value is sent on an unbuffered channel, the receipt of the value happens **before** the reawakening of the sending goroutine.alex:并且被block的goroutine是放在一个队列里，被唤醒的顺序不会乱。
 
 [direction of channel](../src/practise/channels/producerConsumer/main.go)
 * chan<-  send only

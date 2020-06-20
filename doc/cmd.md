@@ -16,7 +16,7 @@ go build的时候会选择性地编译以系统名结尾的文件（Linux、Darw
 适用于main以外的pacakge,
 The go install command is very similar to go build, except that it saves the compiled code for each package and command instead of throwing it away. Compiled packages are saved beneath the $GOPATH/pkg directory corresponding to the src directory in which the source resides, and command executables are saved in the $GOPATH/bin directory. 
 
-to cross-compile a Go program,Just set the GOOS or GOARCH env variables during the build.
+to cross-compile a Go program,Just set the **GOOS** or **GOARCH** env variables during the build.
 
 #  go list
 reports information about available packages
@@ -42,13 +42,6 @@ Within *_test.go files, three kinds of functions are treated specially :
 * benchmarks, and
 * examples. 
 
-[rbt & its testing](https://github.com/yc-alex-xu/go/tree/master/src/practise/rbtree)
-
-```bash
-$ go test
-PASS
-ok  	practise/rbtree	0.002s
-```
 The go test tool has built-in support for several kinds of profiling.
 ```bash
 $ go test -cpuprofile=cpu.out
