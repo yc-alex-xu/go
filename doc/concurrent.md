@@ -1,9 +1,8 @@
-When we cannot confidently say that one event happens before the other, then the events x and y are concurrent.
-
-Go mantra (咒语) 
+# model
+the concept of communicating sequential processes (CSP) from Tony Hoare’s seminal 1978 paper on the foundations of concurrency. In CSP, a program is a parallel composition of processes that have no shared state; the processes communicate and synchronize using channels. Go mantra (咒语) 
 > Do not communicate by sharing memory; instead, share memory by communicating.
 
-In Go, each concurrently executing activity is called a **goroutine**. When a program starts, its only goroutine is the one that calls the main function, so we call it the **main goroutine**. New goroutines are created by the **go statement**. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
+When we cannot confidently say that one event happens before the other, then the events x and y are concurrent. In Go, each concurrently executing activity is called a **goroutine**. When a program starts, its only goroutine is the one that calls the main function, so we call it the **main goroutine**. New goroutines are created by the **go statement**. There is no programmatic way for one goroutine to stop another, but as we will see later, there are ways to communicate with a goroutine to request that it stop itself.
 
 [example code](https://github.com/yc-alex-xu/go/blob/master/src/practise/goroutine/)
 
@@ -26,10 +25,8 @@ You needn’t close every channel when you’ve finished with it. It’s only ne
 
 
 ## Buffered Channels
-设置一个buffer size, (Alex, 所谓unbuffered Channels 的buffer size 应该是0???)
-
 [code](https://github.com/yc-alex-xu/go/blob/master/src/practise/channels/buffered)
-可以修改bufSZ
+可以修改bufSZ,比较一下运行结果
 
 
 # Select

@@ -125,16 +125,16 @@ example code
   - subtyping —— 运行时的 重写 (override)
   - ad-hoc —— 编译时的 重载 (overload)
 
-Go
+
+Go has an unusual approach to object-oriented programming. There are no class hierarchies, or indeed any classes; complex object behaviors are created from simpler ones **by composition,not inheritance**. Methods may be associated with any user-defined type, not just structures,and the relationship between concrete types and abstract types (interfaces) is **implicit**, so a concrete type may satisfy an interface that the type’s designer was unaware of. 
+
 * 没有c++中class概念，但不限于struct,任何named type都可以看成一个class,如在其上定义method
 * The zero-value mechanism: ensures that a variable always holds a well-defined value of its type。加上the init function mechanism 就不用**c++ constructor** 啦.
 * Encapsulation: package/Struct/interface level 的varialbe,如果不是大写字母开头，类似**static variable in C**, method 也类似。
-* Composition is central to object-oriented programming in Go,
 * In Go, we don’t use a special name like this or self for the (method) receiver; we choose receiver names just as we would for any other parameter. 
 * Nil Is a Valid (method) Receiver Value
 * Composing Types by Struct Embedding： Distance has a parameter of type Point, and q is not a Point, so although q does have an embedded field of that type, we must explicitly select it. e.g. p.Distance(q.Point)
 * Method Values 可以作为函数指针用
-* As shorthand, Go programmers often say that a concrete type ‘‘is a’’ particular interface type, meaning that it satisfies the interface. interface is abstract type, 同时也有动态语言的特点：interface’s dynamic type and dynamic value；对于interface定义的method, 也是dynamic dispatch。Internally, Go can uses reflection to obtain the name of the interface’s dynamic type. 
 * These interfaces are but one (idion: only one) useful way to group related concrete types together and express the facets they share in common.不能把它看成c++的abstract class. 
 * in Go we can define new abstractions or groupings of interest when we need them, without modifying the declaration of the concrete type. 这里有点方法论的味道，也就是说先有concrete type，由于refactor 需要，再创建用于grouping共性的interface type. Interfaces are only needed when there are two or more concrete types that must be dealt with in a uniform way.
 
