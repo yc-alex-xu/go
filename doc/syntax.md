@@ -1,5 +1,5 @@
 # Names
-
+left blank
 # Declarations
 predeclared 
 ```go
@@ -9,7 +9,6 @@ Functions: make len cap new append copy close delete complex real imag panic rec
 
     p := new(int)
     delete(p)
-
 ```
 # Variables 
 * have dynamic lifetimes。 A compiler may choose to allocate local variables on the heap or on the stack but, perhaps surprisingly, this choice is not detemined by whether var or new was used to declare the variable. 也就是说，程序员不用操心，一个func可以返回其locall variable,放心用，gc不会愚蠢的recycle其占用空间。
@@ -36,36 +35,6 @@ func main() {
 
 type database map[string]dollars
 ```
-
-# bitwise binary operators
-```go
-&   AND
-|   OR
-^   XOR
-&^  bit clear (AND NOT)
-<<  left shift
->>  right shift
-```
-
-# Printf format
-
-    %d decimal integer
-    %x, %o, %b integer in hexadecimal, octal, binary
-    %f, %g, %e floating-point number: 3.141593 3.141592653589793 3.141593e+00
-    %t boolean: true or false
-    %c rune (Unicode code point)
-    %s string
-    %q quoted string "abc" or rune 'c'
-    %v any value in a natural format
-    %T type of any value
-    %% literal percent sign (no operand)
-```go
-	var r rune = '国'
-	fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 国 '国'"
-```   
-
-
-
 
 # control flow
 ## if
@@ -98,8 +67,6 @@ Another form of the for loop iterates over a range of values from a data type li
 ## break and continue
 statements modify the flow of control .
 
-
-
 # Basic data types
 ## const
 The value of a constant must be basic type: a number, string , or boolean. e.g.
@@ -110,20 +77,86 @@ true false iota nil
 
 [code sample](../src/practise/const)
 
+## bitwise binary operators
+```go
+&   AND
+|   OR
+^   XOR
+&^  bit clear (AND NOT)
+<<  left shift
+>>  right shift
+```
+
+## Printf format
+```go
+    %d decimal integer
+    %x, %o, %b integer in hexadecimal, octal, binary
+    %f, %g, %e floating-point number: 3.141593 3.141592653589793 3.141593e+00
+    %t boolean: true or false
+    %c rune (Unicode code point)
+    %s string
+    %q quoted string "abc" or rune 'c'
+    %v any value in a natural format
+    %T type of any value
+    %% literal percent sign (no operand)
+
+	var r rune = '国'
+	fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 国 '国'"
+```   
+
 # aggreagte type
 ## array:
-array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function receives a copy, not the original. C/C++这时传的是地址
+array as fuction parameter: When a function is called, a copy of each argument value is assigned to the corresponding parameter variable, so the function **receives a copy**, not the original. C/C++这时传的是地址
 
+不过可以直接传地址,但无论如何，arrays are still inherently inflexible because of their fixed size， 不适合做函数参数
+```go
+months := [...]string{1: "January", /* ... */, 12: "December"}//中括号里为空的话，compiler就识别为slice
+func zero(ptr *[32]byte) {
+	*ptr = [32]byte{}//这种赋值方式类似struct
+}
+```
 
 # reference types
 ## slice:
+A slice has three components: **a pointer, a length, and a capacity** (of its underlying array)  
+
 If you need to test whether a slice is empty, use len(s) == 0, not s == nil,because 
 ```go
 var s []int // len(s) == 0, s == nil
 s = nil  // len(s) == 0, s == nil
 s = []int(nil) // len(s) == 0, s == nil
 s = []int{}  // len(s) == 0, s != nil
+
+var x []int
+x = append(x, 1)
+x = append(x, 2, 3)
+x = append(x, x...) // append the slice x
+fmt.Println(x)  // "[1 2 3 1 2 3]"
+
+
+z = make([]int, zlen, zcap)
+copy(z, x)
+copy(z[len(x):], y)
 ```
+## map
+In Go, a map is a reference to a hash table, and a map type is written map[K]V.
+
+One reason that we can’t take the address of a map element is that growing a map might cause rehashing of existing elements into new storage locations, 
+
+The zero value for a map type is nil, that is, a reference to no hashtable at all.
+
+```go
+    /*对应的key不存在的话，map 也会返回一个zero value, 如果有歧义的话
+    可以用下面的方法来判断 */
+  	if age, ok := ages["bob"]; !ok {
+    }
+
+    seen := make(map[string]bool) //曲线实现set类型
+```    
+## struct
+
+[code sample](../src/practise/struct)
+
 ## pointer  
 we can read or update the value of a variable **indirectly** via a pointer, without using or even knowing the name of the variable, if indeed it has a name. pointer of 像是综合了**pointer of c 的写法和reference in C++的用法**. 
 
@@ -145,8 +178,15 @@ type HandlerFunc func(ResponseWriter, *Request)
 func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
 
 ```
+[code sample](../src/practise/func)
+
+[closure sample](../src/practise/closure)
 
 # interface types
-## abc
 
+[code sample](../src/practise/interface)
 
+# reflection
+[code sample](../src/practise/reflect)
+
+# unsafe
