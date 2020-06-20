@@ -80,7 +80,7 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
 
 ## comparable
 
-- basic type: OK
+- basic type: all values of basic type—booleans, numbers, and strings—are comparable.alex:浮点数可以比较，但结果不一定正确
 - aggreagte type: 
   * **array** 只要类型（element type, len）相同即可， 
   * If all the fields of a **struct** are comparable, the struct itself is comparable, so two expressions of that type may be compared using == or !=.
