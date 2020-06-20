@@ -35,8 +35,8 @@ You needn’t close every channel when you’ve finished with it. It’s only ne
 # Select
 [example code](https://github.com/yc-alex-xu/go/tree/master/src/practise/select)
 * main.go： original code
-* default.go: 用default 改写
-* timeout.go: 避免整个程序进入阻塞的情况
+* default: 用default 改写
+* timeout: 避免整个程序进入阻塞的情况
  
 
 # race condition
@@ -68,6 +68,5 @@ goroutine use
 * multiplexes (or schedules) m goroutines on n (= GOMAXPROCS) OS threads.it is concerned **only** with the goroutines of a single Go program.
 * goroutines schduling happen not due to timer
 * Goroutines have no notion of identity to programmer.
-* 
 
   
