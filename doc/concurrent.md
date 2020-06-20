@@ -28,10 +28,9 @@ You needn’t close every channel when you’ve finished with it. It’s only ne
 ## Buffered Channels
 设置一个buffer size, (Alex, 所谓unbuffered Channels 的buffer size 应该是0???)
 
-[code](https://github.com/yc-alex-xu/go/blob/master/src/practise/channels/)
-* original.go:没有考虑同步问题，goroutine的运行次序是不确定的。
-* sync.go： 在original基础上做了同步，goroutine的运行次序是确定的。
-* buffered.go:　在original基础上改为buffered channel, 并且用了range 来收channel消息。注意修改不慎重的话容易deadlock
+[code](https://github.com/yc-alex-xu/go/blob/master/src/practise/channels/buffered)
+可以修改bufSZ
+
 
 # Select
 [example code](https://github.com/yc-alex-xu/go/tree/master/src/practise/select)
