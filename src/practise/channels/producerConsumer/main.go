@@ -7,7 +7,6 @@ import (
 )
 
 /*
-Go中channel可以是只读、只写、同时可读写的。
 //定义只读的channel
 read_only := make (<-chan int)
 //定义只写的channel
