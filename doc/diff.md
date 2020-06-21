@@ -100,12 +100,4 @@ Go:
 example code
 * [closure](../src/practise/closure)
   
- 
-# todo:
-vs code debug时，如何输入stdin的内容？？？
 
-https://stackoverflow.com/questions/50884981/how-to-read-input-when-debugging-go-in-visual-studio-code
-
-
-# refer
-* [mirror of go blog](https://learnku.com/docs/go-blog)

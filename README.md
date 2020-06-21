@@ -13,3 +13,5 @@
 * [algo](doc/algo.md)
 * [syntax memo](doc/syntax.md)
 * [some intresting difference from C/C++](doc/diff.md)
+* [TODO](doc/todo.md)
+* [mirror of go blog](https://learnku.com/docs/go-blog)
