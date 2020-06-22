@@ -63,6 +63,18 @@ example code
 * [defer](../src/practise/defer)
 
 # Object Oriented
+在非面向对象的编程语言中，我们如何在互相解耦的组件间实现函数调用？答案是函数指针。比如采用C语言编写的操作系统中，定义了如下的结构体来解耦具体的IO设备， IO 设备的驱动程序只需要把函数指针指到自己的实现就可以了。
+```c
+struct FILE {
+  void (*open)(char* name, int mode);
+  void (*close)();
+  int (*read)();
+  void (*write)(char);
+  void (*seek)(long index, int mode);
+}
+```
+这种通过函数指针进行组件间通信的方式非常脆弱，工程师必须严格按照约定初始化函数指针，并严格地按照约定来调用这些指针，只要一个人没有遵守约定，整个程序都会产生极其难以跟踪和消除的 Bug。所以面向对象编程限制了函数指针的使用，通过接口-实现、抽象类-继承等多态的方式来替代。
+
 特点
 * 封装 (encapsulation)：将数据和计算放到一起，并引入访问控制
 * 继承 (inheritance)：共享数据和计算，避免冗余
