@@ -9,7 +9,7 @@
             "mode": "auto",
             "program": "${file}",
             "env": {},
-            "args": ["stdin.txt"]
+            "args": [""]
         },
      ]
 }

@@ -115,6 +115,8 @@ func zero(ptr *[32]byte) {
 	*ptr = [32]byte{}//这种赋值方式类似struct
 }
 ```
+## struct
+[code sample](../src/practise/struct)
 
 # reference types
 ## slice:
@@ -153,10 +155,6 @@ The zero value for a map type is nil, that is, a reference to no hashtable at al
 
     seen := make(map[string]bool) //曲线实现set类型
 ```    
-## struct
-
-[code sample](../src/practise/struct)
-
 ## pointer  
 we can read or update the value of a variable **indirectly** via a pointer, without using or even knowing the name of the variable, if indeed it has a name. pointer of 像是综合了**pointer of c 的写法和reference in C++的用法**. 
 
