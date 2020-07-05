@@ -69,6 +69,13 @@ go tool下面下载聚集了很多命令，这里我们只介绍两个，fix和v
     go tool fix . 用来修复以前老版本的代码到新版本，例如go1之前老版本的代码转化到go1,例如API的变化
     go tool vet directory|files 用来分析当前目录的代码是否都是正确的代码,例如是不是调用fmt.Printf里面的参数不正确，例如函数里面提前return了然后出现了无用代码之类的。 类似 https://github.com/golang/lint
 
+## objdum
+```bash
+ $ go build main.go 
+ $ go tool objdump main > obj.s
+ $ cat obj.s
+```
+
 # go generate
 这个命令是从Go1.4开始才设计的，通过分析源码，找出所有包含\"//go:generate\"的特殊注释，提取并执行该特殊注释后面的命令，命令为可执行程序，形同shell下面执行。
 
@@ -86,7 +93,8 @@ Many commands apply to a set of packages:
 	go action [packages]
 
 ```
-# install some cmd after gfw
+# golang.org/x/tools
+install some cmd after gfw
 ```bash
 go/src/golang.org/x$ git clone https://github.com/golang/tools.git
 $ go install golang.org/x/tools/cmd/godoc
@@ -94,10 +102,8 @@ $ go install golang.org/x/tools/cmd/guru
 $ go install golang.org/x/tools/cmd/gorename
 $ go install golang.org/x/tools/cmd/fiximports
 $ go install golang.org/x/tools/cmd/godex
-$ gopls version
 ```
-
-# godoc
+## godoc
 由于https://golang.org/国内没法访问，只能启动godoc
 
 ```bash
@@ -119,17 +125,12 @@ alex@minipc:/usr/lib/go/src/builtin$ cat builtin.go
 */
 package builtin
 ```
-# gopl
+## gopl
 ```bash
 src/golang.org/x$ git clone https://github.com/golang/tools.git
 src/golang.org/x$ git clone https://github.com/golang/sync
 src/golang.org/x$ go get -v golang.org/x/tools/gopls
+$ gopls version
 ```
 ![setup in vs code](images/vscode_gopls.png)
 
-# objdum
-```bash
- $ go build main.go 
- $ go tool objdump main > obj.s
- $ cat obj.s
-```
