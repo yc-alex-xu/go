@@ -94,6 +94,7 @@ $ go install golang.org/x/tools/cmd/guru
 $ go install golang.org/x/tools/cmd/gorename
 $ go install golang.org/x/tools/cmd/fiximports
 $ go install golang.org/x/tools/cmd/godex
+$ gopls version
 ```
 
 # godoc
@@ -120,8 +121,9 @@ package builtin
 ```
 # gopl
 ```bash
-go/src/golang.org/x$ git clone https://github.com/golang/sync
-$ go get  -v golang.org/x/tools/gopls
+src/golang.org/x$ git clone https://github.com/golang/tools.git
+src/golang.org/x$ git clone https://github.com/golang/sync
+src/golang.org/x$ go get -v golang.org/x/tools/gopls
 ```
 ![setup in vs code](images/vscode_gopls.png)
 
