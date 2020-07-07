@@ -1,4 +1,6 @@
 # CAP theorem
+![overview](images/CAP-overview.png)
+
 states that it is impossible for a distributed data store to simultaneously provide more than two out of the following three guarantees:
 
 * Consistency: Every read receives the most recent write or an error
@@ -8,6 +10,8 @@ states that it is impossible for a distributed data store to simultaneously prov
 In particular, the CAP theorem implies that in the presence of a network partition, one has to choose between consistency and availability. Note that consistency as defined in the CAP theorem is quite different from the consistency guaranteed in ACID database transactions.(Consistency ensures that a transaction can only bring the database from one valid state to another, in ACID)
 
 CAP is frequently misunderstood as if one has to choose to abandon one of the three guarantees at all times. In fact, the choice is really between consistency and availability only when a network partition or failure happens; at all other times, no trade-off has to be made.
+
+
 
 # consensus algorithm Vs distributed lock
 
