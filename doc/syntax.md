@@ -67,7 +67,7 @@ Another form of the for loop iterates over a range of values from a data type li
 ## break and continue
 statements modify the flow of control .
 
-# Basic data types
+# var & const
 ## const
 The value of a constant must be basic type: a number, string , or boolean. e.g.
 ```go
@@ -76,6 +76,12 @@ true false iota nil
 **Untyped Constants**: The compiler represents these uncommitted constants with much greater numeric precision than values of basic types, and arithmetic on them is more precise than machine arithmetic; you may assume at least 256 bits of precision. alex:也就是说，它们的精度太大，无法用basic type的空间来存储，所以compiler就给它们一个特例,告诉programmer你就不用操心它的data type了.
 
 [code sample](../src/practise/const)
+
+# Basic data types & operators
+* bool
+* int
+* float
+* complex
 
 ## bitwise binary operators
 ```go
@@ -117,6 +123,13 @@ func zero(ptr *[32]byte) {
 ```
 ## struct
 [code sample](../src/practise/struct)
+
+## string
+There is no char * in go. only string like C++
+* Go 中的字符串是根据长度限定，而非特殊字符 \0
+* 可以比较
+* 可以用下标取值
+* 有对应的strings 和 strconv  package
 
 # reference types
 ## slice:
@@ -179,6 +192,9 @@ func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request)
 [code sample](../src/practise/func)
 
 [closure sample](../src/practise/closure)
+
+# method
+指定了reciever的function，跟c++的this 指针有点类似。 在 Go 中，类型的代码和绑定在它上面的方法的代码可以不放置在一起，它们可以存在在不同的源文件，唯一的要求是：它们必须是同一个package的。
 
 # interface types
 

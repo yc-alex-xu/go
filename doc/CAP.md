@@ -1,4 +1,6 @@
 # CAP theorem
+The CAP Theorem states that, in a distributed system (a collection of interconnected nodes that share data.), you can only have two out of the following three guarantees across a write/read pair: Consistency, Availability, and Partition Tolerance - one of them must be sacrificed. However, as you will see below, you don't have as many options here as you might think.
+
 ![overview](images/CAP-overview.png)
 
 states that it is impossible for a distributed data store to simultaneously provide more than two out of the following three guarantees:
@@ -9,8 +11,11 @@ states that it is impossible for a distributed data store to simultaneously prov
 
 In particular, the CAP theorem implies that in the presence of a network partition, one has to choose between consistency and availability. Note that consistency as defined in the CAP theorem is quite different from the consistency guaranteed in ACID database transactions.(Consistency ensures that a transaction can only bring the database from one valid state to another, in ACID)
 
-CAP is frequently misunderstood as if one has to choose to abandon one of the three guarantees at all times. In fact, the choice is really between consistency and availability only when a network partition or failure happens; at all other times, no trade-off has to be made.
+##  CP - Consistency/Partition Tolerance -
+Wait for a response from the partitioned node which could result in a timeout error. The system can also choose to return an error, depending on the scenario you desire. Choose Consistency over Availability when your business requirements dictate atomic reads and writes.
 
+## AP - Availability/Partition Tolerance - 
+Return the most recent version of the data you have, which could be stale. This system state will also accept writes that can be processed later when the partition is resolved. Choose Availability over Consistency when your business requirements allow for some flexibility around when the data in the system synchronizes. Availability is also a compelling option when the system needs to continue to function in spite of external errors (shopping carts, etc.)
 
 
 # consensus algorithm Vs distributed lock
