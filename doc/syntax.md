@@ -1,5 +1,7 @@
 # Names
-left blank
+* 25 个关键字或保留字
+* 36 个预定义标识符  //可以用go doc builtin 检查 
+
 # Declarations
 predeclared 
 ```go
