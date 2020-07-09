@@ -1,17 +1,29 @@
 # Names
-* 25 个关键字或保留字
-* 36 个预定义标识符  //可以用go doc builtin 检查 
+25 个关键字或保留字
 
-# Declarations
-predeclared 
+36 个预定义标识符  //可以用go doc builtin 检查 
 ```go
 Constants: true false iota nil
 Types: int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr float32 float64 complex128 complex64  bool byte rune string error
 Functions: make len cap new append copy close delete complex real imag panic recover
 
-    p := new(int)
-    delete(p)
+p := new(int)
+delete(p)
 ```
+
+_ 被称为空白标识符，被用于抛弃值。
+
+# Declarations
+
+# const
+The value of a constant must be basic type: a number, string , or boolean. e.g.
+```go
+true false iota nil
+```
+**Untyped Constants**: The compiler represents these uncommitted constants with much greater numeric precision than values of basic types, and arithmetic on them is more precise than machine arithmetic; you may assume at least 256 bits of precision. alex:也就是说，它们的精度太大，无法用basic type的空间来存储，所以compiler就给它们一个特例,告诉programmer你就不用操心它的data type了.
+
+[code sample](../src/practise/const)
+
 # Variables 
 * have dynamic lifetimes。 A compiler may choose to allocate local variables on the heap or on the stack but, perhaps surprisingly, this choice is not detemined by whether var or new was used to declare the variable. 也就是说，程序员不用操心，一个func可以返回其locall variable,放心用，gc不会愚蠢的recycle其占用空间。
 * Garbage collection is a tremendous help in writing correct programs, but it does not relieve you of the burden of thinking about memory. You don’t need to explicitly allocate and free memory, but to write efficient programs you still need to be aware of the lifet ime of variables.For example, keeping unnecessary pointers to short-lived objects within long-lived objects,especially global variables, will prevent the garbage collector from reclaiming the short-lived objects.
@@ -20,7 +32,7 @@ its scope:
 
 ![a good exmpale of scope](images/scope.png)
 
-# Type Declaration
+# Type 
 ```go
 type name underlying-type
 ```
@@ -69,31 +81,34 @@ Another form of the for loop iterates over a range of values from a data type li
 ## break and continue
 statements modify the flow of control .
 
-# var & const
-## const
-The value of a constant must be basic type: a number, string , or boolean. e.g.
-```go
-true false iota nil
-```
-**Untyped Constants**: The compiler represents these uncommitted constants with much greater numeric precision than values of basic types, and arithmetic on them is more precise than machine arithmetic; you may assume at least 256 bits of precision. alex:也就是说，它们的精度太大，无法用basic type的空间来存储，所以compiler就给它们一个特例,告诉programmer你就不用操心它的data type了.
-
-[code sample](../src/practise/const)
 
 # Basic data types & operators
 * bool
 * int
 * float
 * complex
+* string
+
+There is no char * in go. only string like C++
+* Go 中的字符串是根据长度限定，而非特殊字符 \0
+* 可以比较
+* 可以用下标取值
+* 有对应的strings 和 strconv  package
 
 ## bitwise binary operators
-```go
-&   AND
-|   OR
-^   XOR
-&^  bit clear (AND NOT)
-<<  left shift
->>  right shift
-```
+
+二元运算符:
+* &   AND
+* |   OR
+* ^   XOR
+* &^  bit clear (AND NOT)
+
+一元运算符:
+* ^   取补数
+* <<  left shift
+* >>  right shift
+
+[bits operations code sample](../src/practise/bits) 
 
 ## Printf format
 ```go
@@ -126,12 +141,7 @@ func zero(ptr *[32]byte) {
 ## struct
 [code sample](../src/practise/struct)
 
-## string
-There is no char * in go. only string like C++
-* Go 中的字符串是根据长度限定，而非特殊字符 \0
-* 可以比较
-* 可以用下标取值
-* 有对应的strings 和 strconv  package
+
 
 # reference types
 ## slice:
@@ -163,12 +173,12 @@ One reason that we can’t take the address of a map element is that growing a m
 The zero value for a map type is nil, that is, a reference to no hashtable at all.
 
 ```go
-    /*对应的key不存在的话，map 也会返回一个zero value, 如果有歧义的话
-    可以用下面的方法来判断 */
-  	if age, ok := ages["bob"]; !ok {
-    }
+/*对应的key不存在的话，map 也会返回一个zero value, 如果有歧义的话
+可以用下面的方法来判断 */
+if age, ok := ages["bob"]; !ok {
+}
 
-    seen := make(map[string]bool) //曲线实现set类型
+seen := make(map[string]bool) //曲线实现set类型
 ```    
 ## pointer  
 we can read or update the value of a variable **indirectly** via a pointer, without using or even knowing the name of the variable, if indeed it has a name. pointer of 像是综合了**pointer of c 的写法和reference in C++的用法**. 
