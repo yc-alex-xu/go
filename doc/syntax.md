@@ -96,9 +96,9 @@ There is no char * in go. only string like C++
 * 有对应的strings 和 strconv  package
 
 ## bitwise binary operators
-二元运算符:  &,|,^(XOR),&^ (bit clear AND NOT)
-一元运算符:  ^ (取补数),<<(left shift), >>(right shift) 
-[code sample](../src/practise/bits) 
+* 二元运算符:  &,|,^(XOR),&^ (bit clear AND NOT)
+* 一元运算符:  ^ (取补数),<<(left shift), >>(right shift) 
+* [code sample](../src/practise/bits) 
 
 ## Printf format
 ```go
