@@ -1,26 +1,26 @@
-# sort
+# alog
+* binary search
+* divide conquer
+* breadth first search： 由于使用的是队列，不用递归，实现时比dfs简单
+* depth first search
+* backtracking
+* two pointer
+* dynamic programming
+* scan-line algorithm
+* sort: quick sort,heap
 
 ![sort](images/sort.png)
 
-# backtrace
-e.g.子集问题
-```go
-func subsets(nums []int)[][]int {
-    if len(nums) == 0{
-        return [][]int{}
-    }
-    temp = [][]int{}
-    return backTrace(0, nums, temp);
-    
-}
+# data strcture
+* stack
+* queue
+* linked list
+* array
+* hash table
+* binary tree
+* heap
+* union find 并查集
+* trie 字典树
 
-func backTrace(start int, nums []int,temp [][]int) (result [][]int){
-    base case处理
-    //选择过程
-    for 循环选择{
-        选择
-        backTrace(递归);
-        撤销选择
-    }
-}
-```    
+
+  
