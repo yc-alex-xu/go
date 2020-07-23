@@ -91,10 +91,20 @@ statements modify the flow of control .
 
 There is no char * in go. only string like C++
 * Go 中的字符串是根据长度限定，而非特殊字符 \0
+* string literal：双引号字面量不能跨行，如果想要多行字符串时，就必须使用`反引号
 * 可以比较
-* 可以用下标取值
+* 可以用下标取值-->rune
 * 有对应的strings 和 strconv  package
 
+string & char 
+
+go 中没有char 的概念，只有ascii的byte(uint8)和 UTF-8 的rune(int32),用‘’括起. e.g
+```go
+var ch1 byte = 65
+var ch2 byte = '\x41'  
+var ch3 int = '\u0041'  
+fmt.Printf("%c - %c - %c\n", ch, ch2, ch3)
+```
 ## bitwise binary operators
 * 二元运算符:  &,|,^(XOR),&^ (bit clear AND NOT)
 * 一元运算符:  ^ (取补数),<<(left shift), >>(right shift) 
