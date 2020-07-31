@@ -5,7 +5,7 @@
 * depth first search
 * backtracking
 * two pointer
-* dynamic programming
+* dynamic programming : 二维及以上的 DP动态规划，可以考虑用滚动数组（rolling array）来优化
 * scan-line algorithm
 * sort: quick sort,heap
 
