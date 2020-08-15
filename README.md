@@ -24,4 +24,4 @@
 * [TODO](doc/todo.md)
 
 # reference
-* [mirror of go blog](https://learnku.com/docs/go-blog)
+* [Go Blog 中文翻译](https://learnku.com/docs/go-blog)
