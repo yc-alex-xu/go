@@ -1,36 +1,39 @@
 package main
 
-func longestPalindrome(s string) string {
-	return expand(s)
+func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
+	l, l1, l2 := len(nums1)+len(nums2), len(nums1), len(nums2)
+	i1, i2 := 0, 0
+
+	var v int
+	for cnt := 0; cnt < (l+1)/2; cnt++ {
+		v = next(&i1, nums1, l1, &i2, nums2, l2)
+	}
+	if l%2 != 0 {
+		return float64(v)
+	}
+	v2 := next(&i1, nums1, l1, &i2, nums2, l2)
+	return float64(v+v2) / 2
+
 }
 
-func expand(s string) string {
-	if s == "" {
-		return ""
-	}
-	l, r := 0, 0
-	//c center of Palindrome
-	for c := 0; c < len(s); c++ {
-		lOdd, rOdd := expandAroundCenter(s, c, c)
-		if t := rOdd - lOdd; t > r-l {
-			l, r = lOdd, rOdd
+//谁是归并排序中的一下
+func next(i1 *int, nums1 []int, l1 int, i2 *int, nums2 []int, l2 int) (v int) {
+	if *i1 < l1 && *i2 < l2 {
+		if nums1[*i1] < nums2[*i2] {
+			v = nums1[*i1]
+			(*i1)++
+		} else {
+			v = nums2[*i2]
+			(*i2)++
 		}
-		lEven, rEven := expandAroundCenter(s, c, c+1)
-		if t := rEven - lEven; t > r-l {
-			l, r = lEven, rEven
-		}
-		//既然右边已经到顶了，c再右移的话Palindrome长度只可能减少
-		if r == len(s)-1 {
-			break
-		}
+		return v
 	}
-	return s[l : r+1]
-}
-
-func expandAroundCenter(s string, l, r int) (int, int) {
-
-	for l >= 0 && r < len(s) && s[l] == s[r] {
-		l, r = l-1, r+1
+	if *i1 == l1 {
+		v = nums2[*i2]
+		(*i2)++
+		return v
 	}
-	return l + 1, r - 1
+	v = nums1[*i1]
+	(*i1)++
+	return v
 }
