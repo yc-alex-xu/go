@@ -7,7 +7,6 @@
 * [access database](doc/database.md)
 * [more package](doc/more.md)  
 * [mod](doc/mod.md)
-* [syntax memo](doc/syntax.md)
   
 # go dev  
 * [some intresting difference from C/C++](doc/diff.md)
@@ -16,7 +15,9 @@
 * [docker as prod env & CI/CD](doc/docker_prod.md)
 * [deploy to k8s](https://github.com/yc-alex-xu/microk8s)
 
-# leetcode
+# programming
+* [syntax memo](doc/syntax.md)
+* [syntax & feature practice](src/practise)
 * [algo](doc/algo.md)
 * [code](src/leetcode/)
 
@@ -25,3 +26,4 @@
 
 # reference
 * [Go Blog 中文翻译](https://learnku.com/docs/go-blog)
+* [Go 刷 LeetCode](https://books.halfrost.com/leetcode/)
