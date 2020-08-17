@@ -2,35 +2,46 @@ package main
 
 import "testing"
 
-func Test_reverse(t *testing.T) {
+func Test_isMatch(t *testing.T) {
 	type args struct {
-		x int
+		s string
+		p string
 	}
 	tests := []struct {
 		name string
 		args args
-		want int
+		want bool
 	}{
 		{
 			name: "tc1",
-			args: args{x: 123},
-			want: 321,
+			args: args{s: "aa", p: "a"},
+			want: false,
 		},
 		{
-			name: "tc2",
-			args: args{x: -123},
-			want: -321,
+			name: "tc２",
+			args: args{s: "aa", p: "a*"},
+			want: true,
 		},
 		{
-			name: "tc3",
-			args: args{x: 120},
-			want: 21,
+			name: "t3",
+			args: args{s: "ab", p: ".*"},
+			want: true,
+		},
+		{
+			name: "tc4",
+			args: args{s: "aab", p: "c*a*b"},
+			want: true,
+		},
+		{
+			name: "tc5",
+			args: args{s: "mississippi", p: "mis*is*p*."},
+			want: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := reverse(tt.args.x); got != tt.want {
-				t.Errorf("reverse() = %v, want %v", got, tt.want)
+			if got := isMatch(tt.args.s, tt.args.p); got != tt.want {
+				t.Errorf("isMatch() = %v, want %v", got, tt.want)
 			}
 		})
 	}
