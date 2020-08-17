@@ -16,10 +16,10 @@
 * [deploy to k8s](https://github.com/yc-alex-xu/microk8s)
 
 # programming
-* [syntax memo](doc/syntax.md)
-* [syntax & feature practice](src/practise)
+* [my syntax memo](doc/syntax.md)
+* [my syntax & feature practice](src/practise)
 * [algo](doc/algo.md)
-* [code](src/leetcode/)
+* [my leetCode](src/leetcode/)
 
 # TDO
 * [TODO](doc/todo.md)
