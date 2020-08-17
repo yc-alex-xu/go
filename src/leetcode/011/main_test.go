@@ -2,9 +2,9 @@ package main
 
 import "testing"
 
-func Test_reverse(t *testing.T) {
+func Test_maxArea(t *testing.T) {
 	type args struct {
-		x int
+		height []int
 	}
 	tests := []struct {
 		name string
@@ -13,24 +13,14 @@ func Test_reverse(t *testing.T) {
 	}{
 		{
 			name: "tc1",
-			args: args{x: 123},
-			want: 321,
-		},
-		{
-			name: "tc2",
-			args: args{x: -123},
-			want: -321,
-		},
-		{
-			name: "tc3",
-			args: args{x: 120},
-			want: 21,
+			args: args{height: []int{1, 8, 6, 2, 5, 4, 8, 3, 7}},
+			want: 49,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := reverse(tt.args.x); got != tt.want {
-				t.Errorf("reverse() = %v, want %v", got, tt.want)
+			if got := maxArea(tt.args.height); got != tt.want {
+				t.Errorf("maxArea() = %v, want %v", got, tt.want)
 			}
 		})
 	}
