@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func isMatch(s string, p string) bool {
 	lenStr, lenPattern := len(s), len(p)
 
@@ -33,9 +35,12 @@ func isMatch(s string, p string) bool {
 						dpNew[j] = true
 						break
 					}
-					//匹配多个'x'
+					//'x'与s的的第i个字符匹配　e.g. {s: "aa", p: "a*"}
 					if matches(i, j-1) {
-						dpNew[j] = dp[j] //这里dp[j]即dp[i-1][j]
+						//这里dp[j]即dp[i-1][j]
+						//s[:i-1]与p[:j]匹配 &&'x'与s的的第i个字符匹配，这意味着＇x'多重复一次就达到s[:i]与p[:j]匹配的要求
+						//s[:i-1]与p[:j]不匹配 &&'x'与s的的第i个字符匹配，这意味着＇x'多重复一次只达到了匹配s[:i]最后一个字符的目的
+						dpNew[j] = dp[j]
 						break
 					}
 				}
@@ -51,4 +56,10 @@ func isMatch(s string, p string) bool {
 	} //for i
 
 	return dp[lenPattern]
+}
+
+func main() {
+	s := "aa"
+	p := "a*"
+	fmt.Println(isMatch(s, p))
 }
