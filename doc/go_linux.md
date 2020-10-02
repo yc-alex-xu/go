@@ -21,31 +21,22 @@ GOPATH这个目录用来存放Go源码，Go的可运行文件，以及相应的�
 golang 在 github 上建立了一个镜像库，如：https://golang.org/x/net 的镜像库，在GitHub上对应的是https://github.com/golang/net.
 
 ```bash
+$ mkdir -p golang.org/x/t
+$ cd golang.org/x
 src/golang.org/x$ git clone https://github.com/golang/tools
 src/golang.org/x$ git clone https://github.com/golang/lint
-```
-## glide
-用于mirror
-```bash
-alex@minipc:~$ go get -u github.com/xkeyideal/glide
-alex@minipc:~$ glide
-```
-## github.com/sqs/goreturns failure
-```bash
-$ go get -v -u github.com/sqs/goreturns
-github.com/sqs/goreturns (download)
-Fetching https://golang.org/x/tools/imports?go-get=1
-https fetch failed: Get https://golang.org/x/tools/imports?go-get=1: dial tcp 216.239.37.1:443: i/o timeout
+src/golang.org/x$ git clone https://github.com/golang/xerrors
+src/golang.org/x$ git clone https://github.com/golang/mod
 
 $ code //restart the vs code via terminal
 Installing github.com/sqs/goreturns SUCCEEDED
 ```
 
-# vs code
-* https://github.com/golang/vscode-go
 
-# install debug
+# install goreturns/ debug
 ```bash
+go get -v -u github.com/sqs/goreturns
+
 alex@minipc:~$ go get github.com/go-delve/delve/cmd/dlv
 alex@minipc:~$ dlv
 Delve is a source level debugger for Go programs.
