@@ -93,16 +93,6 @@ Many commands apply to a set of packages:
 	go action [packages]
 
 ```
-# golang.org/x/tools
-install some cmd after gfw
-```bash
-go/src/golang.org/x$ git clone https://github.com/golang/tools.git
-$ go install golang.org/x/tools/cmd/godoc
-$ go install golang.org/x/tools/cmd/guru
-$ go install golang.org/x/tools/cmd/gorename
-$ go install golang.org/x/tools/cmd/fiximports
-$ go install golang.org/x/tools/cmd/godex
-```
 ## godoc
 由于https://golang.org/国内没法访问，只能启动godoc
 
@@ -127,9 +117,7 @@ package builtin
 ```
 ## gopl
 ```bash
-src/golang.org/x$ git clone https://github.com/golang/tools.git
-src/golang.org/x$ git clone https://github.com/golang/sync
-src/golang.org/x$ go get -v golang.org/x/tools/gopls
+$ go get -v golang.org/x/tools/gopls
 $ gopls version
 ```
 ![setup in vs code](images/vscode_gopls.png)

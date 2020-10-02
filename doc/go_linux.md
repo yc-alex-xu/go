@@ -23,22 +23,25 @@ golang 在 github 上建立了一个镜像库，如：https://golang.org/x/net �
 ```bash
 $ mkdir -p golang.org/x/t
 $ cd golang.org/x
-src/golang.org/x$ git clone https://github.com/golang/tools
-src/golang.org/x$ git clone https://github.com/golang/lint
-src/golang.org/x$ git clone https://github.com/golang/xerrors
-src/golang.org/x$ git clone https://github.com/golang/mod
+$ git clone https://github.com/golang/tools
+$ go install golang.org/x/tools/cmd/godoc
+$ go install golang.org/x/tools/cmd/guru
+$ go install golang.org/x/tools/cmd/gorename
+$ go install golang.org/x/tools/cmd/fiximports
+$ go install golang.org/x/tools/cmd/godex
 
-$ code //restart the vs code via terminal
-Installing github.com/sqs/goreturns SUCCEEDED
+$ git clone https://github.com/golang/lint
+$ git clone https://github.com/golang/xerrors
+$ git clone https://github.com/golang/mod
+$ git clone https://github.com/golang/sync
+
 ```
-
-
-# install goreturns/ debug
+# install goreturns/debug
 ```bash
-go get -v -u github.com/sqs/goreturns
+$ go get -v -u github.com/sqs/goreturns
 
-alex@minipc:~$ go get github.com/go-delve/delve/cmd/dlv
-alex@minipc:~$ dlv
+$ go get github.com/go-delve/delve/cmd/dlv
+$ dlv
 Delve is a source level debugger for Go programs.
 ```
 
