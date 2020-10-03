@@ -24,21 +24,23 @@ golang 在 github 上建立了一个镜像库，如：https://golang.org/x/net �
 $ mkdir -p golang.org/x/t
 $ cd golang.org/x
 $ git clone https://github.com/golang/tools
-$ go install golang.org/x/tools/cmd/godoc
-$ go install golang.org/x/tools/cmd/guru
-$ go install golang.org/x/tools/cmd/gorename
-$ go install golang.org/x/tools/cmd/fiximports
-$ go install golang.org/x/tools/cmd/godex
-
+$ git clone https://github.com/golang/net
 $ git clone https://github.com/golang/lint
 $ git clone https://github.com/golang/xerrors
 $ git clone https://github.com/golang/mod
 $ git clone https://github.com/golang/sync
 
+$ go install golang.org/x/tools/cmd/godoc
+$ go install golang.org/x/tools/cmd/guru
+$ go install golang.org/x/tools/cmd/gorename
+$ go install golang.org/x/tools/cmd/fiximports
+$ go install golang.org/x/tools/cmd/godex
 ```
 # install goreturns/debug
 ```bash
 $ go get -v -u github.com/sqs/goreturns
+$ go get -v github.com/ramya-rao-a/go-outline
+
 
 $ go get github.com/go-delve/delve/cmd/dlv
 $ dlv
