@@ -116,6 +116,8 @@ alex@minipc:/usr/lib/go/src/builtin$ cat builtin.go
 package builtin
 ```
 ## gopl
+
+这一个比较容易惹麻烦的工具，容易出　go expected ';', found 'package'之类怪问题，不用也罢．
 ```bash
 $ go get -v golang.org/x/tools/gopls
 $ gopls version

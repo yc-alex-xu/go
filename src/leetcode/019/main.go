@@ -1,10 +1,6 @@
 package main
 
-//ListNode  node of linked list
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+import . "leetcode/comm"
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	p, pp := head, head
@@ -24,4 +20,9 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	}
 	pre.Next = p.Next
 	return head
+}
+
+func main() {
+	h := removeNthFromEnd(InitList5(), 2)
+	PrintList(h)
 }

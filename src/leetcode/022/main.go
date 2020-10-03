@@ -39,12 +39,12 @@ func backtracking(left, right int, tmp string, ans []string) []string {
 }
 
 func main() {
-	fmt.Println("when n =3 ")
+	fmt.Printf("\n\nwhen n =3\n")
 	for _, v := range generateParenthesis(3) {
 		fmt.Println(v)
 	}
 
-	fmt.Println("when n =4 ")
+	fmt.Printf("\n\nwhen n =4\n")
 	for _, v := range generateParenthesis(4) {
 		fmt.Println(v)
 	}

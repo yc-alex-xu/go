@@ -1,11 +1,6 @@
 package main
 
-import "fmt"
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+import . "leetcode/comm"
 
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	dummy := ListNode{}
@@ -39,12 +34,5 @@ func main() {
 	tail = &ListNode{Val: 3, Next: tail}
 	l2 := &ListNode{Val: 1, Next: tail}
 
-	l := mergeTwoLists(l1, l2)
-
-	for l != nil {
-		fmt.Printf("%d-->", l.Val)
-		l = l.Next
-	}
-	fmt.Println()
-
+	mergeTwoLists(l1, l2).PrintList()
 }

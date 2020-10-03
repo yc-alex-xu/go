@@ -1,12 +1,7 @@
 package main
 
 import "fmt"
-
-//ListNode the linked list node
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+import . "leetcode/comm"
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	c := 0 //carry
@@ -52,6 +47,10 @@ func main() {
 	l2 = &ListNode{Val: 5, Next: l2}
 
 	l := addTwoNumbers(l1, l2)
-	fmt.Println(l, l.Next, l.Next.Next)
+	for l != nil {
+		fmt.Printf("%d->", l.Val)
+		l = l.Next
+	}
+	fmt.Printf("\n")
 
 }
